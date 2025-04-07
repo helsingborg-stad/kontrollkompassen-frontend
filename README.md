@@ -1,2 +1,2 @@
-# Navet Search
-Frontend application for searching Navet personal information database.
+# What?
+Frontend application for Kontrollkompassen.
