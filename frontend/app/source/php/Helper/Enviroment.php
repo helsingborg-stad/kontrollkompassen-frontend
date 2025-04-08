@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace KoKoP\Helper;
 
-use HelsingborgStad\GlobalBladeService\GlobalBladeService;
-use ComponentLibrary\Init as ComponentLibraryInit;
-
 /* The `class Enviroment` in the provided PHP code is a helper class that contains methods related to
 checking and loading a component library using the Blade template engine. Here is a summary of what
 the class is doing: */
