@@ -23,7 +23,7 @@ class Session implements AbstractSession
         // Read config
         $this->name = $config->getValue(
             'SESSION_COOKIE_NAME',
-            "navet_auth_cookie"
+            "kokop_auth_cookie"
         );
         $this->expires = (string) $config->getValue(
             'SESSION_COOKIE_EXPIRES',

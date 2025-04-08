@@ -24,7 +24,7 @@ module.exports = {
     entry: {
         'css/styleguide': './source/sass/styleguide.scss',
         'css/custom': './source/sass/custom.scss',
-        'js/navet': './source/js/app.js'
+        'js/kokop': './source/js/app.js'
     },
     /**
      * Output settings  

@@ -48,7 +48,7 @@ final class SessionTest extends TestCase
         $config = new Config();
         $session = new Session($config, new Secure($config), new MemoryCookie());
 
-        $this->assertEquals($session->getSessionName(), "navet_auth_cookie");
+        $this->assertEquals($session->getSessionName(), "kokop_auth_cookie");
         $this->assertEquals($session->getSessionExpiration(), 36000);
     }
 }
