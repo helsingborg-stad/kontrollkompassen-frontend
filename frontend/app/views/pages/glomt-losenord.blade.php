@@ -10,11 +10,11 @@
     @endtypography
 
     @typography(['element' => 'p'])
-        För att använda den här tjänsten, loggar du in med ditt vanliga datorkonto (ad-konto).
+        För att använda den här tjänsten, loggar du in med ditt vanliga datorkonto (AD-konto).
     @endtypography
 
     @typography(['element' => 'p'])
-        Det är bara användare som har begärt rättigheten till personsök från supportcenter som kan logga in och göra uppslag.
+        Det är bara användare som har begärt rättigheten från supportcenter som kan logga in och göra uppslag.
     @endtypography
 
     @typography(['element' => 'p'])
@@ -22,7 +22,7 @@
         @link(['href' => 'https://itportalen.helsingborg.se/'])
             it-portalen
         @endlink.
-        Beställ tillgång till AD-gruppen "HBGADMA-Navet uppslag" för hela enheter, eller "HBGADMR-SLFNavet" till enskilda användare.
+        Beställ tillgång till AD-gruppen "HBGADMA-XXX uppslag" för hela enheter, eller "HBGADMR-SLFKontrollkompassen" till enskilda användare.
     @endtypography
 
     @button([

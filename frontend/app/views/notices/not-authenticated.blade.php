@@ -1,7 +1,7 @@
 @notice([
     'type' => 'danger',
     'message' => [
-        'text' => 'Du har inte tillåtelse att göra det här eftersom du inte är inloggad.',
+        'text' => 'Du saknar behörighet till åtgärden eftersom du är utloggad.',
         'size' => 'sm'
     ],
     'icon' => [

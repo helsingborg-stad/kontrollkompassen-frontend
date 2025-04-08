@@ -7,7 +7,7 @@
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
-    <title>Navet Personuppslag</title>
+    <title>Helsingborg stad - Kontrollkompassen</title>
     @if($assets)
         @foreach($assets as $asset)
             @if($asset['type'] === 'js')

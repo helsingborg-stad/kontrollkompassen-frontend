@@ -1,8 +1,3 @@
-@typography(['element' => 'p'])
-Ange personnumret på den person som du vill göra uppslag på.
-Du får bara göra uppslag på personer som du behöver ha information om i ditt arbete.
-@endtypography
-
 <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
 
     @includeIf('notices.' . $action)
@@ -14,24 +9,23 @@ Du får bara göra uppslag på personer som du behöver ha information om i ditt
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
         @field([
-        'id' => 'pnr-search-field',
+        'id' => 'orgno-search-field',
         'type' => 'text',
-        'name' => 'pnr',
-        'label' => "Personnummer",
+        'name' => 'orgno',
+        'label' => 'Bolagsnummer, 10 eller 12 siffror',
         'required' => true,
-        'placeholder' => "T.ex: 19000000-0000",
-        'value' => isset($_GET['pnr']) ? $_GET['pnr'] : '',
-        'helperText' => "Notera att samtliga uppslag som du (" . $user->getDisplayName() . ") gör registreras.",
+        'placeholder' => 'Skriv in bolagsnummer här, 10 eller 12 siffror',
+        'value' => isset($_GET['orgno']) ? $_GET['orgno'] : '',
         'attributeList' => [
-        'maxlength' => '13',
-        'minlength' => '13',
+        'maxlength' => '12',
+        'minlength' => '10',
         'autofocus' => 'autofocus'
         ]
         ])
         @endfield
 
         @button([
-        'text' => 'Sök',
+        'text' => 'Hämta uppgifter',
         'color' => 'primary',
         'type' => 'basic',
         'classList' => [

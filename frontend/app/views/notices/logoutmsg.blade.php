@@ -1,7 +1,7 @@
 @notice([
     'type' => 'success',
     'message' => [
-        'text' => 'Du är utloggad! Tack för besöket.',
+        'text' => 'Du är utloggad.',
         'size' => 'sm'
     ],
     'icon' => [

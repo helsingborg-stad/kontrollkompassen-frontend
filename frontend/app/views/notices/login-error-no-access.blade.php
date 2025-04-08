@@ -1,7 +1,7 @@
 @notice([
     'type' => 'warning',
     'message' => [
-        'text' => 'Du har inte tillgång till den här applikationen. Vänligen beställ rättighet att göra personuppgiftsuppslag via supportcenter.',
+        'text' => 'Du har inte tillgång till Kontrollkompassen. Vänligen beställ rättighet via supportcenter.',
         'size' => 'sm'
     ],
     'icon' => [
