@@ -1,6 +1,6 @@
 <?php
 
-namespace NavetSearch\Enums;
+namespace KoKoP\Enums;
 
 enum AuthErrorReason: int
 {

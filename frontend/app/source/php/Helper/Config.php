@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractConfig;
 
 class Config implements AbstractConfig
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Helper\Sanitize as Sanitize;
+use \KoKoP\Helper\Sanitize as Sanitize;
 
 class Validate
 {

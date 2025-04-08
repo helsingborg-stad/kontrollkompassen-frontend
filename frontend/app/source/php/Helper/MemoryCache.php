@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractCache;
-use NavetSearch\Interfaces\AbstractSecure;
-use NavetSearch\Interfaces\AbstractResponse;
+use \KoKoP\Interfaces\AbstractCache;
+use \KoKoP\Interfaces\AbstractSecure;
+use \KoKoP\Interfaces\AbstractResponse;
 
 class MemoryCache implements AbstractCache
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Models\Person;
+use \KoKoP\Models\Person;
 use PHPUnit\Framework\TestCase;
 
 final class PersonTest extends TestCase

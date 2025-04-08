@@ -1,9 +1,9 @@
 <?php
 
-namespace NavetSearch\Controller;
+namespace KoKoP\Controller;
 
-use \NavetSearch\Helper\Redirect as Redirect;
-use \NavetSearch\Interfaces\AbstractServices as AbstractServices;
+use \KoKoP\Helper\Redirect as Redirect;
+use \KoKoP\Interfaces\AbstractServices as AbstractServices;
 
 abstract class BaseController
 {

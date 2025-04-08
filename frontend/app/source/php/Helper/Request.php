@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractRequest;
-use NavetSearch\Interfaces\AbstractResponse;
+use \KoKoP\Interfaces\AbstractRequest;
+use \KoKoP\Interfaces\AbstractResponse;
 
 class Request implements AbstractRequest
 {
@@ -22,7 +22,7 @@ class Request implements AbstractRequest
     protected function setHeaders($headers)
     {
         if (is_array($headers) && !empty($headers)) {
-            return array_map(fn ($key, $value) => "$key: $value", array_keys($headers), $headers);
+            return array_map(fn($key, $value) => "$key: $value", array_keys($headers), $headers);
         }
         return [];
     }

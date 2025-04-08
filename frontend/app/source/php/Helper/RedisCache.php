@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
 use \Predis\Client as PredisClient;
-use \NavetSearch\Interfaces\AbstractCache;
-use \NavetSearch\Interfaces\AbstractConfig;
-use \NavetSearch\Interfaces\AbstractSecure;
-use \NavetSearch\Interfaces\AbstractResponse;
+use \KoKoP\Interfaces\AbstractCache;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractSecure;
+use \KoKoP\Interfaces\AbstractResponse;
 
 class RedisCache implements AbstractCache
 {

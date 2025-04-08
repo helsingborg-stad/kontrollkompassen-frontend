@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\Config;
-use NavetSearch\Helper\Request;
-use NavetSearch\Helper\Response;
-use NavetSearch\Helper\Search;
-use NavetSearch\Models\User;
-use NavetSearch\Interfaces\AbstractSession;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\Request;
+use \KoKoP\Helper\Response;
+use \KoKoP\Helper\Search;
+use \KoKoP\Models\User;
+use \KoKoP\Interfaces\AbstractSession;
 
 final class SearchTest extends TestCase
 {

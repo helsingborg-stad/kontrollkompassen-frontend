@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\Auth;
-use NavetSearch\Enums\AuthErrorReason;
-use NavetSearch\Helper\Config;
-use NavetSearch\Helper\Request;
-use NavetSearch\Helper\Response;
-use NavetSearch\Interfaces\AbstractRequest;
+use \KoKoP\Helper\Auth;
+use \KoKoP\Enums\AuthErrorReason;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\Request;
+use \KoKoP\Helper\Response;
+use \KoKoP\Interfaces\AbstractRequest;
 
 final class AuthTest extends TestCase
 {
@@ -73,7 +73,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = (int) AuthErrorReason::Unauthorized;
-        $this->expectException("NavetSearch\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");
@@ -95,7 +95,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = (int) AuthErrorReason::InvalidCredentials;
-        $this->expectException("NavetSearch\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");
@@ -117,7 +117,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = (int) AuthErrorReason::HttpError;
-        $this->expectException("NavetSearch\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");

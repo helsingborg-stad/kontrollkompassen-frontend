@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Enums\AuthErrorReason;
+use \KoKoP\Enums\AuthErrorReason;
 
 class AuthException extends \Exception
 {

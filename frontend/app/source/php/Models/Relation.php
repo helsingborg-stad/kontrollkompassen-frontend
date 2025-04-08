@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Models;
+namespace KoKoP\Models;
 
 use JsonSerializable;
-use NavetSearch\Interfaces\AbstractRelation;
-use NavetSearch\Interfaces\AbstractDeregistration;
+use \KoKoP\Interfaces\AbstractRelation;
+use \KoKoP\Interfaces\AbstractDeregistration;
 use stdClass;
 
 class Relation implements AbstractRelation, AbstractDeregistration, JsonSerializable

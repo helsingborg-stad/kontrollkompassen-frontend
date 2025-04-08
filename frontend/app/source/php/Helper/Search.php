@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractRequest;
-use NavetSearch\Interfaces\AbstractConfig;
-use NavetSearch\Interfaces\AbstractSession;
-use NavetSearch\Interfaces\AbstractSearch;
-use NavetSearch\Models\Person;
-use NavetSearch\Models\CivilStatus;
-use NavetSearch\Models\PropertyRegistrationHistory;
-use NavetSearch\Models\Relation;
+use \KoKoP\Interfaces\AbstractRequest;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractSession;
+use \KoKoP\Interfaces\AbstractSearch;
+use \KoKoP\Models\Person;
+use \KoKoP\Models\CivilStatus;
+use \KoKoP\Models\PropertyRegistrationHistory;
+use \KoKoP\Models\Relation;
 
 class Search implements AbstractSearch
 {

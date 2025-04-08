@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Services;
+namespace KoKoP\Services;
 
-use NavetSearch\Helper\RedisCache;
-use NavetSearch\Helper\Secure;
-use NavetSearch\Helper\Session;
-use NavetSearch\Helper\Auth;
-use NavetSearch\Helper\CachableRequest;
-use NavetSearch\Helper\MemoryCache;
-use NavetSearch\Helper\Request;
-use NavetSearch\Helper\Config;
-use NavetSearch\Helper\Cookie;
-use NavetSearch\Helper\Search;
-use NavetSearch\Interfaces\AbstractCache;
-use NavetSearch\Interfaces\AbstractRequest;
-use NavetSearch\Interfaces\AbstractAuth;
-use NavetSearch\Interfaces\AbstractSecure;
-use \NavetSearch\Interfaces\AbstractServices;
-use NavetSearch\Interfaces\AbstractSession;
-use NavetSearch\Interfaces\AbstractConfig;
-use NavetSearch\Interfaces\AbstractSearch;
+use \KoKoP\Helper\RedisCache;
+use \KoKoP\Helper\Secure;
+use \KoKoP\Helper\Session;
+use \KoKoP\Helper\Auth;
+use \KoKoP\Helper\CachableRequest;
+use \KoKoP\Helper\MemoryCache;
+use \KoKoP\Helper\Request;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\Cookie;
+use \KoKoP\Helper\Search;
+use \KoKoP\Interfaces\AbstractCache;
+use \KoKoP\Interfaces\AbstractRequest;
+use \KoKoP\Interfaces\AbstractAuth;
+use \KoKoP\Interfaces\AbstractSecure;
+use \KoKoP\Interfaces\AbstractServices;
+use \KoKoP\Interfaces\AbstractSession;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractSearch;
 
 class RuntimeServices implements AbstractServices
 {

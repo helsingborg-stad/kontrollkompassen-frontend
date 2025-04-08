@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Models\PropertyRegistrationHistory;
+use \KoKoP\Models\PropertyRegistrationHistory;
 use PHPUnit\Framework\TestCase;
 
 final class PropertyRegistrationHistoryTest extends TestCase

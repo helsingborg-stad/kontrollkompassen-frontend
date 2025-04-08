@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Models\CivilStatus;
+use \KoKoP\Models\CivilStatus;
 use PHPUnit\Framework\TestCase;
 
 final class CivilStatusTest extends TestCase

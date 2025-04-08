@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractCookie;
-use NavetSearch\Helper\Cookie;
+use \KoKoP\Interfaces\AbstractCookie;
+use \KoKoP\Helper\Cookie;
 
 /**
  * Wrapper class to allow cookie management during tests

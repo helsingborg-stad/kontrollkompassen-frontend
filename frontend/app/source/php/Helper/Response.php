@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractResponse;
+use \KoKoP\Interfaces\AbstractResponse;
 
 class Response implements AbstractResponse
 {

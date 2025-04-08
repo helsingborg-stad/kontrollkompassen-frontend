@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractSecure;
-use NavetSearch\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractSecure;
+use \KoKoP\Interfaces\AbstractConfig;
 
 /**
  * Class Secure
@@ -14,7 +14,7 @@ use NavetSearch\Interfaces\AbstractConfig;
  * The encryption key and initialization vector are currently set as static variables,
  * but it is recommended to replace them with environment variables in a production environment.
  *
- * @package NavetSearch\Helper
+ * @package KoKop\Helper
  */
 class Secure implements AbstractSecure
 {

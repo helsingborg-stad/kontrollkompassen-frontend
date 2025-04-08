@@ -1,8 +1,8 @@
 <?php
 
-namespace NavetSearch\Controller;
+namespace KoKoP\Controller;
 
-use \NavetSearch\Interfaces\AbstractServices as AbstractServices;
+use \KoKoP\Interfaces\AbstractServices as AbstractServices;
 
 class GlomtLosenord extends BaseController
 {

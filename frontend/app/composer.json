@@ -4,8 +4,8 @@
     "type": "library",
     "authors": [
         {
-            "name": "Sebastian Thulin",
-            "email": "sebastian.thulin@helsingborg.se"
+            "name": "Helsingborg stad",
+            "email": "webbutveckling@helsingborg.se"
         }
     ],
     "scripts": {
@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NavetSearch\\": "source/php/"
+            "KoKoP\\": "source/php/"
         }
     },
     "config": {

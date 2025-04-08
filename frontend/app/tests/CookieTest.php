@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \NavetSearch\Helper\MemoryCookie;
+use \KoKoP\Helper\MemoryCookie;
 
 final class CookieTest extends TestCase
 {

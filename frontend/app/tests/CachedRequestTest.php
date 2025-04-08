@@ -3,12 +3,12 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\CachableRequest;
-use NavetSearch\Helper\Config;
-use NavetSearch\Helper\MemoryCache;
-use NavetSearch\Helper\Response;
-use NavetSearch\Helper\Secure;
-use NavetSearch\Interfaces\AbstractRequest;
+use \KoKoP\Helper\CachableRequest;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\MemoryCache;
+use \KoKoP\Helper\Response;
+use \KoKoP\Helper\Secure;
+use \KoKoP\Interfaces\AbstractRequest;
 
 final class CachedRequestTest extends TestCase
 {

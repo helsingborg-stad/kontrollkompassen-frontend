@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Helper\Sanitize;
+use \KoKoP\Helper\Sanitize;
 use PHPUnit\Framework\TestCase;
 
 final class SanitizeTest extends TestCase

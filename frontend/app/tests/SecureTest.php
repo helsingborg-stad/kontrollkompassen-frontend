@@ -3,8 +3,8 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\Secure;
-use NavetSearch\Helper\Config;
+use \KoKoP\Helper\Secure;
+use \KoKoP\Helper\Config;
 
 final class SecureTest extends TestCase
 {

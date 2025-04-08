@@ -3,10 +3,10 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \NavetSearch\Helper\MemoryCache;
-use \NavetSearch\Helper\Config;
-use NavetSearch\Helper\Secure;
-use NavetSearch\Helper\Response;
+use \KoKoP\Helper\MemoryCache;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\Secure;
+use \KoKoP\Helper\Response;
 
 final class MemoryCacheTest extends TestCase
 {

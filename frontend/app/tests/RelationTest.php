@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Models\Relation;
+use \KoKoP\Models\Relation;
 use PHPUnit\Framework\TestCase;
 
 final class RelationTest extends TestCase

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\Config;
+use \KoKoP\Helper\Config;
 
 final class ConfigTest extends TestCase
 {

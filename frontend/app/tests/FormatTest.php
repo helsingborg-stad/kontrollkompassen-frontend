@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Helper\Format;
+use \KoKoP\Helper\Format;
 use PHPUnit\Framework\TestCase;
 
 final class FormatTest extends TestCase

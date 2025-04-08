@@ -1,13 +1,13 @@
 <?php
 
-namespace NavetSearch;
+namespace KoKoP;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
-use NavetSearch\Services\RuntimeServices;
+use KoKoP\Services\RuntimeServices;
 
 /**
  * Class App
- * @package NavetSearch
+ * @package KoKoP
  */
 class App
 {
@@ -70,7 +70,7 @@ class App
         $data['action']                         = $action;
 
         //Render page 
-        $view = new \NavetSearch\View($this->services);
+        $view = new \KoKoP\View($this->services);
 
         return $view->show(
             $page,

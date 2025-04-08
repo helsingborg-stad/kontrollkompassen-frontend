@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractRequest;
-use NavetSearch\Interfaces\AbstractCache;
-use NavetSearch\Interfaces\AbstractResponse;
+use \KoKoP\Interfaces\AbstractRequest;
+use \KoKoP\Interfaces\AbstractCache;
+use \KoKoP\Interfaces\AbstractResponse;
 
 class CachableRequest implements AbstractRequest
 {

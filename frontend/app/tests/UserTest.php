@@ -3,9 +3,9 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Models\User;
-use NavetSearch\Helper\Config;
-use NavetSearch\Interfaces\AbstractConfig;
+use \KoKoP\Models\User;
+use \KoKoP\Helper\Config;
+use \KoKoP\Interfaces\AbstractConfig;
 
 final class UserTest extends TestCase
 {

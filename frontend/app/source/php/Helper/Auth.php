@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Enums\AuthErrorReason;
-use NavetSearch\Interfaces\AbstractUser;
-use NavetSearch\Interfaces\AbstractRequest;
-use NavetSearch\Interfaces\AbstractAuth;
-use NavetSearch\Interfaces\AbstractConfig;
-use NavetSearch\Helper\AuthException;
-use NavetSearch\Models\User;
+use \KoKoP\Enums\AuthErrorReason;
+use \KoKoP\Interfaces\AbstractUser;
+use \KoKoP\Interfaces\AbstractRequest;
+use \KoKoP\Interfaces\AbstractAuth;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Helper\AuthException;
+use \KoKoP\Models\User;
 use stdClass;
 
 class Auth implements AbstractAuth
@@ -50,7 +50,7 @@ class Auth implements AbstractAuth
         // Check response data
         $data = $response->getContent()->{0} ?? new stdClass;
         $user = new User($this->config, $data);
-        
+
         if (strtolower($user->getAccountName()) !== strtolower($name)) {
             throw new AuthException(AuthErrorReason::InvalidCredentials);
         }

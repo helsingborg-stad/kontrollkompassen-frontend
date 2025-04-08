@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Interfaces;
+namespace KoKoP\Interfaces;
 
 /**
  * Wrapper class to allow cookie management during tests

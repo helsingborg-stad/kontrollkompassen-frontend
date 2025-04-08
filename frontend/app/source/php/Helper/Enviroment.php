@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
 use HelsingborgStad\GlobalBladeService\GlobalBladeService;
 use ComponentLibrary\Init as ComponentLibraryInit;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use NavetSearch\Helper\Validate;
+use \KoKoP\Helper\Validate;
 use PHPUnit\Framework\TestCase;
 
 final class ValidateTest extends TestCase

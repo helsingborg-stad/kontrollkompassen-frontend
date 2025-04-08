@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Models;
+namespace KoKoP\Models;
 
 use JsonSerializable;
-use NavetSearch\Interfaces\AbstractConfig;
-use NavetSearch\Interfaces\AbstractUser;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractUser;
 use stdClass;
 
 class User implements AbstractUser, JsonSerializable
@@ -65,7 +65,7 @@ class User implements AbstractUser, JsonSerializable
                 if (!isset($groups[$key])) {
                     $groups[$key] = [];
                 }
-                if(in_array($value, $groups[$key])){
+                if (in_array($value, $groups[$key])) {
                     continue;
                 }
                 //Only include groups of interest
@@ -81,7 +81,7 @@ class User implements AbstractUser, JsonSerializable
     {
         $carry = "";
         foreach ($this->getGroups() as $key => $value) {
-            if(empty($value)){
+            if (empty($value)) {
                 continue;
             }
             $carry .= "$key=" . implode(',', $value) . ',';

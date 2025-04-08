@@ -1,8 +1,8 @@
 <?php
 
-namespace NavetSearch;
+namespace KoKoP;
 
-use \NavetSearch\Interfaces\AbstractServices as AbstractServices;
+use \KoKoP\Interfaces\AbstractServices as AbstractServices;
 
 class View
 {
@@ -30,7 +30,7 @@ class View
     {
         $view = ucfirst(trim(str_replace(' ', '', ucwords(str_replace(array("-", "/"), ' ', $view))), "/"));
         if (file_exists(__DIR__ . "/Controller/" . $view . ".php")) {
-            $class = "NavetSearch\\Controller\\" . $view;
+            $class = "KoKoP\\Controller\\" . $view;
             $obj = new $class($this->services);
             return $obj->data;
         }

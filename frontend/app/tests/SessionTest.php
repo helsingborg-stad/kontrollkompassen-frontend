@@ -3,11 +3,11 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use NavetSearch\Helper\Config;
-use NavetSearch\Helper\MemoryCookie;
-use NavetSearch\Helper\Secure;
-use NavetSearch\Helper\Session;
-use NavetSearch\Models\User;
+use \KoKoP\Helper\Config;
+use \KoKoP\Helper\MemoryCookie;
+use \KoKoP\Helper\Secure;
+use \KoKoP\Helper\Session;
+use \KoKoP\Models\User;
 
 final class SessionTest extends TestCase
 {

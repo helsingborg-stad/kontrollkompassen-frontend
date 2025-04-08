@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Helper;
+namespace KoKoP\Helper;
 
-use NavetSearch\Interfaces\AbstractSecure;
-use NavetSearch\Interfaces\AbstractConfig;
-use NavetSearch\Interfaces\AbstractSession;
-use NavetSearch\Interfaces\AbstractCookie;
-use NavetSearch\Interfaces\AbstractUser;
-use NavetSearch\Models\User;
+use \KoKoP\Interfaces\AbstractSecure;
+use \KoKoP\Interfaces\AbstractConfig;
+use \KoKoP\Interfaces\AbstractSession;
+use \KoKoP\Interfaces\AbstractCookie;
+use \KoKoP\Interfaces\AbstractUser;
+use \KoKoP\Models\User;
 
 class Session implements AbstractSession
 {

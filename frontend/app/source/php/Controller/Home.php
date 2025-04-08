@@ -1,12 +1,12 @@
 <?php
 
-namespace NavetSearch\Controller;
+namespace KoKoP\Controller;
 
-use NavetSearch\Enums\AuthErrorReason;
-use NavetSearch\Helper\AuthException;
-use \NavetSearch\Helper\Redirect as Redirect;
-use \NavetSearch\Helper\Validate as Validate;
-use \NavetSearch\Interfaces\AbstractServices as AbstractServices;
+use \KoKoP\Enums\AuthErrorReason;
+use \KoKoP\Helper\AuthException;
+use \KoKoP\Helper\Redirect as Redirect;
+use \KoKoP\Helper\Validate as Validate;
+use \KoKoP\Interfaces\AbstractServices as AbstractServices;
 
 class Home extends BaseController
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace NavetSearch\Models;
+namespace KoKoP\Models;
 
 use JsonSerializable;
-use NavetSearch\Helper\Format;
-use NavetSearch\Interfaces\AbstractCivilStatus;
+use \KoKoP\Helper\Format;
+use \KoKoP\Interfaces\AbstractCivilStatus;
 
 class CivilStatus implements AbstractCivilStatus, JsonSerializable
 {
