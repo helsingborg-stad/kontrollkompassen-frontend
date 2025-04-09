@@ -3,7 +3,7 @@
 namespace KoKoP;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
-use KoKoP\Services\RuntimeServices;
+use \KoKoP\Services\RuntimeServices;
 
 /**
  * Class App
