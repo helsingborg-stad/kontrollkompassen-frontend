@@ -1,19 +1,23 @@
 module.exports = {
-    env: {
-      browser: true,
-      commonjs: true,
-      es6: true,
-      mocha: true,
-    },
-    extends: ['airbnb-base', 'prettier'],
-    globals: {
-      Atomics: 'readonly',
-      SharedArrayBuffer: 'readonly',
-    },
-    parserOptions: {
-      ecmaVersion: 2018,
-    },
-    rules: {
-      'no-unused-vars': ['error', { 'args': 'none' }]
-    },
-};
+  env: {
+    commonjs: true,
+    es6: true,
+    mocha: true,
+  },
+  extends: ['hbg'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  rules: {
+    "prettier/prettier": [
+      "error",
+      {
+        trailingComma: "es5",
+        printWidth: 100,
+        singleQuote: true,
+        tabWidth: 2
+      }
+    ],
+  },
+}
