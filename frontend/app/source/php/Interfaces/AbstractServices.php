@@ -13,4 +13,5 @@ interface AbstractServices
     public function getSecureService(): AbstractSecure;
     public function getConfigService(): AbstractConfig;
     public function getSearchService(): AbstractSearch;
+    public function getChechOrgNoService(): AbstractCheckOrgNo;
 }

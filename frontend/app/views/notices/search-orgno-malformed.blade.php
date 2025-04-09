@@ -1,7 +1,7 @@
 @notice([
     'type' => 'danger',
     'message' => [
-        'text' => 'Personnumret måste innehålla 12 siffror.',
+        'text' => 'Organisationsnummer måste vara 10 eller 12 siffror',
         'size' => 'sm'
     ],
     'icon' => [

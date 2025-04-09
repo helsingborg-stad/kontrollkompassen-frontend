@@ -14,6 +14,7 @@ use \KoKoP\Helper\Request;
 use \KoKoP\Helper\Config;
 use \KoKoP\Helper\Cookie;
 use \KoKoP\Helper\Search;
+use \KoKoP\Helper\CheckOrgNo;
 use \KoKoP\Interfaces\AbstractCache;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
@@ -22,6 +23,7 @@ use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Interfaces\AbstractSession;
 use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Interfaces\AbstractSearch;
+use \KoKoP\Interfaces\AbstractCheckOrgNo;
 
 class RuntimeServices implements AbstractServices
 {
@@ -32,6 +34,7 @@ class RuntimeServices implements AbstractServices
     private AbstractSearch $search;
     private AbstractSecure $secure;
     private AbstractSession $session;
+    private AbstractCheckOrgNo $checkOrgNo;
 
     public function __construct($config)
     {
@@ -48,6 +51,7 @@ class RuntimeServices implements AbstractServices
         $this->request = new CachableRequest($this->cache, new Request());
         $this->auth = new Auth($this->config, $this->request, $this->session);
         $this->search = new Search($this->config, $this->request, $this->session);
+        $this->checkOrgNo = new CheckOrgNo($this->config, $this->request, $this->session);
     }
     public function getRequestService(): Request
     {
@@ -76,5 +80,9 @@ class RuntimeServices implements AbstractServices
     public function getSearchService(): AbstractSearch
     {
         return $this->search;
+    }
+    public function getChechOrgNoService(): AbstractCheckOrgNo
+    {
+        return $this->checkOrgNo;
     }
 }

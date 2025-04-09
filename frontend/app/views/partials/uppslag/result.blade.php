@@ -57,8 +57,8 @@
     @endif
 
     @button([
-        'text' => 'Tillbaka till sök',
-        'href' => '/sok',
+        'text' => 'Tillbaka till uppslag',
+        'href' => '/uppslag',
         'color' => 'default',
         'style' => 'filled',
         'classList' => [

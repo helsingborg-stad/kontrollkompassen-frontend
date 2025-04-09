@@ -16,7 +16,7 @@ class Home extends BaseController
 
     //You shall pass
     if ($services->getSessionService()->isValidSession()) {
-      new Redirect('/sok');
+      new Redirect('/uppslag');
     }
   }
 
@@ -74,6 +74,6 @@ class Home extends BaseController
         ])
       };
     };
-    new Redirect('/sok');
+    new Redirect('/uppslag');
   }
 }
