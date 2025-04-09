@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
 use \KoKoP\Models\User;
-use \KoKoP\Helper\Config;
-use \KoKoP\Interfaces\AbstractConfig;
 
 final class UserTest extends TestCase
 {

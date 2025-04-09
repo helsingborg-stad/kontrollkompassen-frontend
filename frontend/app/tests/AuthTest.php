@@ -72,7 +72,7 @@ final class AuthTest extends TestCase
         $auth = new Auth($config, $mock);
 
         // Try authenticate
-        $error = (int) AuthErrorReason::Unauthorized;
+        $error = AuthErrorReason::Unauthorized->value;
         $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 
@@ -94,7 +94,7 @@ final class AuthTest extends TestCase
         $auth = new Auth($config, $mock);
 
         // Try authenticate
-        $error = (int) AuthErrorReason::InvalidCredentials;
+        $error = AuthErrorReason::InvalidCredentials->value;
         $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 
@@ -116,7 +116,7 @@ final class AuthTest extends TestCase
         $auth = new Auth($config, $mock);
 
         // Try authenticate
-        $error = (int) AuthErrorReason::HttpError;
+        $error = AuthErrorReason::HttpError->value;
         $this->expectException("KoKoP\Helper\AuthException");
         $this->expectExceptionCode($error);
 

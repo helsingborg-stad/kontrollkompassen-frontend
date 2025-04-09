@@ -13,15 +13,15 @@ class AuthException extends \Exception
         match ($reason) {
             AuthErrorReason::HttpError => parent::__construct(
                 "Authenticeringsservern svarade inte",
-                (int)AuthErrorReason::HttpError
+                AuthErrorReason::HttpError->value
             ),
             AuthErrorReason::InvalidCredentials => parent::__construct(
                 "Felaktig användarinformation",
-                (int)AuthErrorReason::InvalidCredentials
+                AuthErrorReason::InvalidCredentials->value
             ),
             AuthErrorReason::Unauthorized => parent::__construct(
                 "Ej auktoriserad",
-                (int)AuthErrorReason::Unauthorized
+                AuthErrorReason::Unauthorized->value
             ),
         };
     }

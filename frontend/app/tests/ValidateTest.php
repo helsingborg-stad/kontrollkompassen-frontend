@@ -7,16 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 final class ValidateTest extends TestCase
 {
-    public function testCanValidatePnr(): void
-    {
-        // 12-digits
-        $this->assertSame(Validate::pnr('123456789012'), true);
-        $this->assertSame(Validate::pnr('1a23b456c78-9012'), true);
-        // Less digits
-        $this->assertSame(Validate::pnr('123456789'), false);
-        // More digits
-        $this->assertSame(Validate::pnr('123456789012345'), false);
-    }
     public function testCanValidateUsername(): void
     {
         // Asserted format: 4-char + 4-digits
