@@ -42,7 +42,7 @@ class Uppslag extends BaseController
         [
           'action' => 'check-orgno-not-found',
           'orgno' => $cleanOrgNo,
-          'code' => 200,
+          'code' => 404,
         ]
       );
     }
