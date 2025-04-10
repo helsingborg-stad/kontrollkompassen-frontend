@@ -4,7 +4,7 @@ $code = isset($_GET['code']) ? (int) $_GET['code'] : null;
 $statusCodeMap = [
     400 => 'Felaktigt uppslag, vänligen kontrollera och försök igen',
     500 => 'Ett okänt fel inträffade',
-    200 => 'Inga träffar hittades',
+    404 => 'Ingen information hittades för det angivna organisationsnumret',
 ];
 
 $message = $statusCodeMap[$code] ?? array_key_exists($code, $statusCodeMap)
