@@ -20,7 +20,6 @@ class Session implements AbstractSession
 
     public function __construct(private AbstractConfig $config, AbstractSecure $secure, AbstractCookie $cookie)
     {
-        // Read config
         $this->name = $config->getValue(
             'SESSION_COOKIE_NAME',
             "kokop_auth_cookie"
@@ -29,9 +28,8 @@ class Session implements AbstractSession
             'SESSION_COOKIE_EXPIRES',
             (string) 60 * 60 * 10
         );
-        // Encryption/Decryption
+
         $this->secure = $secure;
-        // Cookie management
         $this->cookie = $cookie;
     }
 
@@ -39,17 +37,12 @@ class Session implements AbstractSession
     {
         return $this->name;
     }
+
     public function getSessionExpiration(): int
     {
         return (int) $this->expires;
     }
 
-    /**
-     * Sets the authentication cookie with encrypted user data.
-     *
-     * @param mixed $data The user data to be encrypted and stored in the authentication cookie.
-     * @return bool Returns true if the cookie is successfully set, false otherwise.
-     */
     public function setSession(AbstractUser $user): bool
     {
         return $this->cookie->setCookie(
@@ -59,21 +52,11 @@ class Session implements AbstractSession
         );
     }
 
-    /**
-     * Checks if the user is authenticated based on the presence of the authentication cookie.
-     *
-     * @return bool Returns true if the user is authenticated, false otherwise.
-     */
     public function isValidSession(): bool
     {
         return (bool) $this->getUser();
     }
 
-    /**
-     * Retrieves user data from the authentication cookie.
-     *
-     * @return mixed|false The decrypted user data if the authentication cookie is present, false otherwise.
-     */
     public function getUser(): AbstractUser|false
     {
         $value = $this->cookie->getCookie($this->name);
@@ -84,9 +67,6 @@ class Session implements AbstractSession
         return false;
     }
 
-    /**
-     * Logs out the user by deleting the authentication cookie.
-     */
     public function endSession(): void
     {
         $this->cookie->removeCookie($this->name);

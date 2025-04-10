@@ -7,13 +7,11 @@ namespace KoKoP\Helper;
 class Sanitize
 {
 
-  /** Make string numbers only */
   public static function number($string)
   {
     return preg_replace('/[^0-9.]+/', '', (string) $string);
   }
 
-  /** Always return a string */
   public static function string(mixed $string)
   {
     if (is_string($string)) {
