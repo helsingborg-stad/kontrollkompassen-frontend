@@ -13,7 +13,6 @@ class Uppslag extends BaseController
   {
     parent::__construct(__CLASS__, $services);
 
-    //Prevent uninlogged users
     if (!$services->getSessionService()->isValidSession()) {
       new Redirect('/', ['action' => 'not-authenticated']);
     }
