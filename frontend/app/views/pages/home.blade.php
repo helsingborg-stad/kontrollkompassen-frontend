@@ -1,19 +1,11 @@
 @extends('layout.containers.page')
 @section('article')
-
     @typography([
-        'element' => 'h1',
+        'element' => 'h2',
         'classList' => ['u-color__text--primary', 'u-margin__bottom--2']
     ])
         @icon(['icon' => 'lock_person', 'size' => 'inherit'])
         @endicon
-        Logga in
-    @endtypography
-
-    @typography([
-        'element' => 'p',
-        'classList' => ['u-color__text--primary', 'u-margin__bottom--2']
-    ])
         Logga in med ditt datorkonto
     @endtypography
 
@@ -25,7 +17,6 @@
         'classList' => ['u-margin__top--2']
     ])
         <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
-
                 @field([
                     'type' => 'text',
                     'name' => 'username',
@@ -40,15 +31,13 @@
                 ])
                 @endfield
 
-
                 @field([
-                    'label' => 'Password',
+                    'label' => "Lösenord",
                     'type' => 'password',
                     'name' => 'password',
                     'required' => true,
                     'autocomplete' => "new-password",
                     'invalidMessage' => 'Du måste ange ett lösenord.',
-                    'label' => "Lösenord"
                 ])
                 @endfield
 
@@ -74,9 +63,6 @@
                     ]
                 ])
                 @endbutton
-
         </div>
-        
     @endform
-
 @stop

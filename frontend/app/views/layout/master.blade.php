@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-
-    <title>Helsingborg stad - Kontrollkompassen</title>
+    <title>Helsingborg Stad - Kontrollkompassen</title>
     @if($assets)
         @foreach($assets as $asset)
             @if($asset['type'] === 'js')
@@ -17,7 +16,6 @@
             @endif
         @endforeach
     @endif
-    
 
     <style type="text/css">
         @font-face {
@@ -26,7 +24,6 @@
           font-weight: 400;
           src: url('/assets/fonts/material-icons/862dfb9f58cbd545e33ee554d41c6ec8.woff') format('woff');
         }
-        
         .material-icons {
           font-family: 'Material Icons';
           font-weight: normal;
@@ -42,13 +39,8 @@
           text-rendering: optimizeLegibility;
           -webkit-font-smoothing: antialiased;
         }
-    </style>
-
-    <style type="text/css">
-        {{-- Themes may be copied from any Munipio site. --}}
         @include('themes.helsingborg')
     </style>
-
 </head>
 <body class="no-js">
     {{-- App not built correctly message. --}}
@@ -116,7 +108,7 @@
                 'u-text-align--center'
             ]
         ])
-            När du använder den här tjänsten <br/>accepterar du <a href="https://helsingborg.se/toppmeny/om-webbplatsen/sa-har-behandlar-vi-dina-personuppgifter/" target="_blank">Helsingborg Stads datapolicy</a>. 
+            När du använder den här tjänsten accepterar du <a href="https://helsingborg.se/toppmeny/om-webbplatsen/sa-har-behandlar-vi-dina-personuppgifter/" target="_blank">Helsingborg Stads datapolicy</a>. 
         @endtypography
     </footer>
 </body>

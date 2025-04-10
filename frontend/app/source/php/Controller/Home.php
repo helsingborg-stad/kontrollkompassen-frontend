@@ -53,6 +53,7 @@ class Home extends BaseController
         ])
       };
     };
+
     new Redirect('/uppslag');
   }
 }

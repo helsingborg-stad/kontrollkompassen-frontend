@@ -12,6 +12,12 @@
                         'style' => 'max-width: 900px;'
                     ]
                 ])
+                    @typography([
+                        'element' => 'h1',
+                        'classList' => ['u-color__text--primary', 'u-margin__bottom--2']
+                    ])
+                        Kontrollkompassen
+                    @endtypography
                     @yield('article')
                 @endpaper
             </article>
