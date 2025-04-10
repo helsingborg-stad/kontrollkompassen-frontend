@@ -11,7 +11,7 @@ $message = $statusCodeMap[$code] ?? array_key_exists($code, $statusCodeMap)
 ?>
 @if ($message)
     @notice([
-        'type' => 'error',
+        'type' => 'info',
         'message' => [
             'text' => $message,
             'size' => 'sm'

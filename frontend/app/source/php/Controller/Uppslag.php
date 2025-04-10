@@ -28,20 +28,19 @@ class Uppslag extends BaseController
       new Redirect(
         '/uppslag/',
         [
-          'action' => 'search-orgno-malformed',
-          'orgno' => $cleanOrgNo
+          'action' => 'check-orgno-malformed',
+          'orgno' => $cleanOrgNo,
         ]
       );
     }
 
     $this->data = $this->services->getChechOrgNoService()->getDetails($cleanOrgNo);
 
-
-    if (!$this->data['searchResult']) {
+    if (!$this->data['checkOrgNoResult']) {
       new Redirect(
         '/uppslag/',
         [
-          'action' => 'search-no-hit',
+          'action' => 'check-orgno-not-found',
           'orgno' => $cleanOrgNo,
           'code' => 200,
         ]

@@ -8,6 +8,6 @@
         @endicon
         Kontrollkompassen
     @endtypography
-    @includeWhen(!isset($searchResult), 'partials.uppslag.form')
-    @includeWhen(isset($searchResult) && $searchResult, 'partials.uppslag.result')
+    @includeWhen(!isset($checkOrgNoResult), 'partials.uppslag.form')
+    @includeWhen(isset($checkOrgNoResult) && $checkOrgNoResult, 'partials.uppslag.result')
 @endsection
