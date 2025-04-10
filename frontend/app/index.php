@@ -10,10 +10,15 @@ require_once 'Bootstrap.php';
 
 use \KoKoP\App;
 
-$configFile = __DIR__ . '/../config.json';
-$app = new App(
-	file_exists($configFile) ?
-		(array) json_decode(file_get_contents($configFile)) : []
-);
+function main()
+{
+	$configFile = __DIR__ . '/../config.json';
+	$app = new App(
+		file_exists($configFile) ?
+			(array) json_decode(file_get_contents($configFile)) : []
+	);
 
-$app->loadPage();
+	$app->loadPage();
+}
+
+main();
