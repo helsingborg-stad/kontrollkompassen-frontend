@@ -14,7 +14,7 @@
         'element' => 'p',
         'classList' => ['u-color__text--primary', 'u-margin__bottom--2']
     ])
-        Vänligen logga in nedan med ditt datorkonto
+        Logga in med ditt datorkonto
     @endtypography
 
     @includeIf('notices.' . $action)
