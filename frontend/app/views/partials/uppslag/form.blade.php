@@ -9,7 +9,7 @@
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
         @field([
-            'id' => 'orgno-search-field',
+            'id' => 'check-orgno-field',
             'type' => 'text',
             'name' => 'orgno',
             'label' => 'Organisationsnummer',
