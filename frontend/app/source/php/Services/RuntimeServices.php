@@ -21,7 +21,6 @@ use \KoKoP\Interfaces\AbstractSecure;
 use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Interfaces\AbstractSession;
 use \KoKoP\Interfaces\AbstractConfig;
-use \KoKoP\Interfaces\AbstractSearch;
 use \KoKoP\Interfaces\AbstractCheckOrgNo;
 
 class RuntimeServices implements AbstractServices
