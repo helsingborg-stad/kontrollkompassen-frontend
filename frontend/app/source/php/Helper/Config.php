@@ -14,24 +14,18 @@ class Config implements AbstractConfig
     {
         $this->config = $this->parse($config);
     }
+
     public function getValues(): array
     {
         return $this->config;
     }
+
     public function getValue(string $key, mixed $default = null): mixed
     {
         return isset($this->config[$key]) &&
             $this->config[$key] !== false ? $this->config[$key] : $default;
     }
-    /**
-     * Configure the application environment variables.
-     *
-     * This function retrieves environment variables from the system or uses default values from the provided configuration.
-     *
-     * @param array $config An associative array containing values for environment variables.
-     *
-     * @return void
-     */
+
     protected function parse(array $config): array
     {
         //Get env vars
