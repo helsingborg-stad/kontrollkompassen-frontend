@@ -4,22 +4,17 @@ namespace KoKoP;
 
 use ComponentLibrary\Init as ComponentLibraryInit;
 use \KoKoP\Services\RuntimeServices;
+use \KoKoP\Interfaces\AbstractServices;
 
 class App
 {
     protected $default = 'home';
-    private RuntimeServices $services;
+    private AbstractServices $services;
 
-    public function __construct(array $config = array())
+    public function __construct(array $config)
     {
         $this->setUpEnvironment();
-
         $this->services = new RuntimeServices($config);
-
-        $this->loadPage(
-            $this->getCurrentPath(),
-            $this->getAction()
-        );
     }
 
     private function setUpEnvironment()
@@ -29,31 +24,25 @@ class App
         define('LOCAL_DOMAIN', '.local');
     }
 
-    private function getCurrentPath()
+    private function getCurrentPath(): string
     {
         $url = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
         $url = rtrim($url, '/');
         return ($url !== "") ? $url : $this->default;
     }
 
-    private function getAction()
+    private function getAction(): string | bool
     {
         return isset($_GET['action']) ? $_GET['action'] : false;
     }
 
-    public function loadPage($page, $action)
+    public function loadPage()
     {
-        $blade = (new ComponentLibraryInit([]))->getEngine();
-
-        $data['pageNow'] = $page;
-        $data['action'] = $action;
+        $data['pageNow'] = $this->getCurrentPath();
+        $data['action'] = $this->getAction();
 
         $view = new \KoKoP\View($this->services);
 
-        return $view->show(
-            $page,
-            $data,
-            $blade
-        );
+        $view->show($data['pageNow'], $data, (new ComponentLibraryInit([]))->getEngine());
     }
 }
