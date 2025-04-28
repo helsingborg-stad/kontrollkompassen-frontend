@@ -34,9 +34,9 @@ class Uppslag extends BaseController
       );
     }
 
-    $this->data = $this->services->getChechOrgNoService()->getDetails($cleanOrgNo);
+    $this->data = ['link' => $this->services->getOrganizationService()->getLink($cleanOrgNo, $this->services->getSessionService()->getUser())];
 
-    if (!$this->data['checkOrgNoResult']) {
+    if ($this->data['link']->getFileSize() === -1) {
       new Redirect(
         '/uppslag/',
         [
