@@ -13,7 +13,7 @@ use \KoKoP\Helper\MemoryCache;
 use \KoKoP\Helper\Request;
 use \KoKoP\Helper\Config;
 use \KoKoP\Helper\Cookie;
-use \KoKoP\Helper\CheckOrgNo;
+use KoKoP\Helper\Organization;
 use \KoKoP\Interfaces\AbstractCache;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
@@ -21,7 +21,7 @@ use \KoKoP\Interfaces\AbstractSecure;
 use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Interfaces\AbstractSession;
 use \KoKoP\Interfaces\AbstractConfig;
-use \KoKoP\Interfaces\AbstractCheckOrgNo;
+use \KoKoP\Interfaces\AbstractOrganization;
 
 class RuntimeServices implements AbstractServices
 {
@@ -31,7 +31,7 @@ class RuntimeServices implements AbstractServices
     private AbstractRequest $request;
     private AbstractSecure $secure;
     private AbstractSession $session;
-    private AbstractCheckOrgNo $checkOrgNo;
+    private AbstractOrganization $organization;
 
     public function __construct($config)
     {
@@ -47,8 +47,7 @@ class RuntimeServices implements AbstractServices
 
         $this->request = new CachableRequest($this->cache, new Request());
         $this->auth = new Auth($this->config, $this->request, $this->session);
-
-        $this->checkOrgNo = new CheckOrgNo($this->config, $this->request, $this->session);
+        $this->organization = new Organization($this->config, $this->request, $this->session->getUser());
     }
     public function getRequestService(): Request
     {
@@ -74,8 +73,8 @@ class RuntimeServices implements AbstractServices
     {
         return $this->config;
     }
-    public function getChechOrgNoService(): AbstractCheckOrgNo
+    public function getOrganizationService(): AbstractOrganization
     {
-        return $this->checkOrgNo;
+        return $this->organization;
     }
 }
