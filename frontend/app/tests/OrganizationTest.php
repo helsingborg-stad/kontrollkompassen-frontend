@@ -50,5 +50,6 @@ final class OrganizationTest extends TestCase
         // Make sure the values are equals
         $this->assertEquals($link->getDownloadUrl(), "url");
         $this->assertEquals($link->getFileName(), "name");
+        $this->assertEquals($link->getFileSize(), 12);
     }
 }

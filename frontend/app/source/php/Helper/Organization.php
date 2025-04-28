@@ -25,21 +25,16 @@ class Organization implements AbstractOrganization
 
     public function getLink(string $orgNo, AbstractUser $as): AbstractLink
     {
-        return  new Link(
-            new Response(200, '', (object) array((object)[
-                "url" => "http://google.se",
-                "name" => "Filename",
-                "size" => 123
-            ]))
-        );
-        /*        return new Link($this->request->post(
+        return new Link($this->request->post(
             $this->baseUrl . '/api/fetch',
             [
                 'orgNo' => '123456789',
-                'apiKey' => $this->apiKey,
                 'groups' => $as->getGroups(),
                 'email' => $as->getMailAddress()
+            ],
+            [
+                'x-api-key' => $this->apiKey
             ]
-        ));*/
+        ));
     }
 }
