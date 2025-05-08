@@ -12,28 +12,29 @@ use KoKoP\Interfaces\AbstractUser;
 
 class Organization implements AbstractOrganization
 {
-    protected string $baseUrl;
-    protected string $apiKey;
+    protected AbstractConfig $config;
     protected AbstractRequest $request;
 
     public function __construct(AbstractConfig $config, AbstractRequest $request)
     {
-        $this->baseUrl = $config->getValue('BACKEND_BASE_URL', 'http://localhost:8000');
-        $this->apiKey = $config->getValue('BACKEND_API_KEY', '');
+        $this->config = $config;
         $this->request = $request;
     }
 
     public function getLink(string $orgNo, AbstractUser $user): AbstractLink
     {
-        return new Link($this->request->post(
-            $this->baseUrl . '/api/fetch',
+        $baseUrl = $this->config->getValue('BACKEND_BASE_URL', 'http://localhost:8000');
+        $apiKey = $this->config->getValue('API_KEY', '');
+
+        return new Link($this->config, $this->request->post(
+            $baseUrl . '/api/export',
             [
-                'orgNo' => '123456789',
+                'orgNo' => '1234567890',
                 'groups' => $user->getGroups()['CN'],
                 'email' => $user->getMailAddress()
             ],
             [
-                'x-api-key' => $this->apiKey
+                'x-api-key' => $apiKey
             ]
         ));
     }
