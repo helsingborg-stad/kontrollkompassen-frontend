@@ -23,14 +23,14 @@ class Organization implements AbstractOrganization
         $this->request = $request;
     }
 
-    public function getLink(string $orgNo, AbstractUser $as): AbstractLink
+    public function getLink(string $orgNo, AbstractUser $user): AbstractLink
     {
         return new Link($this->request->post(
             $this->baseUrl . '/api/fetch',
             [
                 'orgNo' => '123456789',
-                'groups' => $as->getGroups(),
-                'email' => $as->getMailAddress()
+                'groups' => $user->getGroups()['CN'],
+                'email' => $user->getMailAddress()
             ],
             [
                 'x-api-key' => $this->apiKey
