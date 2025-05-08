@@ -6,5 +6,5 @@ namespace KoKoP\Interfaces;
 
 interface AbstractOrganization
 {
-    public function getLink(string $orgNo, AbstractUser $as): AbstractLink;
+    public function getLink(string $orgNo, AbstractUser $user): AbstractLink;
 }
