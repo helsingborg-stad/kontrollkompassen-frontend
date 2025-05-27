@@ -41,6 +41,8 @@ class Config implements AbstractConfig
             'AD_GROUPS' => getenv('AD_GROUPS'),
             'SESSION_COOKIE_NAME' => getenv('SESSION_COOKIE_NAME'),
             'SESSION_COOKIE_EXPIRES' => getenv('SESSION_COOKIE_EXPIRES'),
+            'API_KEY' => getenv('API_KEY'),
+            'BACKEND_BASE_URL' => getenv('BACKEND_BASE_URL'),
         );
 
         //Fallback to default
