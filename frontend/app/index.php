@@ -14,8 +14,7 @@ function main()
 {
 	$configFile = __DIR__ . '/../config.json';
 	$app = new App(
-		file_exists($configFile) ?
-			(array) json_decode(file_get_contents($configFile)) : []
+		file_exists($configFile) ? json_decode(file_get_contents($configFile), true) : []
 	);
 
 	$app->loadPage();
