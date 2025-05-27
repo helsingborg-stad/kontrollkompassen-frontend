@@ -29,12 +29,12 @@ class Organization implements AbstractOrganization
         return new Link($this->config, $this->request->post(
             $baseUrl . '/api/export',
             [
-                'orgNo' => '1234567890',
-                'groups' => $user->getGroups()['CN'],
+                'orgNo' => $orgNo,
+                'groups' => $user->getGroups(),
                 'email' => $user->getMailAddress()
             ],
             [
-                'x-api-key' => $apiKey
+                'X-API-Key' => $apiKey
             ]
         ));
     }
