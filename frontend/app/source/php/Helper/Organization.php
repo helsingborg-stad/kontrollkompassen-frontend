@@ -6,9 +6,9 @@ namespace KoKoP\Helper;
 
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractConfig;
-use KoKoP\Interfaces\AbstractLink;
-use KoKoP\Interfaces\AbstractOrganization;
-use KoKoP\Interfaces\AbstractUser;
+use \KoKoP\Interfaces\AbstractLink;
+use \KoKoP\Interfaces\AbstractOrganization;
+use \KoKoP\Interfaces\AbstractUser;
 
 class Organization implements AbstractOrganization
 {
