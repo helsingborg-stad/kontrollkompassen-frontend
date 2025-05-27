@@ -47,7 +47,7 @@ class RuntimeServices implements AbstractServices
 
         $this->request = new CachableRequest($this->cache, new Request());
         $this->auth = new Auth($this->config, $this->request, $this->session);
-        $this->organization = new Organization($this->config, $this->request, $this->session->getUser());
+        $this->organization = new Organization($this->config, $this->request);
     }
     public function getRequestService(): AbstractRequest
     {
