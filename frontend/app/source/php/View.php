@@ -1,10 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace KoKoP;
 
-use \KoKoP\Interfaces\AbstractServices as AbstractServices;
+use HelsingborgStad\BladeService\BladeServiceInterface;
 
-class View
+use \KoKoP\Interfaces\AbstractServices;
+use \KoKoP\Interfaces\AbstractView;
+
+class View implements AbstractView
 {
     protected AbstractServices $services;
 
@@ -26,7 +31,7 @@ class View
      * @return array An associative array of additional data from the controller, or an empty array
      *               if the controller or file does not exist.
      */
-    public function loadControllerData($view)
+    public function loadControllerData($view): array
     {
         $view = ucfirst(trim(str_replace(' ', '', ucwords(str_replace(array("-", "/"), ' ', $view))), "/"));
         if (file_exists(__DIR__ . "/Controller/" . $view . ".php")) {
@@ -53,7 +58,7 @@ class View
      * @throws \Throwable If an error occurs during the rendering process, it catches the
      *                    exception and displays an error page with relevant information.
      */
-    public function show(string $view, array $data, $blade)
+    public function show(string $view, array $data, BladeServiceInterface $blade): void
     {
         //Run view
         try {

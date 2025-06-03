@@ -1,22 +1,14 @@
 <?php
 
-if (isset($_GET['debug'])) {
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-}
+declare(strict_types=1);
 
 require_once 'Bootstrap.php';
+require_once 'Factory.php';
 
-use \KoKoP\App;
 
-function main()
+function main(): void
 {
-	$configFile = __DIR__ . '/../config.json';
-	$app = new App(
-		file_exists($configFile) ? json_decode(file_get_contents($configFile), true) : []
-	);
-
+	$app = createAppFromConfig(__DIR__ . '/../config.json');
 	$app->loadPage();
 }
 

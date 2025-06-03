@@ -1,47 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace KoKoP;
 
-use ComponentLibrary\Init as ComponentLibraryInit;
-use \KoKoP\Services\RuntimeServices;
+use \ComponentLibrary\Init as ComponentLibraryInit;
+use \KoKoP\Interfaces\AbstractApp;
 use \KoKoP\Interfaces\AbstractServices;
+use \KoKoP\View;
 
-class App
+function getAction(): string | bool
 {
-    protected $default = 'home';
+    return isset($_GET['action']) ? $_GET['action'] : false;
+}
+
+function getCurrentPath(string $default): string
+{
+    $url = rtrim(preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']), '/');
+    return $url !== '' ? $url : $default;
+}
+
+class App implements AbstractApp
+{
     private AbstractServices $services;
 
-    public function __construct(array $config)
-    {
-        $this->setUpEnvironment();
-        $this->services = new RuntimeServices($config);
-    }
-
-    private function setUpEnvironment()
+    public function __construct(AbstractServices $services)
     {
         define('VIEWS_PATH', BASEPATH . 'views/');
         define('BLADE_CACHE_PATH', '/tmp/cache/');
         define('LOCAL_DOMAIN', '.local');
+
+        $this->services = $services;
     }
 
-    private function getCurrentPath(): string
+    public function loadPage(): void
     {
-        $url = preg_replace('/\?.*/', '', $_SERVER['REQUEST_URI']);
-        $url = rtrim($url, '/');
-        return ($url !== "") ? $url : $this->default;
-    }
+        $data['pageNow'] = getCurrentPath('home');
+        $data['action'] = getAction();
 
-    private function getAction(): string | bool
-    {
-        return isset($_GET['action']) ? $_GET['action'] : false;
-    }
-
-    public function loadPage()
-    {
-        $data['pageNow'] = $this->getCurrentPath();
-        $data['action'] = $this->getAction();
-
-        $view = new \KoKoP\View($this->services);
+        $view = new View($this->services);
 
         $view->show($data['pageNow'], $data, (new ComponentLibraryInit([]))->getEngine());
     }
