@@ -8,14 +8,13 @@ class Redirect
 {
   public function __construct($location, $query = [])
   {
+    $queryString = '';
 
-    if (is_array($query) && !empty($query)) {
-      $queryString = "?" . http_build_query($query);
-    } else {
-      $queryString = "";
+    if (!empty($query)) {
+      $queryString = '?' . http_build_query($query);
     }
 
-    header("Location: " . $location . $queryString);
+    header('Location: ' . $location . $queryString);
     exit;
   }
 }
