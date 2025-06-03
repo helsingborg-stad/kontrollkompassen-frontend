@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use PHPUnit\Framework\TestCase;
+use \PHPUnit\Framework\TestCase;
 use \KoKoP\Helper\Config;
-use KoKoP\Helper\Organization;
+use \KoKoP\Helper\Organization;
 use \KoKoP\Helper\Response;
 use \KoKoP\Interfaces\AbstractRequest;
-use KoKoP\Interfaces\AbstractUser;
+use \KoKoP\Interfaces\AbstractUser;
 
 final class OrganizationTest extends TestCase
 {
@@ -18,11 +18,11 @@ final class OrganizationTest extends TestCase
             AbstractRequest::class,
             [
                 'get' => new Response(200, null, null),
-                'post' => new Response(200, null,  (object) array((object)[
-                    "url" => "url",
-                    "name" => "name",
-                    "size" => 12
-                ])),
+                'post' => new Response(200, null, (object) [
+                    'downloadUrl' => '/downloadUrl',
+                    'name' => 'name',
+                    'size' => 12
+                ]),
             ],
         );
         $user = $this->createConfiguredMock(
@@ -45,11 +45,11 @@ final class OrganizationTest extends TestCase
         // Create Organization module
         $org = new Organization($config, $request);
 
-        $link = $org->getLink('123456789', $user);
+        $link = $org->getLink('1234567890', $user);
 
         // Make sure the values are equals
-        $this->assertEquals($link->getDownloadUrl(), "url");
-        $this->assertEquals($link->getFileName(), "name");
+        $this->assertEquals($link->getDownloadUrl(), 'http://localhost:8000/downloadUrl');
+        $this->assertEquals($link->getFileName(), 'name');
         $this->assertEquals($link->getFileSize(), 12);
     }
 }
