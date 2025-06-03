@@ -53,6 +53,8 @@ final class ConfigTest extends TestCase
         $this->assertEquals(
             $config->getValues(),
             array(
+                'API_KEY' => false,
+                'BACKEND_BASE_URL' => false,
                 'MS_AUTH' => false,
                 'MS_NAVET' => false,
                 'MS_NAVET_AUTH' => false,
