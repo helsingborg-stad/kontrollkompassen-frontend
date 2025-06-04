@@ -16,9 +16,7 @@ function createAppFromConfig(string $configFilePath): AbstractApp
 {
     $config = getConfig($configFilePath);
 
-    if ($config['APP_CLASS'] === 'slim') {
-        return new AppSlim(new RuntimeServices($config));
-    }
-
-    return new App(new RuntimeServices($config));
+    return $config['APP_CLASS'] === 'slim'
+        ? new AppSlim(new RuntimeServices($config))
+        : new App(new RuntimeServices($config));
 }
