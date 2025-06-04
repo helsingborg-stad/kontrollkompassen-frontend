@@ -10,12 +10,7 @@ use Slim\Factory\AppFactory;
 
 use \ComponentLibrary\Init as ComponentLibraryInit;
 
-use \KoKoP\Interfaces\AbstractApp;
-use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Interfaces\AbstractView;
-use \KoKoP\ViewSlim;
-
-use Slim\App as SlimApp;
 
 function getViewContent(AbstractView $view, string $pageNow, mixed $data): string
 {
@@ -27,44 +22,33 @@ function getViewContent(AbstractView $view, string $pageNow, mixed $data): strin
     return $viewContent;
 }
 
-class AppSlim implements AbstractApp
+class AppSlim extends AbsAppClass
 {
-    private SlimApp $slimApp;
-    private AbstractView $view;
-
-    public function __construct(AbstractServices $services)
-    {
-        define('VIEWS_PATH', BASEPATH . 'views/');
-        define('BLADE_CACHE_PATH', '/tmp/cache/');
-        define('LOCAL_DOMAIN', '.local');
-
-        $this->slimApp = AppFactory::create();
-        $this->view = new ViewSlim($services);
-    }
-
     public function loadPage(): void
     {
-        $this->slimApp->map(['GET', 'POST'], '/', function (Request $request, Response $response) {
+        $slimApp = AppFactory::create();
+
+        $slimApp->map(['GET', 'POST'], '/', function (Request $request, Response $response) {
             $data['action'] = $request->getQueryParams()['action'] ?? '';
 
             $response->getBody()->write(getViewContent($this->view, 'home', $data));
             return $response;
         });
 
-        $this->slimApp->map(['GET', 'POST'], '/uppslag', function (Request $request, Response $response) {
+        $slimApp->map(['GET', 'POST'], '/uppslag', function (Request $request, Response $response) {
             $data['action'] = $request->getQueryParams()['action'] ?? '';
 
             $response->getBody()->write(getViewContent($this->view, 'uppslag', $data));
             return $response;
         });
 
-        $this->slimApp->get('/glomt-losenord', function (Request $request, Response $response) {
+        $slimApp->get('/glomt-losenord', function (Request $request, Response $response) {
             $data['action'] = $request->getQueryParams()['action'] ?? '';
 
             $response->getBody()->write(getViewContent($this->view, 'glomt-losenord', $data));
             return $response;
         });
 
-        $this->slimApp->run();
+        $slimApp->run();
     }
 }
