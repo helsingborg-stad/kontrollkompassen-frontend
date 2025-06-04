@@ -26,7 +26,7 @@ class Uppslag extends BaseController
 
     if (!Validate::orgno($cleanOrgNo)) {
       new Redirect(
-        '/uppslag/',
+        '/uppslag',
         [
           'action' => 'check-orgno-malformed',
           'orgno' => $cleanOrgNo,
@@ -38,7 +38,7 @@ class Uppslag extends BaseController
 
     if ($this->data['link']->getFileSize() === -1) {
       new Redirect(
-        '/uppslag/',
+        '/uppslag',
         [
           'action' => 'check-orgno-not-found',
           'orgno' => $cleanOrgNo,
