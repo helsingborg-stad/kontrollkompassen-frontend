@@ -12,12 +12,25 @@ use \ComponentLibrary\Init as ComponentLibraryInit;
 
 use \KoKoP\Interfaces\AbstractApp;
 use \KoKoP\Interfaces\AbstractServices;
-use Slim\App;
+use \KoKoP\Interfaces\AbstractView;
+use \KoKoP\ViewSlim;
+
+use Slim\App as SlimApp;
+
+function getViewContent(AbstractView $view, string $pageNow, mixed $data): string
+{
+    ob_start();
+    $view->show($pageNow, $data, new ComponentLibraryInit([])->getEngine());
+    $viewContent = ob_get_contents();
+    ob_end_clean();
+
+    return $viewContent;
+}
 
 class AppSlim implements AbstractApp
 {
-    private AbstractServices $services;
-    private App $slimApp;
+    private SlimApp $slimApp;
+    private AbstractView $view;
 
     public function __construct(AbstractServices $services)
     {
@@ -25,40 +38,31 @@ class AppSlim implements AbstractApp
         define('BLADE_CACHE_PATH', '/tmp/cache/');
         define('LOCAL_DOMAIN', '.local');
 
-        $this->services = $services;
         $this->slimApp = AppFactory::create();
+        $this->view = new ViewSlim($services);
     }
 
     public function loadPage(): void
     {
-        $view = new \KoKoP\ViewSlim($this->services);
+        $this->slimApp->map(['GET', 'POST'], '/', function (Request $request, Response $response) {
+            $data['action'] = $request->getQueryParams()['action'] ?? '';
 
-        $this->slimApp->get('/', function (Request $request, Response $response) use ($view) {
-
-            $action = $request->getQueryParams()['action'] ?? '';
-
-            ob_start();
-            $view->show('home', ['pageNow' => 'home', 'action' => $action], new ComponentLibraryInit([])->getEngine());
-            $viewContent = ob_get_contents();
-            ob_end_clean();
-
-            $response->getBody()->write($viewContent);
-            return $response->withHeader('Content-Type', 'text/html', 'charset=UTF-8')
-                ->withStatus(200);
+            $response->getBody()->write(getViewContent($this->view, 'home', $data));
+            return $response;
         });
 
-        $this->slimApp->post('/', function (Request $request, Response $response) use ($view) {
+        $this->slimApp->map(['GET', 'POST'], '/uppslag', function (Request $request, Response $response) {
+            $data['action'] = $request->getQueryParams()['action'] ?? '';
 
-            $action = $request->getQueryParams()['action'] ?? '';
+            $response->getBody()->write(getViewContent($this->view, 'uppslag', $data));
+            return $response;
+        });
 
-            ob_start();
-            $view->show('home', ['pageNow' => 'home', 'action' => $action], new ComponentLibraryInit([])->getEngine());
-            $viewContent = ob_get_contents();
-            ob_end_clean();
+        $this->slimApp->get('/glomt-losenord', function (Request $request, Response $response) {
+            $data['action'] = $request->getQueryParams()['action'] ?? '';
 
-            $response->getBody()->write($viewContent);
-            return $response->withHeader('Content-Type', 'text/html', 'charset=UTF-8')
-                ->withStatus(200);
+            $response->getBody()->write(getViewContent($this->view, 'glomt-losenord', $data));
+            return $response;
         });
 
         $this->slimApp->run();
