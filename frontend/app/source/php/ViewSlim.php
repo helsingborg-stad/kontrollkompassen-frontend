@@ -35,9 +35,8 @@ class ViewSlim implements AbstractView
     {
         $bladeResult = preg_replace('/(id|href)=""/', '', $blade->makeView(
             'pages.' . $view,
-            array_merge($data, $this->loadControllerData($view)),
-            [],
-            [VIEWS_PATH]
+            $data,
+            $this->loadControllerData($view)
         )->render());
 
         echo $bladeResult;

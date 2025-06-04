@@ -11,19 +11,27 @@ use Slim\Factory\AppFactory;
 use \ComponentLibrary\Init as ComponentLibraryInit;
 
 use \KoKoP\Interfaces\AbstractView;
+use \KoKoP\Interfaces\AbstractApp;
 
 function getViewContent(AbstractView $view, string $pageNow, mixed $data): string
 {
     ob_start();
-    $view->show($pageNow, $data, new ComponentLibraryInit([])->getEngine());
+    $view->show($pageNow, $data, new ComponentLibraryInit(['viewPaths' => VIEWS_PATH])->getEngine());
     $viewContent = ob_get_contents();
     ob_end_clean();
 
     return $viewContent;
 }
 
-class AppSlim extends AbsAppClass
+class AppSlim implements AbstractApp
 {
+    protected AbstractView $view;
+
+    public function __construct(AbstractView $view)
+    {
+        $this->view = $view;
+    }
+
     public function loadPage(): void
     {
         $slimApp = AppFactory::create();

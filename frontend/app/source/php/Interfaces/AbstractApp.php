@@ -8,6 +8,5 @@ use \KoKoP\Interfaces\AbstractView;
 
 interface AbstractApp
 {
-    public function __construct(AbstractView $view);
     public function loadPage(): void;
 }

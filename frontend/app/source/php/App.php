@@ -6,6 +6,10 @@ namespace KoKoP;
 
 use \ComponentLibrary\Init as ComponentLibraryInit;
 
+use \KoKoP\Interfaces\AbstractApp;
+use \KoKoP\Interfaces\AbstractView;
+
+
 function getAction(): string | bool
 {
     return isset($_GET['action']) ? $_GET['action'] : false;
@@ -17,8 +21,15 @@ function getCurrentPath(string $default): string
     return $url !== '' ? $url : $default;
 }
 
-class App extends AbsAppClass
+class App implements AbstractApp
 {
+    protected AbstractView $view;
+
+    public function __construct(AbstractView $view)
+    {
+        $this->view = $view;
+    }
+
     public function loadPage(): void
     {
         $data['pageNow'] = getCurrentPath('home');
