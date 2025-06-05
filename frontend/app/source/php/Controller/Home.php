@@ -46,7 +46,6 @@ class Home extends BaseController
     } catch (AuthException $e) {
       match (AuthErrorReason::from($e->getCode())) {
         AuthErrorReason::Unauthorized => new Redirect('/', ['action' => 'login-error-no-access']),
-
         default => new Redirect('/', [
           'action' => 'login-error',
           'username' => $req->username
