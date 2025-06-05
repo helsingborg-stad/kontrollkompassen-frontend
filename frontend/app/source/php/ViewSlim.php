@@ -20,7 +20,7 @@ class ViewSlim implements AbstractView
 
     public function loadControllerData(string $view): array
     {
-        $view = ucfirst(trim(str_replace(' ', '', ucwords(str_replace(array("-", "/"), ' ', $view))), "/"));
+        $view = ucfirst(trim(str_replace(' ', '', ucwords(str_replace(array('-', '/'), ' ', $view))), '/'));
 
         if (!file_exists(__DIR__ . '/Controller/' . $view . '.php')) {
             return [];
