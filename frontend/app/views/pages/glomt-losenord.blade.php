@@ -6,27 +6,23 @@
     ])
         @icon(['icon' => 'help', 'size' => 'inherit'])
         @endicon
-        Glömt lösenord
+        Glömt lösenord?
     @endtypography
 
     @typography(['element' => 'p'])
-        För att använda den här tjänsten, loggar du in med ditt vanliga datorkonto (AD-konto).
+        Logga in med ditt datorkonto (AD-konto) för att göra uppslag i kontrollkompassen
     @endtypography
 
     @typography(['element' => 'p'])
-        Det är bara användare som har begärt rättigheten från supportcenter som kan logga in och göra uppslag.
-    @endtypography
-
-    @typography(['element' => 'p'])
-        Du kan begära åtkomst till tjänsten genom att skapa ett ärende i 
-        @link(['href' => 'https://itportalen.helsingborg.se/'])
+        Beställ åtkomst till tjänsten genom att skapa ärende via
+        @link(['href' => 'https://itportalen.helsingborg.se/', 'target' => '_blank'])
             it-portalen
-        @endlink.
-        Beställ tillgång till AD-gruppen "HBGADMA-XXX uppslag" för hela enheter, eller "HBGADMR-SLFKontrollkompassen" till enskilda användare.
+        @endlink<br />
+        Be om att bli inlagd i AD-gruppen: <b>HBGADMR-SLFKontrollkompassen-Avancerad</b>
     @endtypography
 
     @button([
-        'text' => 'Gå tillbaka',
+        'text' => 'Tillbaka till startsidan',
         'color' => 'default',
         'type' => 'basic',
         'classList' => [
