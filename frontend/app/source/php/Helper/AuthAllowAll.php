@@ -34,7 +34,7 @@ class AuthAllowAll implements AbstractAuth
     {
         $superUser = new User($this->config, (object) [
             'samaccountname' => 'dude1234',
-            'memberof' => 'CN=HBGADMR-SLFKontrollkompassen-AvanceradX',
+            'memberof' => 'CN=SUPERS',
             'company' => 'DudeCorp',
             'displayname' => 'Dude McDuder - Super User',
             'sn' => 'McDuder',
