@@ -50,7 +50,7 @@ class RuntimeServices implements AbstractServices
             new Auth($this->config, $this->request) :
             new AuthAllowAll($this->config);
 
-        $this->organization = new Organization($this->config, $this->request);
+        $this->organization = new Organization($this->config);
     }
 
     public function getRequestService(): AbstractRequest

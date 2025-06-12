@@ -1,5 +1,5 @@
 @extends('layout.containers.page')
 @section('article')
-@includeWhen(!isset($link), 'partials.uppslag.form')
-@includeWhen(isset($link), 'partials.uppslag.result')
+@includeWhen(!isset($file), 'partials.uppslag.form')
+@includeWhen(isset($file), 'partials.uppslag.result')
 @endsection
