@@ -9,6 +9,8 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use \KoKoP\Renderer\BladeTemplateRenderer;
 use \KoKoP\Interfaces\AbstractServices;
+use \KoKoP\Helper\Sanitize;
+use \KoKoP\Helper\Validate;
 
 
 final class UppslagAction
@@ -41,28 +43,24 @@ final class UppslagAction
 
     public function fetch(Request $request, Response $response): Response
     {
-        return $response
-            ->withHeader('Location', '/uppslag/success')
-            ->withStatus(302);
-    }
+        $body = $request->getParsedBody();
+        $orgNo = Sanitize::number($body['orgno']);
 
-    public function success(Response $response): Response
-    {
-        $session = $this->services->getSessionService();
-
-        if (!$session->isValidSession()) {
-            return $response
-                ->withHeader('Location', '/')
-                ->withStatus(302);
+        if (!Validate::orgno($orgNo)) {
+            return $this->renderer
+                ->template($response, self::class, [
+                    'action' => 'check-orgno-malformed',
+                    'orgno' => $orgNo,
+                ])
+                ->withStatus(400);
         }
 
-        return $this->renderer->template(
-            $response,
-            self::class,
-            [
-                'action' => 'success',
-                'formattedUser' => $session->getUser()->format(),
-            ]
-        );
+        return $this->services
+            ->getOrganizationService()
+            ->generateDownload(
+                $response,
+                $this->services->getSessionService()->getUser(),
+                $orgNo
+            );
     }
 }
