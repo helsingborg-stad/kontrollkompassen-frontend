@@ -8,4 +8,4 @@ node_modules
 /frontend/app/vendor/*
 /frontend/app/source/library
 /frontend/vendor/*
-frontend/config.json
+frontend/config*.json
