@@ -11,4 +11,4 @@ define('BASEPATH', __DIR__ . '/');
 define('VIEWS_PATH', BASEPATH . 'views/');
 define('BLADE_CACHE_PATH', '/tmp/cache/');
 
-(require_once __DIR__ . '/config/bootstrap.php')->run();
+(require_once __DIR__ . '/config_slim/bootstrap.php')->run();
