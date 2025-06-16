@@ -26,11 +26,6 @@ final class ConfigTest extends TestCase
         // Make sure the values are equals
         $this->assertEquals($this->config->getValue("TEST_KEY_1"), null);
     }
-    public function testReturnsNullForUndefinedKey(): void
-    {
-        // Make sure the values are equals
-        $this->assertEquals($this->config->getValue("MS_NAVET_AUTH"), null);
-    }
     public function testReturnsDefaultForUndefinedKey(): void
     {
         // Make sure the values are equals
@@ -54,10 +49,8 @@ final class ConfigTest extends TestCase
             $config->getValues(),
             array(
                 'API_KEY' => false,
-                'BACKEND_BASE_URL' => false,
+                'API_URL' => false,
                 'MS_AUTH' => false,
-                'MS_NAVET' => false,
-                'MS_NAVET_AUTH' => false,
                 'ENCRYPT_VECTOR' => false,
                 'ENCRYPT_KEY' => false,
                 'ENCRYPT_CIPHER' => false,
