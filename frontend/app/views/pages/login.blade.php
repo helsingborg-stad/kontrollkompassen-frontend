@@ -24,7 +24,7 @@
                     'required' => true,
                     'autocomplete' => "username",
                     'placeholder' => "T.ex: aaaa0000",
-                    'value' => isset($_GET['username']) ? $_GET['username'] : '',
+                    'value' => isset($username) ? $username : null,
                     'attributeList' => [
                         'autofocus' => 'autofocus'
                     ]
