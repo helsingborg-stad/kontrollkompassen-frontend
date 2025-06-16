@@ -8,6 +8,6 @@
     @endtypography
 
     @link(['href' => '/login'])
-        Logga in
+        Till inloggningssidan
     @endbutton
 @stop
