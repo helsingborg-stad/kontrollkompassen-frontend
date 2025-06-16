@@ -27,7 +27,8 @@
         "helsingborg-stad/component-library": "~4.0.22",
         "predis/predis": "~2.2.2",
         "slim/slim": "^4.14",
-        "slim/psr7": "^1.7"
+        "slim/psr7": "^1.7",
+        "php-di/slim-bridge": "^3.4"
     },
     "autoload": {
         "psr-4": {

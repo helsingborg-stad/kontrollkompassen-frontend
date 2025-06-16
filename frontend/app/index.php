@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-require_once 'Bootstrap.php';
-require_once 'Factory.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
+error_reporting(E_ALL);
 
-function main(): void
-{
-	$app = createAppFromConfig(__DIR__ . '/../config.json');
-	$app->loadPage();
-}
+define('BASEPATH', __DIR__ . '/');
+define('VIEWS_PATH', BASEPATH . 'views/');
+define('BLADE_CACHE_PATH', '/tmp/cache/');
 
-main();
+(require_once __DIR__ . '/config/bootstrap.php')->run();

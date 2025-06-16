@@ -61,7 +61,7 @@
                 </div>
                 <div class="c-logout__logout">
                     @typography(["variant" => "meta", "classList" => ["u-margin__top--0"]])
-                        @link(['href' => '/?action=logout', 'classList' => ['u-no-decoration', 'u-color__text--darker']])
+                        @link(['href' => '/logout', 'classList' => ['u-no-decoration', 'u-color__text--darker']])
                             @icon(['icon' => 'logout', 'size' => 'inherit'])
                             @endicon
                             Logga ut
