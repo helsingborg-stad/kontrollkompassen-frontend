@@ -66,13 +66,12 @@ final class LoginAction
                 ->withStatus(302);
         } catch (AuthException $e) {
             match (AuthErrorReason::from($e->getCode())) {
-                AuthErrorReason::HttpError => $action = 'login-error-http',
-                AuthErrorReason::Unauthorized => $action = 'not-authenticated',
-                AuthErrorReason::InvalidCredentials => $action = 'login-error',
-                default => $action = 'not-authenticated',
+                AuthErrorReason::Unauthorized => $action = 'login-error-no-access',
+                default => $action = 'login-error',
             };
 
-            return $this->renderer
+            return $this
+                ->renderer
                 ->template($response, self::class, [
                     'action' => $action,
                     'username' => $username,
