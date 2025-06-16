@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace KoKoP\Action;
 
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 
 use \KoKoP\Renderer\BladeTemplateRenderer;
@@ -17,17 +16,21 @@ final class HomeAction
         private BladeTemplateRenderer $renderer
     ) {}
 
-    public function index(Response $response): Response
+    public function __invoke(Response $response): Response
     {
-        if ($this->services->getSessionService()->isValidSession()) {
+        if ($this->services
+            ->getSessionService()
+            ->isValidSession()
+        ) {
             return $response
                 ->withHeader('Location', '/uppslag')
                 ->withStatus(302);
         }
 
-        return $this->renderer->template(
-            $response,
-            self::class,
-        );
+        return $this->renderer
+            ->template(
+                $response,
+                self::class
+            );
     }
 }

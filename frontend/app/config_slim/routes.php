@@ -11,7 +11,7 @@ use \KoKoP\Action\UppslagAction;
 use \KoKoP\Action\ForgotPasswordAction;
 
 return function (App $app): void {
-    $app->get('/', [HomeAction::class, 'index']);
+    $app->get('/', HomeAction::class);
 
     $app->get('/login', [LoginAction::class, 'index']);
     $app->post('/login', [LoginAction::class, 'login']);
@@ -22,5 +22,5 @@ return function (App $app): void {
     $app->post('/uppslag', [UppslagAction::class, 'fetch']);
     $app->get('/uppslag/success', [UppslagAction::class, 'success']);
 
-    $app->get('/glomt-losenord', [ForgotPasswordAction::class, 'index']);
+    $app->get('/glomt-losenord', ForgotPasswordAction::class);
 };
