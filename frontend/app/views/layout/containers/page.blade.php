@@ -18,6 +18,24 @@
                     ])
                         Kontrollkompassen
                     @endtypography
+
+                    @if ($flash->hasMessage('message'))
+                        @notice([
+                            'type' => 'info',
+                            'message' => [
+                                'text' => $flash->getFirstMessage('message'),
+                                'size' => 'sm'
+                            ],
+                            'icon' => [
+                                'name' => 'report',
+                                'size' => 'md',
+                                'color' => 'white'
+                            ],
+                            'classList' => ['u-margin__top--2']
+                        ])
+                        @endnotice
+                    @endif
+
                     @yield('article')
                 @endpaper
             </article>

@@ -6,12 +6,13 @@ namespace KoKoP\Renderer;
 
 use \ComponentLibrary\Init as ComponentLibraryInit;
 use Psr\Http\Message\ResponseInterface as Response;
+use Slim\Flash\Messages;
 
 use \KoKoP\Interfaces\AbstractServices;
 
 final class BladeTemplateRenderer
 {
-    public function __construct(private AbstractServices $services) {}
+    public function __construct(private AbstractServices $services, private Messages $flash) {}
 
     public function template(Response $response, string $template, array $data = []): Response
     {
@@ -26,6 +27,7 @@ final class BladeTemplateRenderer
             'pages.' . $actionName,
             $data,
             [
+                'flash' => $this->flash,
                 'assets' => self::_getAssets(),
                 'formattedUser' => $user ? $user->format() : null,
                 'isAuthenticated' => $session->isValidSession(),
