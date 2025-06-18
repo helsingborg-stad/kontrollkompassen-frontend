@@ -31,8 +31,6 @@ class Config implements AbstractConfig
         //Get env vars
         $env = array(
             'MS_AUTH' => getenv('MS_AUTH'),
-            'MS_NAVET' => getenv('MS_NAVET'),
-            'MS_NAVET_AUTH' => getenv('MS_NAVET_AUTH'),
             'ENCRYPT_VECTOR' => getenv('ENCRYPT_VECTOR'),
             'ENCRYPT_KEY' => getenv('ENCRYPT_KEY'),
             'ENCRYPT_CIPHER' => getenv('ENCRYPT_CIPHER'),
@@ -41,6 +39,8 @@ class Config implements AbstractConfig
             'AD_GROUPS' => getenv('AD_GROUPS'),
             'SESSION_COOKIE_NAME' => getenv('SESSION_COOKIE_NAME'),
             'SESSION_COOKIE_EXPIRES' => getenv('SESSION_COOKIE_EXPIRES'),
+            'API_URL' => getenv('API_URL'),
+            'API_KEY' => getenv('API_KEY'),
         );
 
         //Fallback to default

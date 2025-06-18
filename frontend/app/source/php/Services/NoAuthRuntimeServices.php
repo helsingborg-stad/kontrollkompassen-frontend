@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace KoKoP\Services;
 
-use \KoKoP\Helper\RedisCache;
 use \KoKoP\Helper\Secure;
 use \KoKoP\Helper\Session;
-use \KoKoP\Helper\Auth;
 use \KoKoP\Helper\AuthAllowAll;
 use \KoKoP\Helper\CachableRequest;
 use \KoKoP\Helper\MemoryCache;
@@ -24,7 +22,7 @@ use \KoKoP\Interfaces\AbstractSession;
 use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Interfaces\AbstractOrganization;
 
-class RuntimeServices implements AbstractServices
+class NoAuthRuntimeServices implements AbstractServices
 {
     private AbstractAuth $auth;
     private AbstractCache $cache;
@@ -39,17 +37,9 @@ class RuntimeServices implements AbstractServices
         $this->config = new Config($config);
         $this->secure = new Secure($this->config);
         $this->session = new Session($this->config, $this->secure, new Cookie());
-
-        $this->cache = $this->config->getValue('PREDIS') ?
-            new RedisCache($this->config, $this->secure) :
-            new MemoryCache($this->secure);
-
+        $this->cache = new MemoryCache($this->secure);
         $this->request = new CachableRequest($this->cache, new Request());
-
-        $this->auth = $this->config->getValue('MS_AUTH', false) ?
-            new Auth($this->config, $this->request) :
-            new AuthAllowAll($this->config);
-
+        $this->auth = new AuthAllowAll($this->config);
         $this->organization = new Organization($this->config);
     }
 

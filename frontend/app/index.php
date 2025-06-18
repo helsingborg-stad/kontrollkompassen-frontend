@@ -1,24 +1,14 @@
 <?php
 
-if (isset($_GET['debug'])) {
-	ini_set('display_errors', 1);
-	ini_set('display_startup_errors', 1);
-	error_reporting(E_ALL);
-}
+declare(strict_types=1);
 
-require_once 'Bootstrap.php';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
-use \KoKoP\App;
+error_reporting(E_ALL);
 
-function main()
-{
-	$configFile = __DIR__ . '/../config.json';
-	$app = new App(
-		file_exists($configFile) ?
-			(array) json_decode(file_get_contents($configFile)) : []
-	);
+define('BASEPATH', __DIR__ . '/');
+define('VIEWS_PATH', BASEPATH . 'views/');
+define('BLADE_CACHE_PATH', '/tmp/cache/');
 
-	$app->loadPage();
-}
-
-main();
+(require_once __DIR__ . '/config_slim/bootstrap.php')->run();

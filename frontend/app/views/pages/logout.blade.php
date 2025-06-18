@@ -4,10 +4,10 @@
         'element' => 'h2',
         'classList' => ['u-color__text--primary', 'u-margin__bottom--2']
     ])
-        Välkommen!
+        Du är nu utloggad
     @endtypography
 
     @link(['href' => '/login'])
-        Till inloggningssidan
+        Logga in igen
     @endbutton
 @stop

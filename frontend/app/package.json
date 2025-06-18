@@ -26,7 +26,7 @@
         "> 1%",
         "not dead"
     ],
-    "homepage": "https://github.com/helsingborg-stad/Municipio#readme",
+    "homepage": "https://github.com/helsingborg-stad/kontrollkompassen-frontend#readme",
     "devDependencies": {
         "@babel/core": "^7.17.2",
         "@babel/plugin-proposal-class-properties": "^7.16.7",

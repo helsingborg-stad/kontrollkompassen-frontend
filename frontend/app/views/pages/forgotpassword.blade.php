@@ -22,14 +22,14 @@
     @endtypography
 
     @button([
-        'text' => 'Tillbaka till startsidan',
+        'text' => 'Tillbaka till inloggningssidan',
         'color' => 'default',
         'type' => 'basic',
         'classList' => [
             'u-width--100',
             'u-margin__top--4'
         ],
-        'href' => '/'
+        'href' => '/login'
     ])
     @endbutton
 @endsection
