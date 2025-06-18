@@ -1,9 +1,8 @@
-name: Build and deploy
+name: Build and deploy prereleased
 
 on:
-  push:
-    branches:
-    - "main"
+  release:
+    types: [prereleased]
 
 jobs:
   build:
@@ -19,7 +18,7 @@ jobs:
     - name: Setup PHP with composer v2
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: '8.4'
         tools: composer:v2
     
     - name: Inject access token in .npmrc
