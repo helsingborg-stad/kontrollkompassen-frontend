@@ -10,56 +10,56 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-    - name: Setup PHP with composer v2
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.4'
-        tools: composer:v2
-    
-    - name: Inject access token in .npmrc
-      run: | 
-        echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ./frontend/app/.npmrc
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+      
+      - name: Inject access token in .npmrc
+        run: | 
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ./frontend/app/.npmrc
 
-    - name: Execute buildscript.
-      run: cd ./frontend/app/ && php ./build.php --cleanup
+      - name: Execute buildscript.
+        run: cd ./frontend/app/ && php ./build.php --cleanup
 
-    - name: Run tests
-      run: |
-        cd ./frontend/app && ./vendor/bin/phpunit --testdox tests
+      - name: Run tests
+        run: |
+          cd ./frontend/app && ./vendor/bin/phpunit --testdox tests
 
-    - name: rsync deploy files and set www-data user.
-      uses: burnett01/rsync-deployments@4.1
-      with:
-        switches: -avzrog --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
-        path: .
-        remote_path: ${{ secrets.DEPLOY_PATH }}
-        remote_host: ${{ secrets.DEPLOY_HOST }}
-        remote_user: ${{ secrets.DEPLOY_USER }}
-        remote_key: ${{ secrets.DEPLOY_KEY }}
-        remote_port: ${{ secrets.DEPLOY_PORT }}
+      - name: rsync deploy files and set www-data user.
+        uses: burnett01/rsync-deployments@4.1
+        with:
+          switches: -avzrog --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
+          path: .
+          remote_path: ${{ secrets.DEPLOY_PATH }}
+          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_user: ${{ secrets.DEPLOY_USER }}
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_port: ${{ secrets.DEPLOY_PORT }}
 
-    - name: Set file permissions.
-      uses: appleboy/ssh-action@master
-      with:
-        script: find ${{ secrets.DEPLOY_PATH }} -path ! -type l -exec chmod g+rw {} +
-        host: ${{ secrets.DEPLOY_HOST }}
-        username: ${{ secrets.DEPLOY_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        port: ${{ secrets.DEPLOY_PORT }}
+      - name: Set file permissions.
+        uses: appleboy/ssh-action@master
+        with:
+          script: find ${{ secrets.DEPLOY_PATH }} -path ! -type l -exec chmod g+rw {} +
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
 
-    - name: Clear all cache.
-      uses: appleboy/ssh-action@v0.1.4
-      with:
-        script: |
-          cd ${{ secrets.DEPLOY_PATH }}
-          rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
-          rm /tmp/blade-engine-cache/* || true
-        host: ${{ secrets.DEPLOY_HOST }}
-        username: ${{ secrets.DEPLOY_USER }}
-        key: ${{ secrets.DEPLOY_KEY }}
-        port: ${{ secrets.DEPLOY_PORT }}
+      - name: Clear all cache.
+        uses: appleboy/ssh-action@v0.1.4
+        with:
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
+            rm /tmp/blade-engine-cache/* || true
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: ${{ secrets.DEPLOY_PORT }}
