@@ -7,7 +7,7 @@ if (php_sapi_name() !== 'cli') {
 
 // Any command needed to run and build plugin assets when newly cheched out of repo.
 $buildCommands = [
-    'npm install --no-progress',
+    'npm install --no-progress --no-audit --no-fund',
     'npm run build',
     'composer install --prefer-dist --no-progress --no-suggest'
 ];
@@ -83,7 +83,7 @@ function executeCommand($command)
         $liveOutput     = fread($proc, 4096);
         $completeOutput = $completeOutput . $liveOutput;
         print $liveOutput;
-        @ flush();
+        @flush();
     }
 
     pclose($proc);

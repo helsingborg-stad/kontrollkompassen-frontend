@@ -6,7 +6,7 @@
         "test": "./vendor/bin/phpunit --testdox tests",
         "watch": "cross-env NODE_ENV=development webpack --watch",
         "build:dev": "cross-env NODE_ENV=development webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json",
-        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data/ && cp ./node_modules/@helsingborg-stad/styleguide/assets/data/icons.json ./assets/dist/data/ico.json"
+        "build": "cross-env NODE_ENV=production webpack && mkdir -p ./assets/dist/data"
     },
     "repository": {
         "type": "git",
