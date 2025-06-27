@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace KoKoP\Helper;
 
 use Psr\Http\Message\ResponseInterface as Response;
-use Slim\Psr7\Stream;
 
 use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Interfaces\AbstractOrganization;
@@ -27,21 +26,24 @@ class Organization implements AbstractOrganization
             $fileStream = new FileStream(
                 $this->config->getValue('API_KEY', '123abc'),
                 $this->config->getValue('API_URL', null)
-            )
-                ->getStream([
-                    'orgNo' => $orgNo,
-                    'email' => $user->getMailAddress(),
-                ]);
+            );
 
-            $responseWithBody = $response->withBody($fileStream);
+            $responseWithBody = $response
+                ->withBody(
+                    $fileStream->fetch([
+                        'orgNo' => $orgNo,
+                        'email' => $user->getMailAddress(),
+                    ])
+                );
+
             return $responseWithBody
                 ->withHeader(
                     'Content-Type',
-                    getContentTypeFromStream($fileStream) ?? DEFAULT_CONTENT_TYPE
+                    $fileStream->getContentType() ?? DEFAULT_CONTENT_TYPE
                 )
                 ->withHeader(
                     'Content-Disposition',
-                    'attachment; filename="' . getFilenameFromStream($fileStream) ?? DEFAULT_FILENAME . '"'
+                    'attachment; filename="' . $fileStream->getFilename() ?? DEFAULT_FILENAME . '"'
                 );
         } catch (\Exception $e) {
             $response
@@ -50,48 +52,4 @@ class Organization implements AbstractOrganization
             return $response->withStatus(500);
         }
     }
-}
-
-function getFilenameFromStream(Stream $s): string | bool
-{
-    $contentDisposition = current(
-        array_filter(
-            $s->getMetadata('wrapper_data'),
-            fn($item) => str_starts_with($item, 'content-disposition')
-        )
-    );
-
-    if (str_contains($contentDisposition, 'filename*=')) {
-        preg_match(
-            "/filename\\*=(?:UTF-8'')?([^;\\r\\n]+)/i",
-            $contentDisposition,
-            $matches
-        );
-
-        return isset($matches[1])
-            ? rawurldecode($matches[1])
-            : false;
-    }
-
-    preg_match(
-        '/filename="([^"]+)"/',
-        $contentDisposition,
-        $matches
-    );
-
-    return $matches[1] ?? false;
-}
-
-function getContentTypeFromStream(Stream $s): string | bool
-{
-    $value = current(
-        array_filter(
-            $s->getMetadata('wrapper_data'),
-            fn($item) => str_starts_with($item, 'content-type')
-        )
-    );
-
-    return $value !== false && str_contains($value, ':')
-        ? explode(':', $value)[1]
-        : false;
 }

@@ -8,5 +8,7 @@ use Psr\Http\Message\StreamInterface;
 
 interface AbstractStream
 {
-    public function getStream(array $content): StreamInterface;
+    public function fetch(array $content): StreamInterface;
+    public function getContentType(): string | bool;
+    public function getFilename(): string | bool;
 }
