@@ -11,6 +11,9 @@ use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Interfaces\AbstractOrganization;
 use \KoKoP\Interfaces\AbstractUser;
 
+const DEFAULT_FILENAME = 'uppslag.xlsx';
+const DEFAULT_CONTENT_TYPE = 'application/octet-stream';
+
 class Organization implements AbstractOrganization
 {
     public function __construct(private AbstractConfig $config) {}
@@ -29,8 +32,14 @@ class Organization implements AbstractOrganization
 
             $responseWithBody = $response->withBody($fileStream);
             return $responseWithBody
-                ->withHeader('Content-Type', getContentTypeFromStream($fileStream))
-                ->withHeader('Content-Disposition', 'attachment; filename="' . getFilenameFromStream($fileStream) . '"');
+                ->withHeader(
+                    'Content-Type',
+                    getContentTypeFromStream($fileStream) ?? DEFAULT_CONTENT_TYPE
+                )
+                ->withHeader(
+                    'Content-Disposition',
+                    'attachment; filename="' . getFilenameFromStream($fileStream) ?? DEFAULT_FILENAME . '"'
+                );
         } catch (\Exception $e) {
             $response
                 ->getBody()
@@ -40,15 +49,46 @@ class Organization implements AbstractOrganization
     }
 }
 
-function getFilenameFromStream(Stream $s): string
+function getFilenameFromStream(Stream $s): string | bool
 {
-    $value = current(array_filter($s->getMetadata('wrapper_data'), fn($item) => str_starts_with($item, 'content-disposition')));
-    preg_match('/filename="([^"]+)"/', $value, $matches);
-    return $matches[1] ?? 'export.xlsx';
+    $contentDisposition = current(
+        array_filter(
+            $s->getMetadata('wrapper_data'),
+            fn($item) => str_starts_with($item, 'content-disposition')
+        )
+    );
+
+    if (str_contains($contentDisposition, 'filename*=')) {
+        preg_match(
+            "/filename\\*=(?:UTF-8'')?([^;\\r\\n]+)/i",
+            $contentDisposition,
+            $matches
+        );
+
+        return isset($matches[1])
+            ? rawurldecode($matches[1])
+            : false;
+    }
+
+    preg_match(
+        '/filename="([^"]+)"/',
+        $contentDisposition,
+        $matches
+    );
+
+    return $matches[1] ?? false;
 }
 
-function getContentTypeFromStream(Stream $s): string
+function getContentTypeFromStream(Stream $s): string | bool
 {
-    $value = current(array_filter($s->getMetadata('wrapper_data'), fn($item) => str_starts_with($item, 'content-type')));
-    return explode(':', $value)[1] ?? 'application/octet-stream';
+    $value = current(
+        array_filter(
+            $s->getMetadata('wrapper_data'),
+            fn($item) => str_starts_with($item, 'content-type')
+        )
+    );
+
+    return $value !== false && str_contains($value, ':')
+        ? explode(':', $value)[1]
+        : false;
 }
