@@ -66,7 +66,7 @@ function getFilenameFromStream(Stream $s): string | bool
         );
 
         return isset($matches[1])
-            ? rawurldecode($matches[1])
+            ? $matches[1]
             : false;
     }
 
