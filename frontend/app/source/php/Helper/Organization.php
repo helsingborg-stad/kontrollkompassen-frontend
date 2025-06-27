@@ -24,7 +24,10 @@ class Organization implements AbstractOrganization
         string $orgNo
     ): Response {
         try {
-            $fileStream = new FileStream($this->config)
+            $fileStream = new FileStream(
+                $this->config->getValue('API_KEY', '123abc'),
+                $this->config->getValue('API_URL', null)
+            )
                 ->getStream([
                     'orgNo' => $orgNo,
                     'email' => $user->getMailAddress(),

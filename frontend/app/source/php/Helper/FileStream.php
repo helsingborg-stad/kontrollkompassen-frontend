@@ -8,30 +8,33 @@ use Psr\Http\Message\StreamInterface;
 use Slim\Psr7\Stream;
 
 use \KoKoP\Interfaces\AbstractStream;
-use \KoKoP\Interfaces\AbstractConfig;
 
 class FileStream implements AbstractStream
 {
-    public function __construct(private AbstractConfig $config) {}
+    private string $apiUrl;
+    private string $apiKey;
+
+    public function __construct(string $apiKey, string $apiUrl)
+    {
+        $this->apiKey = $apiKey;
+        $this->apiUrl = $apiUrl;
+    }
 
     public function getStream(array $content): StreamInterface
     {
         try {
-            $apiKey = $this->config->getValue('API_KEY', '123abc');
-            $apiUrl = $this->config->getValue('API_URL', null);
-
             $context = stream_context_create([
                 'http' => [
                     'method' => 'POST',
                     'header' => [
-                        'Content-type: application/json',
-                        'X-API-Key:' . $apiKey
+                        'content-type: application/json',
+                        'x-api-key:' . $this->apiKey
                     ],
                     'content' => json_encode($content)
                 ]
             ]);
 
-            return new Stream(fopen($apiUrl, 'rb', false, $context));
+            return new Stream(fopen($this->apiUrl, 'rb', false, $context));
         } catch (\Exception $e) {
             throw new \RuntimeException('Failed to create file stream: ' . $e->getMessage(), 0, $e);
         }
