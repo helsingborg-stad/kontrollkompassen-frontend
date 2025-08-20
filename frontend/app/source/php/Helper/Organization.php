@@ -36,19 +36,15 @@ class Organization implements AbstractOrganization
                     ])
                 );
 
-            $responseWithContentTypeHeader = $responseWithBody
+            return $responseWithBody
                 ->withHeader(
                     'Content-Type',
                     $fileStream->getContentType() ?? DEFAULT_CONTENT_TYPE
-                );
-
-            $responseWithContentDispositionHeader = $responseWithContentTypeHeader
+                )
                 ->withHeader(
                     'Content-Disposition',
-                    'attachment; filename*=UTF-8\'\'' . $fileStream->getFilename() ?? DEFAULT_FILENAME
+                    'attachment; filename="' . $fileStream->getFilename() ?? DEFAULT_FILENAME . '"'
                 );
-
-            return $responseWithContentDispositionHeader;
         } catch (\Exception $e) {
             $response
                 ->getBody()
