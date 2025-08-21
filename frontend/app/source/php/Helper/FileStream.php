@@ -9,6 +9,7 @@ use Slim\Psr7\Stream;
 
 use \KoKoP\Interfaces\AbstractStream;
 
+use function \KoKoP\Utils\encodeRFC7230;
 
 class FileStream implements AbstractStream
 {
@@ -85,6 +86,8 @@ class FileStream implements AbstractStream
             $matches
         );
 
-        return encodeRFC7230($matches[1]) ?? false;
+        return isset($matches[1])
+            ? encodeRFC7230($matches[1])
+            : false;
     }
 }
