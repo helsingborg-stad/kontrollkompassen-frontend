@@ -47,44 +47,21 @@ class FileStream implements AbstractStream
 
     public function getContentType(): string | bool
     {
-        $value = current(
-            array_filter(
-                $this->stream->getMetadata('wrapper_data'),
-                fn($item) => str_starts_with($item, 'content-type')
-            )
-        );
-
-        return $value !== false && str_contains($value, ':')
-            ? explode(':', $value)[1]
-            : false;
+        return $this->stream->getMetadata('wrapper_data')['content-type'] ?? false;
     }
 
     public function getFilename(): string | bool
     {
-        $contentDisposition = current(
-            array_filter(
-                $this->stream->getMetadata('wrapper_data'),
-                fn($item) => str_starts_with($item, 'content-disposition')
-            )
-        );
-
-        if (str_contains($contentDisposition, 'filename*=')) {
-            preg_match(
-                "/filename\\*=(?:UTF-8'')?([^;\\r\\n]+)/i",
-                $contentDisposition,
-                $matches
-            );
-
-            return isset($matches[1])
-                ? encodeRFC7230($matches[1])
-                : false;
+        $contentDisposition = $this->stream->getMetadata('wrapper_data')['content-disposition'];
+        if (!$contentDisposition) {
+            return false;
         }
 
-        preg_match(
-            '/filename="([^"]+)"/',
-            $contentDisposition,
-            $matches
-        );
+        $pattern = str_contains($contentDisposition, 'filename*=')
+            ? '/filename\\*=UTF-8\'\'([^;\\r\\n]+)/i'
+            : '/filename="([^"]+)"/i';
+
+        preg_match($pattern, $contentDisposition, $matches);
 
         return isset($matches[1])
             ? encodeRFC7230($matches[1])
