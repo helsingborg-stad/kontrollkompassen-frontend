@@ -35,7 +35,10 @@
     "autoload": {
         "psr-4": {
             "KoKoP\\": "source/php/"
-        }
+        },
+        "files": [
+            "source/php/Utils/encodeRFC7230.php"
+        ]
     },
     "config": {
         "allow-plugins": {
