@@ -10,7 +10,6 @@ use \KoKoP\Helper\AuthAllowAll;
 use \KoKoP\Helper\CachableRequest;
 use \KoKoP\Helper\MemoryCache;
 use \KoKoP\Helper\Request;
-use \KoKoP\Helper\Config;
 use \KoKoP\Helper\Cookie;
 use \KoKoP\Helper\Organization;
 use \KoKoP\Interfaces\AbstractCache;
@@ -32,15 +31,15 @@ class NoAuthRuntimeServices implements AbstractServices
     private AbstractSession $session;
     private AbstractOrganization $organization;
 
-    public function __construct(array $config)
+    public function __construct(AbstractConfig $config)
     {
-        $this->config = new Config($config);
-        $this->secure = new Secure($this->config);
-        $this->session = new Session($this->config, $this->secure, new Cookie());
+        $this->config = $config;
+        $this->secure = new Secure($this->getConfigService());
+        $this->session = new Session($this->getConfigService(), $this->secure, new Cookie());
         $this->cache = new MemoryCache($this->secure);
         $this->request = new CachableRequest($this->cache, new Request());
-        $this->auth = new AuthAllowAll($this->config);
-        $this->organization = new Organization($this->config);
+        $this->auth = new AuthAllowAll($this->getConfigService());
+        $this->organization = new Organization($this->getConfigService());
     }
 
     public function getRequestService(): AbstractRequest

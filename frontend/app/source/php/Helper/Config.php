@@ -12,7 +12,7 @@ class Config implements AbstractConfig
 
     public function __construct(array $config = [])
     {
-        $this->config = $this->parse($config);
+        $this->config = $this->_parse($config);
     }
 
     public function getValues(): array
@@ -26,7 +26,7 @@ class Config implements AbstractConfig
             $this->config[$key] !== false ? $this->config[$key] : $default;
     }
 
-    protected function parse(array $config): array
+    protected function _parse(array $config): array
     {
         //Get env vars
         $env = array(
