@@ -12,7 +12,7 @@
             @if($asset['type'] === 'js')
                 <script src="/assets/dist/{{ $asset['file'] }}"></script>
             @elseif($asset['type'] === 'css')
-                <link rel='stylesheet' id='{{  $asset['id'] }}' href='/assets/dist/{{ $asset['file'] }}' media='all'>
+                <link rel='stylesheet' id='{{ $asset['id'] }}' href='/assets/dist/{{ $asset['file'] }}' media='all' />
             @endif
         @endforeach
     @endif
@@ -43,8 +43,7 @@
     </style>
 </head>
 <body class="no-js">
-    {{-- App not built correctly message. --}}
-    @if(!$assets) 
+    @if(!$assets)
         @include('notices.assets')
     @endif
 
@@ -72,7 +71,6 @@
         </div>
     @endif
 
-    {{-- Main content --}}
     @yield('content')
 
     @if($debugResponse)
