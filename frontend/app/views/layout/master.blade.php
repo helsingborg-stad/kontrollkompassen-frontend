@@ -5,8 +5,8 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>Helsingborg Stad - Kontrollkompassen</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>Kontrollkompassen - Helsingborg Stad</title>
     @if($assets)
         @foreach($assets as $asset)
             @if($asset['type'] === 'js')
