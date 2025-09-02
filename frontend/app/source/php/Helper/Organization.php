@@ -20,7 +20,7 @@ class Organization implements AbstractOrganization
     public function generateDownload(
         Response $response,
         AbstractUser $user,
-        string $orgNo
+        int $orgNo
     ): Response {
         try {
             $fileStream = new FileStream(

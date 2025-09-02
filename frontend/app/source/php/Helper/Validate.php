@@ -8,9 +8,9 @@ use \KoKoP\Helper\Sanitize as Sanitize;
 
 class Validate
 {
-    public static function orgno($string): bool
+    public static function orgno($value): bool
     {
-        $orgnoLength = strlen(Sanitize::number($string));
+        $orgnoLength = strlen((string) Sanitize::number($value));
 
         if ($orgnoLength > 9 && $orgnoLength < 13) {
             return true;

@@ -43,8 +43,7 @@ final class UppslagAction
 
     public function fetch(Request $request, Response $response): Response
     {
-        $body = $request->getParsedBody();
-        $orgNo = Sanitize::number($body['orgno']);
+        $orgNo = $request->getParsedBody()['orgno'];
 
         if (!Validate::orgno($orgNo)) {
             return $this->renderer
