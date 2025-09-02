@@ -9,7 +9,7 @@ class Sanitize
 
   public static function number($string)
   {
-    return preg_replace('/[^0-9.]+/', '', (string) $string);
+    return (int)preg_replace('/[^0-9.]+/', '', (string) $string);
   }
 
   public static function string(mixed $string)
