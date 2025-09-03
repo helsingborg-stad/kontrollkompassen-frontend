@@ -7,7 +7,7 @@ namespace KoKoP\Helper;
 class Sanitize
 {
 
-    public static function number($string)
+    public static function number(mixed $string): int
     {
         return (int)preg_replace('/[^0-9.]+/', '', (string) $string);
     }

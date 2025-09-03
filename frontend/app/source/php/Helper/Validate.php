@@ -4,20 +4,8 @@ declare(strict_types=1);
 
 namespace KoKoP\Helper;
 
-use \KoKoP\Helper\Sanitize as Sanitize;
-
 class Validate
 {
-    public static function orgno($value): bool
-    {
-        $orgnoLength = strlen((string) Sanitize::number($value));
-
-        if ($orgnoLength > 9 && $orgnoLength < 13) {
-            return true;
-        }
-        return false;
-    }
-
     public static function empty(string $string): bool
     {
         return (bool) !empty($string);

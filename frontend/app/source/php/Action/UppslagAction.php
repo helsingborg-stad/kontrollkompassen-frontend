@@ -9,8 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use \KoKoP\Renderer\BladeTemplateRenderer;
 use \KoKoP\Interfaces\AbstractServices;
-use \KoKoP\Helper\Sanitize;
-use \KoKoP\Helper\Validate;
+use \KoKoP\Helper\Organization\OrganizationException;
 
 
 final class UppslagAction
@@ -44,15 +43,6 @@ final class UppslagAction
     public function fetch(Request $request, Response $response): Response
     {
         $orgNo = $request->getParsedBody()['orgno'];
-
-        if (!Validate::orgno($orgNo)) {
-            return $this->renderer
-                ->template($response, self::class, [
-                    'action' => 'check-orgno-malformed',
-                    'orgno' => $orgNo,
-                ])
-                ->withStatus(400);
-        }
 
         return $this->services
             ->getOrganizationService()
