@@ -18,12 +18,8 @@ function getConfig(): array
 
 class ServicesFactory
 {
-    public static function createFromEnv(): AbstractServices
+    public static function create(): AbstractServices
     {
-        $config = new Config(getConfig());
-
-        return $config->getValue('MS_AUTH', false)
-            ? new NoAuthRuntimeServices($config)
-            : new RuntimeServices($config);
+        return new RuntimeServices(new Config(getConfig()));
     }
 }
