@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Auth;
 
 use \KoKoP\Interfaces\AbstractUser;
 use \KoKoP\Interfaces\AbstractAuth;
 use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Models\User;
-use \KoKoP\Helper\AuthException;
+use \KoKoP\Helper\Auth\AuthException;
 use \KoKoP\Enums\AuthErrorReason;
 
 class AuthAllowAll implements AbstractAuth

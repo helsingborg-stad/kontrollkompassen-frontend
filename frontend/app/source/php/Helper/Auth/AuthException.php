@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Auth;
 
 use \KoKoP\Enums\AuthErrorReason;
 

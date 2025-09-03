@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Auth;
 
 use \KoKoP\Enums\AuthErrorReason;
 use \KoKoP\Interfaces\AbstractUser;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
 use \KoKoP\Interfaces\AbstractConfig;
-use \KoKoP\Helper\AuthException;
+use \KoKoP\Helper\Auth\AuthException;
+use \KoKoP\Helper\Sanitize;
 use \KoKoP\Models\User;
 use stdClass;
 
