@@ -3,11 +3,12 @@
 <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
 
     @includeIf('notices.' . $action)
-
+    <div id="error-message" class="hidden"></div>
     @form([
         'method' => 'POST',
         'action' => '/uppslag',
-        'classList' => ['u-margin__top--2']
+        'classList' => ['u-margin__top--2'],
+        'id' => 'check-orgno-formX'
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
         @field([

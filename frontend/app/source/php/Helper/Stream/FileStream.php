@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace KoKoP\Helper\Stream;
 
 use Psr\Http\Message\StreamInterface;
-use Slim\Psr7\Stream;
 
 use \KoKoP\Interfaces\AbstractStream;
 
@@ -17,11 +16,10 @@ class FileStream implements AbstractStream
     private string $apiKey;
     private StreamInterface $stream;
 
-    public function __construct(string $apiKey, string $apiUrl, StreamInterface $stream)
+    public function __construct(string $apiKey, string $apiUrl)
     {
         $this->apiKey = $apiKey;
         $this->apiUrl = $apiUrl;
-        $this->stream = $stream;
     }
 
     public function fetch(array $content): StreamInterface
@@ -38,7 +36,10 @@ class FileStream implements AbstractStream
                 ]
             ]);
 
-            $this->stream = new Stream(fopen($this->apiUrl, 'rb', false, $context));
+            $this->stream = StreamFactory::createFromEnv(
+                $this->apiUrl === '' ? 'mock' : 'slim',
+                $this->apiUrl === '' ?: fopen($this->apiUrl, 'rb', false, $context)
+            );
 
             return $this->stream;
         } catch (\Exception $e) {

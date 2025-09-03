@@ -6,12 +6,12 @@ namespace KoKoP\Helper\Stream;
 
 use Psr\Http\Message\StreamInterface;
 
-class MockStream implements StreamInterface
+class MockRawStream implements StreamInterface
 {
     protected $content;
     protected int $position = 0;
 
-    public function __construct($content)
+    public function __construct()
     {
         $this->content = 'Hello World! This is a mock stream for testing purposes.';
     }
@@ -114,7 +114,7 @@ class MockStream implements StreamInterface
     {
         $metadata = [
             'wrapper_data' => [
-                'content-type' => 'application/json',
+                'content-type' => 'plain/text; charset=utf-8',
                 'content-disposition' => "attachment; filename*=UTF-8''DirtyLobsterÅÄÖ",
             ],
             'seekable' => $this->isSeekable(),
