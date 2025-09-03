@@ -13,7 +13,7 @@ use \KoKoP\Helper\CachableRequest;
 use \KoKoP\Helper\MemoryCache;
 use \KoKoP\Helper\Request;
 use \KoKoP\Helper\Cookie;
-use \KoKoP\Helper\Organization;
+use \KoKoP\Helper\Organization\Organization;
 use \KoKoP\Interfaces\AbstractCache;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;

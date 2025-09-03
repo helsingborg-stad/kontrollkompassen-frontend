@@ -13,4 +13,6 @@ interface AbstractOrganization
         AbstractUser $user,
         int $orgNo
     ): Response;
+
+    public function validateOrgNo(mixed $value): int;
 }

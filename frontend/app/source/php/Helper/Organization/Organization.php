@@ -2,13 +2,17 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Organization;
 
 use Psr\Http\Message\ResponseInterface as Response;
 
 use \KoKoP\Interfaces\AbstractConfig;
 use \KoKoP\Interfaces\AbstractOrganization;
 use \KoKoP\Interfaces\AbstractUser;
+use \KoKoP\Helper\Organization\OrganizationException;
+use \KoKoP\Enums\OrganizationErrorReason;
+use \KoKoP\Helper\Sanitize;
+use \KoKoP\Helper\Stream\FileStream;
 
 const DEFAULT_FILENAME = 'uppslag.xlsx';
 const DEFAULT_CONTENT_TYPE = 'application/octet-stream';
@@ -51,7 +55,27 @@ class Organization implements AbstractOrganization
             $response
                 ->getBody()
                 ->write('Error generating download: ' . $e->getMessage());
-            return $response->withStatus(500);
+            return $response->withStatus(400);
         }
+    }
+
+    public function validateOrgNo(mixed $value): int
+    {
+        if (is_null($value) || $value === '') {
+            throw new OrganizationException(OrganizationErrorReason::Empty);
+        }
+
+        if (!is_numeric($value)) {
+            throw new OrganizationException(OrganizationErrorReason::InvalidFormat);
+        }
+
+        $orgNo = Sanitize::number($value);
+        $length = strlen((string) $orgNo);
+
+        if ($length < 9 || $length > 13) {
+            throw new OrganizationException(OrganizationErrorReason::InvalidLenght);
+        }
+
+        return $orgNo;
     }
 }
