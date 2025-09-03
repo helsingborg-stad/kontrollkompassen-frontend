@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Stream;
 
 use Psr\Http\Message\StreamInterface;
 use Slim\Psr7\Stream;
@@ -17,10 +17,11 @@ class FileStream implements AbstractStream
     private string $apiKey;
     private StreamInterface $stream;
 
-    public function __construct(string $apiKey, string $apiUrl)
+    public function __construct(string $apiKey, string $apiUrl, StreamInterface $stream)
     {
         $this->apiKey = $apiKey;
         $this->apiUrl = $apiUrl;
+        $this->stream = $stream;
     }
 
     public function fetch(array $content): StreamInterface
