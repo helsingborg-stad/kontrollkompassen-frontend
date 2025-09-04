@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \KoKoP\Helper\Auth;
+use \KoKoP\Helper\Auth\Auth;
 use \KoKoP\Enums\AuthErrorReason;
 use \KoKoP\Helper\Config;
 use \KoKoP\Helper\Request;
@@ -73,7 +73,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = AuthErrorReason::Unauthorized->value;
-        $this->expectException("KoKoP\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\Auth\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");
@@ -95,7 +95,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = AuthErrorReason::InvalidCredentials->value;
-        $this->expectException("KoKoP\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\Auth\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");
@@ -117,7 +117,7 @@ final class AuthTest extends TestCase
 
         // Try authenticate
         $error = AuthErrorReason::HttpError->value;
-        $this->expectException("KoKoP\Helper\AuthException");
+        $this->expectException("KoKoP\Helper\Auth\AuthException");
         $this->expectExceptionCode($error);
 
         $auth->authenticate("samaccountname", "samaccountname");
