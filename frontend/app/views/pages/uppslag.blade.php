@@ -7,8 +7,7 @@
     @form([
         'method' => 'POST',
         'action' => '/uppslag',
-        'classList' => ['u-margin__top--2'],
-        'id' => 'check-orgno-formX'
+        'classList' => ['u-margin__top--2']
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
         @field([
@@ -18,7 +17,7 @@
             'label' => 'Organisationsnummer',
             'required' => true,
             'placeholder' => '10 eller 12 siffror',
-            'value' => isset($_GET['orgno']) ? $_GET['orgno'] : '',
+            'value' => $orgNo ?? '',
             'attributeList' => [
                 'autofocus' => 'autofocus'
             ]

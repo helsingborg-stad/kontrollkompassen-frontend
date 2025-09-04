@@ -11,9 +11,9 @@ enum OrganizationErrorReason: int
     public function message(): string
     {
         return match ($this) {
-            self::InvalidLenght => 'Ogiltig längd för organisationsnummer. Skall vara mellan 10 och 12 siffror',
+            self::InvalidLenght => 'Ogiltig längd för organisationsnummer. Skall vara 10 eller 12 siffror',
             self::InvalidFormat => 'Ogiltigt format för organisationsnummer. Endast siffror är tillåtna',
-            self::Empty => 'Organisationsnummer får inte vara tomt',
+            self::Empty => 'Fältet: Organisationsnummer får inte vara tomt',
         };
     }
 
@@ -22,6 +22,7 @@ enum OrganizationErrorReason: int
         return [
             'only digits',
             'length 10 or 12',
+            'not empty',
         ];
     }
 

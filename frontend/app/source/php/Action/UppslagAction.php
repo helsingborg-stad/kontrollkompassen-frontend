@@ -46,18 +46,24 @@ final class UppslagAction
             $orgNo = $request->getParsedBody()['orgno'];
 
             $service = $this->services->getOrganizationService();
-            $cleanOrgNo = $service->validateOrgNo($orgNo);
 
-            return $this->services
-                ->getOrganizationService()
-                ->generateDownload(
-                    $response,
-                    $this->services->getSessionService()->getUser(),
-                    $cleanOrgNo
-                );
+            return $service->generateDownload(
+                $response,
+                $this->services->getSessionService()->getUser(),
+                $service->validateOrgNo($orgNo)
+            );
         } catch (OrganizationException $e) {
-            $response->getBody()->write('Error: ' . $e->getMessage());
-            return $response->withStatus(400);
+            return $this->renderer->template(
+                $response->withStatus(400),
+                self::class,
+                [
+                    'user' => $this->services->getSessionService()->getUser(),
+                    'formattedUser' => $this->services->getSessionService()->getUser()->format(),
+                    'action' => 'orgno-malformed',
+                    'orgNo' => $orgNo ?? null,
+                    'errorMessage' => $e->getMessage(),
+                ]
+            );
         }
     }
 

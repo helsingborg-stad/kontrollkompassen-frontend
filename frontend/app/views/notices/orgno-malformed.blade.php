@@ -1,7 +1,7 @@
 @notice([
-    'type' => 'danger',
+    'type' => 'warning',
     'message' => [
-        'text' => 'Organisationsnummer måste vara 10 eller 12 siffror',
+        'text' => $errorMessage ?? 'Det angivna organisationsnumret är felaktigt formaterat. Kontrollera och försök igen.',
         'size' => 'sm'
     ],
     'icon' => [
