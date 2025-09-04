@@ -66,26 +66,4 @@ final class UppslagAction
             );
         }
     }
-
-    public function json(Request $request, Response $response): Response
-    {
-        try {
-            $orgNo = $request->getParsedBody()['orgno'];
-            $service = $this->services->getOrganizationService();
-
-            $cleanOrgNo = $service->validateOrgNo($orgNo);
-
-            $response->getBody()->write(json_encode(['orgno' => $cleanOrgNo]));
-            return $response->withHeader('Content-Type', 'application/json');
-        } catch (OrganizationException $e) {
-            $response->getBody()->write(json_encode([
-                'message' => $e->getMessage(),
-                'error' => $e->getReason()->name,
-                'details' => $e->getDetails(),
-            ]));
-            return $response
-                ->withHeader('Content-Type', 'application/json')
-                ->withStatus($e->getDetails()['httpErrorCode']);
-        }
-    }
 }

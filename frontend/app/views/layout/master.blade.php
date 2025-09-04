@@ -107,12 +107,5 @@
             När du använder tjänsten accepterar du <a href="https://helsingborg.se/toppmeny/om-webbplatsen/sa-har-behandlar-vi-dina-personuppgifter/" target="_blank">Helsingborg Stads datapolicy</a>.
         @endtypography
     </footer>
-    @if($assets)
-        @foreach($assets as $asset)
-            @if($asset['type'] === 'js')
-                <script id="{{ $asset['id'] }}" src="/assets/dist/{{ $asset['file'] }}"></script>
-            @endif
-        @endforeach
-    @endif
     </body>
 </html>
