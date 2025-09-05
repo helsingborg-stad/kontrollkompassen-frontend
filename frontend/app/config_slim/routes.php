@@ -20,7 +20,6 @@ return function (App $app): void {
 
     $app->get('/uppslag', [UppslagAction::class, 'index']);
     $app->post('/uppslag', [UppslagAction::class, 'fetch']);
-    $app->post('/uppslag/json', [UppslagAction::class, 'json']);
     $app->get('/uppslag/success', [UppslagAction::class, 'success']);
 
     $app->get('/glomt-losenord', ForgotPasswordAction::class);
