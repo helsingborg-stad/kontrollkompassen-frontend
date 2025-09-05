@@ -10,3 +10,4 @@ node_modules
 /frontend/vendor/*
 frontend/config*.json
 /frontend/app/.npmrc
+.idea
