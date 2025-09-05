@@ -4,11 +4,15 @@ declare(strict_types=1);
 
 namespace KoKoP\Helper\Organization;
 
+use Exception;
 use \KoKoP\Enums\OrganizationErrorReason;
 
-class OrganizationException extends \Exception
+class OrganizationException extends Exception
 {
-    function __construct(OrganizationErrorReason $reason)
+    /**
+     * @throws Exception
+     */
+    function __construct(OrganizationErrorReason $reason, ?Exception $previous = null)
     {
         [$message, $code] = match ($reason) {
             OrganizationErrorReason::InvalidLenght =>
@@ -21,9 +25,19 @@ class OrganizationException extends \Exception
                 OrganizationErrorReason::InvalidFormat->message(),
                 OrganizationErrorReason::InvalidFormat->value
             ],
+            OrganizationErrorReason::Empty =>
+            [
+                OrganizationErrorReason::Empty->message(),
+                OrganizationErrorReason::Empty->value
+            ],
+            OrganizationErrorReason::ServiceError =>
+            [
+                OrganizationErrorReason::ServiceError->message(),
+                OrganizationErrorReason::ServiceError->value
+            ],
         };
 
-        parent::__construct($message, $code);
+        parent::__construct($message, $code, $previous);
     }
 
     public function getReason(): OrganizationErrorReason

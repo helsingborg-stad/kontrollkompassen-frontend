@@ -53,10 +53,7 @@ class Organization implements AbstractOrganization
                     "attachment; filename*=UTF-8''" . ($fileStream->getFilename() ?: DEFAULT_FILENAME)
                 );
         } catch (\Exception $e) {
-            $response
-                ->getBody()
-                ->write('Error generating download: ' . $e->getMessage());
-            return $response->withStatus(400);
+            throw new OrganizationException(OrganizationErrorReason::ServiceError, $e);
         }
     }
 

@@ -7,6 +7,7 @@ enum OrganizationErrorReason: int
     case InvalidLenght = 0;
     case InvalidFormat = 1;
     case Empty = 2;
+    case ServiceError = 3;
 
     public function message(): string
     {
@@ -14,6 +15,7 @@ enum OrganizationErrorReason: int
             self::InvalidLenght => 'Ogiltig längd för organisationsnummer. Skall vara 10 eller 12 siffror',
             self::InvalidFormat => 'Ogiltigt format för organisationsnummer. Endast siffror är tillåtna',
             self::Empty => 'Fältet: Organisationsnummer får inte vara tomt',
+            self::ServiceError => 'Ett fel uppstod vid hämtning av uppslagsfilen. Försök igen senare',
         };
     }
 
@@ -35,6 +37,7 @@ enum OrganizationErrorReason: int
     {
         return match ($this) {
             self::InvalidLenght, self::InvalidFormat, self::Empty => 400,
+            self::ServiceError => 500,
         };
     }
 }

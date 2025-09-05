@@ -54,7 +54,7 @@ final class UppslagAction
             );
         } catch (OrganizationException $e) {
             return $this->renderer->template(
-                $response->withStatus(400),
+                $response->withStatus($e->getDetails()['httpErrorCode']),
                 self::class,
                 [
                     'user' => $this->services->getSessionService()->getUser(),
@@ -62,6 +62,7 @@ final class UppslagAction
                     'action' => 'orgno-malformed',
                     'orgNo' => $orgNo ?? null,
                     'errorMessage' => $e->getMessage(),
+                    'previousException' => $e->getPrevious() ? $e->getPrevious()->getMessage() : null,
                 ]
             );
         }

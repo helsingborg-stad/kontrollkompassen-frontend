@@ -1,7 +1,8 @@
 @notice([
     'type' => 'warning',
     'message' => [
-        'text' => $errorMessage ?? 'Det angivna organisationsnumret är felaktigt formaterat. Kontrollera och försök igen.',
+        'title' => $errorMessage,
+        'text' => $previousException ?? null,
         'size' => 'sm'
     ],
     'icon' => [
