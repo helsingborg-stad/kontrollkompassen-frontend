@@ -38,7 +38,7 @@ class Organization implements AbstractOrganization
             $responseWithBody = $response
                 ->withBody(
                     $fileStream->fetch([
-                        'orgNo' => $orgNo,
+                        'orgNo' => (string) $orgNo,
                         'email' => $user->getMailAddress(),
                     ])
                 );
