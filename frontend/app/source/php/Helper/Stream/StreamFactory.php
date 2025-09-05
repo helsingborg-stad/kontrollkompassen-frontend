@@ -15,7 +15,7 @@ class StreamFactory
     {
         return match ($env) {
             'slim' => new SlimStream($resource),
-            'mock' => new MockRawStream($resource),
+            'mock' => new MockRawStream(),
             default => throw new \InvalidArgumentException("Unsupported stream environment: $env"),
         };
     }

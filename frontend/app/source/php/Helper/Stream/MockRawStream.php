@@ -115,7 +115,7 @@ class MockRawStream implements StreamInterface
         $metadata = [
             'wrapper_data' => [
                 'content-type' => 'plain/text; charset=utf-8',
-                'content-disposition' => "attachment; filename*=UTF-8''Dirty Lobster ÅÄÖ",
+                'content-disposition' => "attachment; filename*=UTF-8''K%25C3%25A4lltorps_Pl%25C3%25A5t_%2526_Svets_AB",
             ],
             'seekable' => $this->isSeekable(),
         ];
