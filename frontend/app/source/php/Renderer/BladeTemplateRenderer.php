@@ -28,7 +28,7 @@ final class BladeTemplateRenderer
             $data,
             [
                 'flash' => $this->flash,
-                'assets' => self::_getAssets(),
+                'assets' => self::_getAssets() ?? false,
                 'formattedUser' => $user ? $user->format() : null,
                 'isAuthenticated' => $session->isValidSession(),
                 'debugResponse' => $this->services->getConfigService()->getValue('DEBUG'),

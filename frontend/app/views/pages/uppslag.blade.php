@@ -17,7 +17,7 @@
             'label' => 'Organisationsnummer',
             'required' => true,
             'placeholder' => '10 eller 12 siffror',
-            'value' => isset($_GET['orgno']) ? $_GET['orgno'] : '',
+            'value' => $orgNo ?? '',
             'attributeList' => [
                 'autofocus' => 'autofocus'
             ]

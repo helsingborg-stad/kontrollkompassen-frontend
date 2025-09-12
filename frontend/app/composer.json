@@ -1,5 +1,5 @@
 {
-    "name": "helsingborg-stad/styleguide",
+    "name": "helsingborg-stad/kontrollkompassen",
     "license": "MIT",
     "type": "library",
     "authors": [
@@ -34,10 +34,7 @@
     "autoload": {
         "psr-4": {
             "KoKoP\\": "source/php/"
-        },
-        "files": [
-            "source/php/Utils/encodeRFC7230.php"
-        ]
+        }
     },
     "config": {
         "allow-plugins": {

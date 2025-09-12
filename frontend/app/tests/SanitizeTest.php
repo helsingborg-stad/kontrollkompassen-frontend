@@ -10,7 +10,7 @@ final class SanitizeTest extends TestCase
     public function testCanSanitizeNumber(): void
     {
         // Boolean
-        $this->assertSame(Sanitize::number('a|1b^2c\n3 '), '123');
+        $this->assertSame(Sanitize::number('a|1b^2c\n3 '), 123);
     }
 
     public function testCanSanitizeString(): void

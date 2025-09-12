@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Auth;
 
 use \KoKoP\Enums\AuthErrorReason;
 use \KoKoP\Interfaces\AbstractUser;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
 use \KoKoP\Interfaces\AbstractConfig;
-use \KoKoP\Helper\AuthException;
+use \KoKoP\Helper\Auth\AuthException;
+use \KoKoP\Helper\Sanitize;
 use \KoKoP\Models\User;
 use stdClass;
 
@@ -40,7 +41,6 @@ class Auth implements AbstractAuth
 
     public function authenticate(string $name, string $password): AbstractUser
     {
-        // Execute request
         $response = $this->request->post($this->endpoint . '/user/current', [
             'username' => $name,
             'password' => Sanitize::password($password)
@@ -50,9 +50,7 @@ class Auth implements AbstractAuth
             throw new AuthException(AuthErrorReason::HttpError);
         }
 
-        $data = $response->getContent()->{0} ?? new stdClass;
-
-        $user = new User($this->config, $data);
+        $user = new User($this->config, $response->getContent()->{0} ?? new stdClass);
 
         if (strtolower($user->getAccountName()) !== strtolower($name)) {
             throw new AuthException(AuthErrorReason::InvalidCredentials);
@@ -64,20 +62,9 @@ class Auth implements AbstractAuth
 
         return $user;
     }
-    /**
-     * Checks if the user is authorized to access the application.
-     *
-     * Matches if member of contains required key.
-     *
-     * @return bool The result indicating whether the user is authorized.
-     */
-    protected function isAuthorized($groups)
-    {
-        //No group lock defined
-        if (empty($this->allowedGroups)) {
-            return true;
-        }
 
+    protected function isAuthorized($groups): bool
+    {
         if (array_key_exists('CN', $groups) && is_array($this->allowedGroups) && count($this->allowedGroups)) {
             foreach ($this->allowedGroups as $group) {
                 if (in_array($group, $groups['CN'])) {

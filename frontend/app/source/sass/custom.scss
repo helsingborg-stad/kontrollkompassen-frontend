@@ -24,7 +24,7 @@
   .c-logout__logout,
   .c-logout__name {
     height: 20px;
-    line-height: 20px;
+    line-height: 26px;
   }
 
   .c-logout__name {
@@ -42,12 +42,4 @@
   .c-link:hover {
     gap: 8px;
   }
-}
-
-.c-table__column {
-  text-transform: capitalize;
-}
-
-.c-table__column-0 {
-  width: 150px;
 }

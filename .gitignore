@@ -9,3 +9,5 @@ node_modules
 /frontend/app/source/library
 /frontend/vendor/*
 frontend/config*.json
+/frontend/app/.npmrc
+.idea

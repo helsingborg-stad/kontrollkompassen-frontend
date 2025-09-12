@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace KoKoP\Helper;
+namespace KoKoP\Helper\Stream;
 
 use Psr\Http\Message\StreamInterface;
-use Slim\Psr7\Stream;
 
 use \KoKoP\Interfaces\AbstractStream;
 
-use function \KoKoP\Utils\encodeRFC7230;
 
 class FileStream implements AbstractStream
 {
@@ -37,7 +35,12 @@ class FileStream implements AbstractStream
                 ]
             ]);
 
-            $this->stream = new Stream(fopen($this->apiUrl, 'rb', false, $context));
+            $env = str_contains($this->apiUrl, 'http://') ? 'slim' : 'mock';
+
+            $this->stream = StreamFactory::createFromEnv(
+                $env,
+                fopen($env !== 'slim' ? 'php://temp' : $this->apiUrl, 'rb', false, $context)
+            );
 
             return $this->stream;
         } catch (\Exception $e) {
@@ -45,26 +48,29 @@ class FileStream implements AbstractStream
         }
     }
 
-    public function getContentType(): string | bool
+    public function getContentType(): string
     {
-        return $this->stream->getMetadata('wrapper_data')['content-type'] ?? false;
+        return $this->_getHeaderData('content-type');
     }
 
-    public function getFilename(): string | bool
+    public function getFilename(): string
     {
-        $contentDisposition = $this->stream->getMetadata('wrapper_data')['content-disposition'];
-        if (!$contentDisposition) {
-            return false;
-        }
+        $contentDisposition = $this->_getHeaderData('content-disposition');
 
         $pattern = str_contains($contentDisposition, 'filename*=')
             ? '/filename\\*=UTF-8\'\'([^;\\r\\n]+)/i'
             : '/filename="([^"]+)"/i';
-
         preg_match($pattern, $contentDisposition, $matches);
 
         return isset($matches[1])
-            ? encodeRFC7230($matches[1])
-            : false;
+            ? $matches[1]
+            : '';
+    }
+
+    private function _getHeaderData($key): string
+    {
+        $wrapperData = $this->stream->getMetadata('wrapper_data');
+        $header = array_find($wrapperData, fn($header) => str_starts_with(strtolower($header), strtolower($key) . ':'));
+        return $header ? trim(explode(':', $header, 2)[1]) : '';
     }
 }

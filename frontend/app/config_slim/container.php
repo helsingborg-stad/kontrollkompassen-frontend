@@ -8,5 +8,5 @@ use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Services\ServicesFactory;
 
 return [
-    AbstractServices::class => factory([ServicesFactory::class, 'createFromEnv']),
+    AbstractServices::class => factory([ServicesFactory::class, 'create']),
 ];

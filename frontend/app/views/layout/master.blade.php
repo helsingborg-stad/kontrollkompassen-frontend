@@ -5,14 +5,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <title>Helsingborg Stad - Kontrollkompassen</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <title>Kontrollkompassen - Helsingborg Stad</title>
     @if($assets)
         @foreach($assets as $asset)
-            @if($asset['type'] === 'js')
-                <script src="/assets/dist/{{ $asset['file'] }}"></script>
-            @elseif($asset['type'] === 'css')
-                <link rel='stylesheet' id='{{  $asset['id'] }}' href='/assets/dist/{{ $asset['file'] }}' media='all'>
+            @if($asset['type'] === 'css')
+                <link rel='stylesheet' id='{{ $asset['id'] }}' href='/assets/dist/{{ $asset['file'] }}' media='all' />
             @endif
         @endforeach
     @endif
@@ -43,8 +41,7 @@
     </style>
 </head>
 <body class="no-js">
-    {{-- App not built correctly message. --}}
-    @if(!$assets) 
+    @if(!$assets)
         @include('notices.assets')
     @endif
 
@@ -72,7 +69,6 @@
         </div>
     @endif
 
-    {{-- Main content --}}
     @yield('content')
 
     @if($debugResponse)
@@ -111,5 +107,5 @@
             När du använder tjänsten accepterar du <a href="https://helsingborg.se/toppmeny/om-webbplatsen/sa-har-behandlar-vi-dina-personuppgifter/" target="_blank">Helsingborg Stads datapolicy</a>.
         @endtypography
     </footer>
-</body>
+    </body>
 </html>

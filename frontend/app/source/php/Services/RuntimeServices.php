@@ -7,14 +7,13 @@ namespace KoKoP\Services;
 use \KoKoP\Helper\RedisCache;
 use \KoKoP\Helper\Secure;
 use \KoKoP\Helper\Session;
-use \KoKoP\Helper\Auth;
-use \KoKoP\Helper\AuthAllowAll;
+use \KoKoP\Helper\Auth\Auth;
+use \KoKoP\Helper\Auth\AuthAllowAll;
 use \KoKoP\Helper\CachableRequest;
 use \KoKoP\Helper\MemoryCache;
 use \KoKoP\Helper\Request;
-use \KoKoP\Helper\Config;
 use \KoKoP\Helper\Cookie;
-use \KoKoP\Helper\Organization;
+use \KoKoP\Helper\Organization\Organization;
 use \KoKoP\Interfaces\AbstractCache;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
@@ -34,23 +33,23 @@ class RuntimeServices implements AbstractServices
     private AbstractSession $session;
     private AbstractOrganization $organization;
 
-    public function __construct(array $config)
+    public function __construct(AbstractConfig $config)
     {
-        $this->config = new Config($config);
-        $this->secure = new Secure($this->config);
-        $this->session = new Session($this->config, $this->secure, new Cookie());
+        $this->config = $config;
+        $this->secure = new Secure($this->getConfigService());
+        $this->session = new Session($this->getConfigService(), $this->secure, new Cookie());
 
-        $this->cache = $this->config->getValue('PREDIS') ?
-            new RedisCache($this->config, $this->secure) :
+        $this->cache = $this->getConfigService()->getValue('PREDIS') ?
+            new RedisCache($this->getConfigService(), $this->secure) :
             new MemoryCache($this->secure);
 
         $this->request = new CachableRequest($this->cache, new Request());
 
-        $this->auth = $this->config->getValue('MS_AUTH', false) ?
-            new Auth($this->config, $this->request) :
-            new AuthAllowAll($this->config);
+        $this->auth = $this->getConfigService()->getValue('MS_AUTH', false) ?
+            new Auth($this->getConfigService(), $this->request) :
+            new AuthAllowAll($this->getConfigService());
 
-        $this->organization = new Organization($this->config);
+        $this->organization = new Organization($this->getConfigService());
     }
 
     public function getRequestService(): AbstractRequest

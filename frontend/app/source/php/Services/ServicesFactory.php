@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace KoKoP\Services;
 
-use KoKoP\Interfaces\AbstractServices;
+use \KoKoP\Interfaces\AbstractServices;
+use \KoKoP\Helper\Config;
 
 function getConfig(): array
 {
@@ -17,12 +18,8 @@ function getConfig(): array
 
 class ServicesFactory
 {
-    public static function createFromEnv(): AbstractServices
+    public static function create(): AbstractServices
     {
-        $config = getConfig();
-
-        return $config['MS_AUTH']
-            ? new RuntimeServices($config)
-            : new NoAuthRuntimeServices($config);
+        return new RuntimeServices(new Config(getConfig()));
     }
 }

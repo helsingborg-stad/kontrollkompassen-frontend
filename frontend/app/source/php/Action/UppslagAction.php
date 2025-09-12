@@ -9,8 +9,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 use \KoKoP\Renderer\BladeTemplateRenderer;
 use \KoKoP\Interfaces\AbstractServices;
-use \KoKoP\Helper\Sanitize;
-use \KoKoP\Helper\Validate;
+use \KoKoP\Helper\Organization\OrganizationException;
 
 
 final class UppslagAction
@@ -43,24 +42,29 @@ final class UppslagAction
 
     public function fetch(Request $request, Response $response): Response
     {
-        $body = $request->getParsedBody();
-        $orgNo = Sanitize::number($body['orgno']);
+        try {
+            $orgNo = $request->getParsedBody()['orgno'];
 
-        if (!Validate::orgno($orgNo)) {
-            return $this->renderer
-                ->template($response, self::class, [
-                    'action' => 'check-orgno-malformed',
-                    'orgno' => $orgNo,
-                ])
-                ->withStatus(400);
-        }
+            $service = $this->services->getOrganizationService();
 
-        return $this->services
-            ->getOrganizationService()
-            ->generateDownload(
+            return $service->generateDownload(
                 $response,
                 $this->services->getSessionService()->getUser(),
-                $orgNo
+                $service->validateOrgNo($orgNo)
             );
+        } catch (OrganizationException $e) {
+            return $this->renderer->template(
+                $response->withStatus($e->getDetails()['httpErrorCode']),
+                self::class,
+                [
+                    'user' => $this->services->getSessionService()->getUser(),
+                    'formattedUser' => $this->services->getSessionService()->getUser()->format(),
+                    'action' => 'orgno-malformed',
+                    'orgNo' => $orgNo ?? null,
+                    'errorMessage' => $e->getMessage(),
+                    'previousException' => $e->getPrevious() ? $e->getPrevious()->getMessage() : null,
+                ]
+            );
+        }
     }
 }

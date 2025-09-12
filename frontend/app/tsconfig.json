@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "baseUrl": "./",
+    "paths": {
+      "@svelte/*": [
+        "source/svelte/*"
+      ]
+    },
+    "types": [
+      "svelte"
+    ],
+    "outDir": "assets/dist/js/"
+  },
+  "include": [
+    "source/ts/**/*.ts",
+    "source/svelte/**/*.svelte"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

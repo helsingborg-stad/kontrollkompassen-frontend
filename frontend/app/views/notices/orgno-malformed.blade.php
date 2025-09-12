@@ -1,7 +1,8 @@
 @notice([
-    'type' => 'danger',
+    'type' => 'warning',
     'message' => [
-        'text' => 'Organisationsnummer måste vara 10 eller 12 siffror',
+        'title' => $errorMessage,
+        'text' => $previousException ?? null,
         'size' => 'sm'
     ],
     'icon' => [

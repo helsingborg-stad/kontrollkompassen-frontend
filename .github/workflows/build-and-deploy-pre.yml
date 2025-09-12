@@ -1,8 +1,8 @@
-name: Build and deploy released
+name: Build and deploy prereleased
 
 on:
   release:
-    types: [published]
+    types: [prereleased]
 
 jobs:
   build:
@@ -38,7 +38,7 @@ jobs:
           switches: -avzrog --backup --backup-dir=${{ secrets.BACKUP_PATH }}/$GITHUB_SHA --chown=www-data:www-data
           path: .
           remote_path: ${{ secrets.DEPLOY_PATH }}
-          remote_host: ${{ secrets.DEPLOY_HOST }}
+          remote_host: ${{ secrets.DEPLOY_HOST_PRE }}
           remote_user: ${{ secrets.DEPLOY_USER }}
           remote_key: ${{ secrets.DEPLOY_KEY }}
           remote_port: ${{ secrets.DEPLOY_PORT }}
@@ -47,7 +47,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           script: find ${{ secrets.DEPLOY_PATH }} -path ! -type l -exec chmod g+rw {} +
-          host: ${{ secrets.DEPLOY_HOST }}
+          host: ${{ secrets.DEPLOY_HOST_PRE }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
@@ -59,7 +59,7 @@ jobs:
             cd ${{ secrets.DEPLOY_PATH }}
             rm -rf ${{ secrets.DEPLOY_PATH }}/../.cache/vhosts/Jelastic/* || true
             rm /tmp/blade-engine-cache/* || true
-          host: ${{ secrets.DEPLOY_HOST }}
+          host: ${{ secrets.DEPLOY_HOST_PRE }}
           username: ${{ secrets.DEPLOY_USER }}
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.DEPLOY_PORT }}
