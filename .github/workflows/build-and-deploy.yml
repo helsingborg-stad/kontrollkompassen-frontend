@@ -2,7 +2,10 @@ name: Build and deploy released
 
 on:
   release:
-    types: [published]
+    types:
+      - released
+    branches:
+      - main
 
 jobs:
   build:
