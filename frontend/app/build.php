@@ -9,7 +9,7 @@ if (php_sapi_name() !== 'cli') {
 $buildCommands = [
     'npm install --no-progress --no-audit --no-fund',
     'npm run build',
-    'composer install --prefer-dist --no-progress --no-suggest'
+    'composer install --no-progress --quiet',
 ];
 
 // Files and directories not suitable for prod to be removed.
