@@ -36,6 +36,33 @@ final class UppslagAction
                 'user' => $session->getUser(),
                 'formattedUser' => $session->getUser()->format(),
                 'action' => null,
+                'services' => [
+                    [
+                        'id' => 'amv',
+                        'label' => 'Arbetsmiljöverket',
+                        'checked' => false,
+                    ],
+                    [
+                        'id' => 'bv',
+                        'label' => 'Bolagsverket',
+                        'checked' => true,
+                    ],
+                    [
+                        'id' => 'creditsafe',
+                        'label' => 'CreditSafe',
+                        'checked' => false,
+                    ],
+                    [
+                        'id' => 'kapitel13',
+                        'label' => 'Kapitel13',
+                        'checked' => true,
+                    ],
+                    [
+                        'id' => 'shv',
+                        'label' => 'Svensk Handel Varningslista',
+                        'checked' => true,
+                    ]
+                ],
             ]
         );
     }
@@ -44,13 +71,15 @@ final class UppslagAction
     {
         try {
             $orgNo = $request->getParsedBody()['orgno'];
+            $selectedServices = $request->getParsedBody()['selectedservices'];
 
             $service = $this->services->getOrganizationService();
 
             return $service->generateDownload(
                 $response,
                 $this->services->getSessionService()->getUser(),
-                $service->validateOrgNo($orgNo)
+                $service->validateOrgNo($orgNo),
+                $selectedServices
             );
         } catch (OrganizationException $e) {
             return $this->renderer->template(

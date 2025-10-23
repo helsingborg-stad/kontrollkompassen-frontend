@@ -27,7 +27,8 @@ class Organization implements AbstractOrganization
     public function generateDownload(
         Response $response,
         AbstractUser $user,
-        int $orgNo
+        int $orgNo,
+        mixed $services
     ): Response {
         try {
             $fileStream = new FileStream(
@@ -40,6 +41,7 @@ class Organization implements AbstractOrganization
                     $fileStream->fetch([
                         'orgNo' => (string) $orgNo,
                         'email' => $user->getMailAddress(),
+                        'services' => array_keys($services) ?? [],
                     ])
                 );
 

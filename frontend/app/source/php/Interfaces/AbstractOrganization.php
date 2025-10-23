@@ -11,7 +11,8 @@ interface AbstractOrganization
     public function generateDownload(
         Response $response,
         AbstractUser $user,
-        int $orgNo
+        int $orgNo,
+        mixed $services
     ): Response;
 
     public function validateOrgNo(mixed $value): int;
