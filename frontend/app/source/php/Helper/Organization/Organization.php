@@ -41,7 +41,7 @@ class Organization implements AbstractOrganization
                     $fileStream->fetch([
                         'orgNo' => (string) $orgNo,
                         'email' => $user->getMailAddress(),
-                        'services' => array_keys($services) ?? [],
+                        'services' => array_keys($services),
                     ])
                 );
 
@@ -54,6 +54,8 @@ class Organization implements AbstractOrganization
                     'Content-Disposition',
                     "attachment; filename*=UTF-8''" . ($fileStream->getFilename() ?: DEFAULT_FILENAME)
                 );
+        } catch (\TypeError $e) {
+            throw new OrganizationException(OrganizationErrorReason::InvalidLenghtSelected);
         } catch (\Exception $e) {
             throw new OrganizationException(OrganizationErrorReason::ServiceError, $e);
         }
