@@ -14,6 +14,34 @@ use \KoKoP\Helper\Organization\OrganizationException;
 
 final class UppslagAction
 {
+    private const SELECTABLE_SERVICES = [
+        [
+            'id' => 'amv',
+            'label' => 'Arbetsmiljöverket',
+            'checked' => false,
+        ],
+        [
+            'id' => 'bv',
+            'label' => 'Bolagsverket',
+            'checked' => true,
+        ],
+        [
+            'id' => 'creditsafe',
+            'label' => 'CreditSafe',
+            'checked' => false,
+        ],
+        [
+            'id' => 'kapitel13',
+            'label' => 'Kapitel13',
+            'checked' => true,
+        ],
+        [
+            'id' => 'shv',
+            'label' => 'Svensk Handel Varningslista',
+            'checked' => true,
+        ]
+    ];
+
     public function __construct(
         private AbstractServices $services,
         private BladeTemplateRenderer $renderer
@@ -36,6 +64,7 @@ final class UppslagAction
                 'user' => $session->getUser(),
                 'formattedUser' => $session->getUser()->format(),
                 'action' => null,
+                'services' => self::SELECTABLE_SERVICES,
             ]
         );
     }
@@ -44,13 +73,15 @@ final class UppslagAction
     {
         try {
             $orgNo = $request->getParsedBody()['orgno'];
+            $selectedServices = $request->getParsedBody()['selectedservices'];
 
             $service = $this->services->getOrganizationService();
 
             return $service->generateDownload(
                 $response,
                 $this->services->getSessionService()->getUser(),
-                $service->validateOrgNo($orgNo)
+                $service->validateOrgNo($orgNo),
+                $selectedServices
             );
         } catch (OrganizationException $e) {
             return $this->renderer->template(
@@ -61,6 +92,13 @@ final class UppslagAction
                     'formattedUser' => $this->services->getSessionService()->getUser()->format(),
                     'action' => 'orgno-malformed',
                     'orgNo' => $orgNo ?? null,
+                    'services' => array_map(
+                        function ($service) use ($selectedServices) {
+                            $service['checked'] = in_array($service['id'], $selectedServices ?? [], true);
+                            return $service;
+                        },
+                        self::SELECTABLE_SERVICES
+                    ),
                     'errorMessage' => $e->getMessage(),
                     'previousException' => $e->getPrevious() ? $e->getPrevious()->getMessage() : null,
                 ]

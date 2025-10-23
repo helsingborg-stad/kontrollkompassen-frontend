@@ -35,6 +35,11 @@ class OrganizationException extends Exception
                 OrganizationErrorReason::ServiceError->message(),
                 OrganizationErrorReason::ServiceError->value
             ],
+            OrganizationErrorReason::InvalidLenghtSelected =>
+            [
+                OrganizationErrorReason::InvalidLenghtSelected->message(),
+                OrganizationErrorReason::InvalidLenghtSelected->value
+            ],
         };
 
         parent::__construct($message, $code, $previous);
