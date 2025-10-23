@@ -22,7 +22,7 @@
           font-weight: 400;
           src: url('/assets/fonts/material-icons/862dfb9f58cbd545e33ee554d41c6ec8.woff') format('woff');
         }
-        .material-icons {
+        .material-symbols {
           font-family: 'Material Icons';
           font-weight: normal;
           font-style: normal;
