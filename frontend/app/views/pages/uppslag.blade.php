@@ -10,11 +10,7 @@
         'classList' => ['u-margin__top--2']
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
-        @typography([
-            'element' => 'h2',
-            'variant' => 'h4',
-            'classList' => ['u-margin__bottom--2']
-        ])
+        @typography(['element' => 'h2'])
             Välj tjänster och ange organisationsnummer. Vilka tjänster du väljer påverkar vilka uppgifter som hämtas.
         @endtypography
 

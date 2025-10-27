@@ -116,37 +116,6 @@
   --container-width-content:760px;
   --container-width:1440px;
 }
-.s-nav-sidebar{
-  --c-nav-v-color-contrasting:#000000;
-  --c-nav-v-background-active:rgba(0,0,0,.04);
-  --c-nav-v-color-contrasting-active:#000000;
-  --c-nav-v-background-expanded:rgba(0,0,0,.04);
-  --c-nav-v-divider-color:#eeeeee;
-}
-.s-nav-drawer{
-  --c-nav-v-color-contrasting:#000000;
-  --c-nav-v-color-contrasting-active:#000000;
-}
-.s-drawer-menu{
-  --c-button-default-color:#000000;
-}
-.s-nav-drawer-secondary{
-  --c-nav-v-color-contrasting:#ffffff;
-  --c-nav-v-color-contrasting-active:#ffffff;
-}
-.s-nav-primary{
-  --c-nav-v-color-contrasting:#76232f;
-  --c-nav-h-color-contrasting:#76232f;
-  --c-nav-h-color-contrasting-active:#76232f;
-}
-.s-nav-language{
-  --c-nav-v-color-contrasting:#000000;
-  --c-nav-v-color-contrasting-active:#000000;
-}
-.s-nav-floating{
-  --c-nav-v-color-contrasting:#000000;
-  --c-nav-v-color-contrasting-active:#000000;
-}
 .c-footer{
   background:#76222e;
   background-color:#76222e;
@@ -159,18 +128,8 @@
   background-size:contain;
 }
 :root {
-  --grid-gap: 24px;
+  --grid-gap: 16px;
     flex-direction: column;
-}
-.c-table .c-table__header {
-  padding: calc(var(--base, 8px)*1.5);
-  background: #77232f;
-  color: #fff;
-}
-:root{
-  --font-weight-base : 400; 
-  --font-weight-bold : 700; 
-  --lead-font-weight : 500;
 }
 @font-face {
   font-display: swap;
