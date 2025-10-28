@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace KoKoP\Action;
 
-use KoKoP\Helper\AuthException;
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
+use \KoKoP\Helper\Auth\AuthException;
 use \KoKoP\Helper\Validate as Validate;
 use \KoKoP\Renderer\BladeTemplateRenderer;
 use \KoKoP\Interfaces\AbstractServices;
@@ -37,26 +38,26 @@ final class LoginAction
 
     public function login(Request $request, Response $response): Response
     {
-        $body = $request->getParsedBody();
-        $username = $body['username'] ?? false;
-        $password = $body['password'] ?? false;
-
-        $action = match (true) {
-            !Validate::username($username) => 'login-error-username',
-            !Validate::password($password) => 'login-error-password',
-            default => null,
-        };
-
-        if ($action) {
-            return $this->renderer
-                ->template($response, self::class, [
-                    'action' => $action,
-                    'username' => $username,
-                ])
-                ->withStatus(400);
-        }
-
         try {
+            $body = $request->getParsedBody();
+            $username = $body['username'] ?? false;
+            $password = $body['password'] ?? false;
+
+            $action = match (true) {
+                !Validate::username($username) => 'login-error-username',
+                !Validate::password($password) => 'login-error-password',
+                default => null,
+            };
+
+            if ($action) {
+                return $this->renderer
+                    ->template($response, self::class, [
+                        'action' => $action,
+                        'username' => $username,
+                    ])
+                    ->withStatus(400);
+            }
+
             $this->services->getSessionService()->setSession(
                 $this->services->getAuthService()->authenticate($username, $password)
             );
