@@ -41,6 +41,7 @@ class Organization implements AbstractOrganization
                     $fileStream->fetch([
                         'orgNo' => (string) $orgNo,
                         'email' => $user->getMailAddress(),
+                        'groups' => $user->getGroups()['CN'],
                         'services' => array_keys($services),
                     ])
                 );
