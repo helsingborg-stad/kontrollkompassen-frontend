@@ -18,7 +18,7 @@ final class UppslagAction
         [
             'id' => 'amv',
             'label' => 'Arbetsmiljöverket',
-            'checked' => false,
+            'checked' => true,
         ],
         [
             'id' => 'bv',
@@ -28,7 +28,7 @@ final class UppslagAction
         [
             'id' => 'creditsafe',
             'label' => 'CreditSafe',
-            'checked' => false,
+            'checked' => true,
         ],
         [
             'id' => 'kapitel13',
