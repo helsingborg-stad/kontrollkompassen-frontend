@@ -6,7 +6,7 @@ namespace KoKoP\Helper\Stream;
 
 use Psr\Http\Message\StreamInterface;
 
-class MockRawStream implements StreamInterface
+class NullStream implements StreamInterface
 {
     protected $content;
     protected int $position = 0;

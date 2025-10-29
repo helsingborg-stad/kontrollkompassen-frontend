@@ -8,7 +8,6 @@ use Psr\Http\Message\StreamInterface;
 
 use \KoKoP\Interfaces\AbstractStream;
 
-
 class FileStream implements AbstractStream
 {
     private string $apiUrl;
@@ -35,11 +34,11 @@ class FileStream implements AbstractStream
                 ]
             ]);
 
-            $env = str_contains($this->apiUrl, 'http://') ? 'slim' : 'mock';
+            $env = $this->_getEnv();
 
             $this->stream = StreamFactory::createFromEnv(
                 $env,
-                fopen($env !== 'slim' ? 'php://temp' : $this->apiUrl, 'rb', false, $context)
+                fopen($env !== StreamFactory::ENV_DEFAULT ? 'php://temp' : $this->apiUrl, 'rb', false, $context)
             );
 
             return $this->stream;
@@ -67,10 +66,20 @@ class FileStream implements AbstractStream
             : '';
     }
 
+
+    private function _getEnv(): string
+    {
+        return preg_match('/^https?:\/\//', $this->apiUrl)
+            ? StreamFactory::ENV_DEFAULT
+            : StreamFactory::ENV_NULL;
+    }
+
     private function _getHeaderData($key): string
     {
         $wrapperData = $this->stream->getMetadata('wrapper_data');
         $header = array_find($wrapperData, fn($header) => str_starts_with(strtolower($header), strtolower($key) . ':'));
-        return $header ? trim(explode(':', $header, 2)[1]) : '';
+        return $header
+            ? trim(explode(':', $header, 2)[1])
+            : '';
     }
 }
