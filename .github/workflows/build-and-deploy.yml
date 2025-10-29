@@ -35,16 +35,6 @@ jobs:
         run: |
           cd ./frontend/app && ./vendor/bin/phpunit --testdox tests
 
-      - name: "TEMP: Make folder for rsync"
-        uses: appleboy/ssh-action@v0.1.4
-        with:
-          script: |
-            mkdir -p ${{ secrets.DEPLOY_PATH }}
-          host: ${{ secrets.DEPLOY_HOST }}
-          username: ${{ secrets.DEPLOY_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.DEPLOY_PORT }}
-
       - name: rsync deploy files and set www-data user.
         uses: burnett01/rsync-deployments@4.1
         with:
