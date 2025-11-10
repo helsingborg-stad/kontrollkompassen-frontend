@@ -1,7 +1,5 @@
 {
-  "MS_AUTH": "https://domain.com/ad-api/", 
-  "MS_NAVET": "https://domain-com/api/v1/kontaktcenter",
-  "MS_NAVET_AUTH": "AUTH_KEY",
+  "MS_AUTH": "", 
   "ENCRYPT_VECTOR": "2af8deebf4685c85",
   "ENCRYPT_KEY": "QIUKEzIb6k",
   "PREDIS": {
@@ -10,6 +8,5 @@
     "port": "6379"
   },
   "AD_GROUPS": [
-    "NAVET"
   ]
 }
