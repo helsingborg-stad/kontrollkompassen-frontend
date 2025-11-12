@@ -1,12 +1,10 @@
 {
-  "MS_AUTH": "", 
-  "ENCRYPT_VECTOR": "2af8deebf4685c85",
-  "ENCRYPT_KEY": "QIUKEzIb6k",
-  "PREDIS": {
-    "scheme": "tcp",
-    "host": "10.0.0.1",
-    "port": "6379"
-  },
-  "AD_GROUPS": [
-  ]
+  "MS_AUTH": "",
+  "ENCRYPT_VECTOR": "YOUR_ENCRYPT_VECTOR",
+  "ENCRYPT_KEY": "YOUR_ENCRYPT_KEY",
+  "PREDIS": false,
+  "DEBUG": false,
+  "AD_GROUPS": [],
+  "API_URL": "http://localhost:8000/api/export",
+  "API_KEY": "abc123"
 }
