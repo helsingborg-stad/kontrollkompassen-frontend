@@ -22,7 +22,7 @@ final class BladeTemplateRenderer
         preg_match('/KoKoP\\\Action\\\(.*?)Action/', $template, $matches);
         $actionName = strtolower($matches[1]) ?? '';
 
-        $blade = new ComponentLibraryInit(['viewPaths' => VIEWS_PATH])->getEngine();
+        $blade = (new ComponentLibraryInit(['viewPaths' => VIEWS_PATH]))->getEngine();
         $bladeResult = $blade->makeView(
             'pages.' . $actionName,
             $data,

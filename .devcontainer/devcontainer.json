@@ -1,0 +1,31 @@
+{
+  "name": "Kontrollkompassen Dev Container",
+  "dockerComposeFile": "docker-compose.yml",
+  "workspaceFolder": "/workspace",
+  "service": "app",
+  "remoteUser": "vscode",
+  "forwardPorts": [8001],
+  "containerEnv": {
+    "XDEBUG_MODE": "off"
+  },
+  "postCreateCommand": {
+    "setup": "chmod +x .devcontainer/post-create.sh && bash .devcontainer/post-create.sh"
+  },
+  "postStartCommand": "chmod +x .devcontainer/post-start.sh && bash .devcontainer/post-start.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "cjhowe7.laravel-blade",
+        "valeryanm.vscode-phpsab"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  }
+}

@@ -1,12 +1,6 @@
 {
-  "MS_AUTH": "", 
+  "MS_AUTH": "",
   "ENCRYPT_VECTOR": "2af8deebf4685c85",
   "ENCRYPT_KEY": "QIUKEzIb6k",
-  "PREDIS": {
-    "scheme": "tcp",
-    "host": "10.0.0.1",
-    "port": "6379"
-  },
-  "AD_GROUPS": [
-  ]
+  "AD_GROUPS": []
 }

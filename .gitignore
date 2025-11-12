@@ -11,3 +11,6 @@ node_modules
 frontend/config*.json
 /frontend/app/.npmrc
 .idea
+
+.env
+auth.json
