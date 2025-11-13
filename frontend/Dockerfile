@@ -1,3 +1,4 @@
-FROM webdevops/php-nginx:8.2-alpine
+FROM dunglas/frankenphp
 
-COPY . ./
+COPY ./config-example.json /app/config.json
+COPY ./app /app/public
