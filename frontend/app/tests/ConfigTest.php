@@ -7,59 +7,59 @@ use \KoKoP\Helper\Config;
 
 final class ConfigTest extends TestCase
 {
-    private $config;
-
-    protected function setUp(): void
-    {
-        $this->config = new Config(array(
-            "ENCRYPT_VECTOR" => "ABCDEFGHIJKLMNOP",
-            "TEST_KEY_1" => "ABCDEF"
-        ));
-    }
     public function testReturnsValueOfKnownKeySuccessfully(): void
     {
-        // Make sure the values are equals
-        $this->assertEquals($this->config->getValue("ENCRYPT_VECTOR"), "ABCDEFGHIJKLMNOP");
+        $this->assertEquals(new Config([
+            'ENCRYPT_VECTOR' => 'ABCDEFGHIJKLMNOP',
+        ])->getValue('ENCRYPT_VECTOR'), 'ABCDEFGHIJKLMNOP');
     }
+
     public function testReturnsNullForUnknownKey(): void
     {
-        // Make sure the values are equals
-        $this->assertEquals($this->config->getValue("TEST_KEY_1"), null);
+        $this->assertEquals(new Config([])->getValue('TEST_KEY_1'), null);
     }
+
     public function testReturnsDefaultForUndefinedKey(): void
     {
-        // Make sure the values are equals
-        $this->assertEquals($this->config->getValue("TEST_KEY_1", "DEFAULT"), "DEFAULT");
+        $this->assertEquals(new Config([])->getValue('TEST_KEY_2', 'DEFAULT'), 'DEFAULT');
     }
+
     public function testReturnsArrays(): void
     {
-        $config = new Config(array(
-            "AD_GROUPS" => ["a", "b"],
-        ));
-
-        // Make sure the values are equals
-        $this->assertEquals($config->getValue("AD_GROUPS"), ["a", "b"]);
+        $this->assertEquals(new Config([
+            'AD_GROUPS' => ['Group1', 'Group2']
+        ])->getValue('AD_GROUPS'), ['Group1', 'Group2']);
     }
 
     public function testConfigHasDefaultValues(): void
     {
-        $config = new Config();
-
         $this->assertEquals(
-            $config->getValues(),
-            array(
-                'API_KEY' => false,
-                'API_URL' => false,
-                'MS_AUTH' => false,
-                'ENCRYPT_VECTOR' => false,
-                'ENCRYPT_KEY' => false,
-                'ENCRYPT_CIPHER' => false,
+            new Config([
+                'API_KEY' => null,
+                'API_URL' => null,
+                'MS_AUTH' => null,
+                'ENCRYPT_VECTOR' => null,
+                'ENCRYPT_KEY' => null,
+                'ENCRYPT_CIPHER' => null,
                 'PREDIS' => false,
                 'DEBUG' => false,
-                'AD_GROUPS' => false,
-                'SESSION_COOKIE_NAME' => false,
-                'SESSION_COOKIE_EXPIRES' => false,
-            )
+                'AD_GROUPS' => [],
+                'SESSION_COOKIE_NAME' => 'kokop_session',
+                'SESSION_COOKIE_EXPIRES' => 3600,
+            ])->getValues(),
+            [
+                'API_KEY' => null,
+                'API_URL' => null,
+                'MS_AUTH' => null,
+                'ENCRYPT_VECTOR' => null,
+                'ENCRYPT_KEY' => null,
+                'ENCRYPT_CIPHER' => null,
+                'PREDIS' => false,
+                'DEBUG' => false,
+                'AD_GROUPS' => [],
+                'SESSION_COOKIE_NAME' => 'kokop_session',
+                'SESSION_COOKIE_EXPIRES' => 3600,
+            ]
         );
     }
 }
