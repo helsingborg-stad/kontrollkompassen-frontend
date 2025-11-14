@@ -7,15 +7,11 @@ namespace KoKoP\Action;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use KoKoP\Renderer\BladeTemplateRenderer;
 use KoKoP\Interfaces\AbstractServices;
 
 final class LogoutAction
 {
-    public function __construct(
-        private AbstractServices $services,
-        private BladeTemplateRenderer $renderer
-    ) {}
+    public function __construct(private AbstractServices $services) {}
 
     public function logout(Request $request, Response $response): Response
     {

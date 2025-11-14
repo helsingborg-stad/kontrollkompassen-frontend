@@ -61,8 +61,6 @@ final class UppslagAction
             $response,
             self::class,
             [
-                'user' => $session->getUser(),
-                'formattedUser' => $session->getUser()->format(),
                 'action' => null,
                 'services' => self::SELECTABLE_SERVICES,
             ]
@@ -88,8 +86,6 @@ final class UppslagAction
                 $response->withStatus($e->getDetails()['httpErrorCode']),
                 self::class,
                 [
-                    'user' => $this->services->getSessionService()->getUser(),
-                    'formattedUser' => $this->services->getSessionService()->getUser()->format(),
                     'action' => 'orgno-malformed',
                     'orgNo' => $orgNo ?? null,
                     'services' => array_map(
