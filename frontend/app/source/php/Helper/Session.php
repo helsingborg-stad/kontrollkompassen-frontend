@@ -22,11 +22,12 @@ class Session implements AbstractSession
     {
         $this->name = $config->getValue(
             'SESSION_COOKIE_NAME',
-            "kokop_auth_cookie"
+            "kokop_session"
         );
+
         $this->expires = (string) $config->getValue(
             'SESSION_COOKIE_EXPIRES',
-            (string) 60 * 60 * 10
+            60 * 60 * 10
         );
 
         $this->secure = $secure;

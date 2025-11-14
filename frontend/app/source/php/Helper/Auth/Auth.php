@@ -25,7 +25,7 @@ class Auth implements AbstractAuth
     {
         $this->config = $config;
         $this->request = $request;
-        $this->endpoint = rtrim($config->getValue('MS_AUTH', ""), "/");
+        $this->endpoint = rtrim($config->getValue('MS_AUTH', ''), '/');
         $this->allowedGroups = $config->getValue('AD_GROUPS', []);
     }
 
