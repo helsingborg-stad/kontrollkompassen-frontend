@@ -42,7 +42,7 @@ final class BladeTemplateRenderer
 
     private static function _getAssets(): array
     {
-        $manifestFile = BASEPATH . 'assets/dist/manifest.json';
+        $manifestFile = BASE_PATH . 'assets/dist/manifest.json';
 
         if (!file_exists($manifestFile)) {
             return [];
