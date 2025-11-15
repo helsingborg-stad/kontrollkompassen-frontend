@@ -6,14 +6,20 @@ namespace KoKoP\Helper;
 
 use KoKoP\Interfaces\AbstractConfig;
 use KoKoP\Interfaces\AbstractEnvLoader;
+use KoKoP\Interfaces\AbstractRequiredEnvs;
 
 class ConfigFactory
 {
-    public function __construct(private AbstractEnvLoader $_envLoader) {}
+    public function __construct(
+        private AbstractEnvLoader $_envLoader,
+        private AbstractRequiredEnvs $_requiredEnvs
+    ) {}
 
     public function create(): AbstractConfig
     {
         $env = $this->_envLoader->load();
+
+        $this->_requiredEnvs->validate($env);
 
         $normalized = [];
 
