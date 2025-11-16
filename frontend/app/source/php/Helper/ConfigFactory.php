@@ -10,21 +10,18 @@ use KoKoP\Interfaces\AbstractRequiredEnvs;
 
 class ConfigFactory
 {
-    public function __construct(
-        private AbstractEnvLoader $_envLoader,
-        private AbstractRequiredEnvs $_requiredEnvs
-    ) {}
+    public static function create(
+        AbstractEnvLoader $envLoader,
+        AbstractRequiredEnvs $requiredEnvs
+    ): AbstractConfig {
+        $env = $envLoader->load();
 
-    public function create(): AbstractConfig
-    {
-        $env = $this->_envLoader->load();
-
-        $this->_requiredEnvs->validate($env);
+        $requiredEnvs->validate($env);
 
         $normalized = [];
 
         foreach ($env as $key => $value) {
-            if (is_string($value) && $this->_isJson($value)) {
+            if (is_string($value) && self::_isJson($value)) {
                 $normalized[$key] = json_decode($value, true);
                 continue;
             }
@@ -40,7 +37,7 @@ class ConfigFactory
         return new Config($normalized);
     }
 
-    private function _isJson(string $s): bool
+    private static function _isJson(string $s): bool
     {
         json_decode($s);
         return (json_last_error() == JSON_ERROR_NONE);

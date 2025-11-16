@@ -10,19 +10,6 @@ use \KoKoP\Helper\ConfigFactory;
 use \KoKoP\Helper\MissingEnvKeysException;
 use KoKoP\Helper\RequiredEnvs;
 
-const REQUIRED_ENVS = [
-    'API_URL',
-    'API_KEY',
-    'MS_AUTH',
-    'ENCRYPT_VECTOR',
-    'ENCRYPT_KEY',
-    'ENCRYPT_CIPHER',
-    'PREDIS',
-    'DEBUG',
-    'AD_GROUPS',
-    'SESSION_COOKIE_NAME',
-    'SESSION_COOKIE_EXPIRES'
-];
 
 class ServicesFactory
 {
@@ -30,10 +17,10 @@ class ServicesFactory
     {
         try {
             return new RuntimeServices(
-                new ConfigFactory(
+                ConfigFactory::create(
                     new DotEnvLoader(BASE_PATH . '../'),
-                    new RequiredEnvs(REQUIRED_ENVS)
-                )->create()
+                    new RequiredEnvs()
+                )
             );
         } catch (MissingEnvKeysException $e) {
             echo $e->getMessage();

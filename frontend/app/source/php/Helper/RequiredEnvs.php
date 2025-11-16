@@ -7,16 +7,32 @@ namespace KoKoP\Helper;
 use \KoKoP\Helper\MissingEnvKeysException;
 use \KoKoP\Interfaces\AbstractRequiredEnvs;
 
+const REQUIRED_ENVS = [
+    'API_URL',
+    'API_KEY',
+    'MS_AUTH',
+    'ENCRYPT_VECTOR',
+    'ENCRYPT_KEY',
+    'ENCRYPT_CIPHER',
+    'PREDIS',
+    'DEBUG',
+    'AD_GROUPS',
+    'SESSION_COOKIE_NAME',
+    'SESSION_COOKIE_EXPIRES'
+];
+
 class RequiredEnvs implements AbstractRequiredEnvs
 {
-    public function __construct(private array $requiredKeys) {}
-
-    public function validate(array $env): void
+    public function validate(array $envs): void
     {
         $missing = [];
 
-        foreach ($this->requiredKeys as $key) {
-            if (!array_key_exists($key, $env) || $env[$key] === '' || $env[$key] === null) {
+        foreach (REQUIRED_ENVS as $key) {
+            if (
+                !array_key_exists($key, $envs) ||
+                $envs[$key] === '' ||
+                $envs[$key] === null
+            ) {
                 $missing[] = $key;
             }
         }
