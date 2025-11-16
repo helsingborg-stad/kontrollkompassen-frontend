@@ -7,13 +7,12 @@ namespace KoKoP\Services;
 use \KoKoP\Helper\RedisCache;
 use \KoKoP\Helper\Secure;
 use \KoKoP\Helper\Session;
-use \KoKoP\Helper\Auth\Auth;
-use \KoKoP\Helper\Auth\AuthAllowAll;
 use \KoKoP\Helper\CachableRequest;
 use \KoKoP\Helper\MemoryCache;
 use \KoKoP\Helper\Request;
 use \KoKoP\Helper\Cookie;
 use \KoKoP\Helper\Organization\Organization;
+use \KoKoP\Helper\Auth\AuthFactory;
 use \KoKoP\Interfaces\AbstractCache;
 use \KoKoP\Interfaces\AbstractRequest;
 use \KoKoP\Interfaces\AbstractAuth;
@@ -45,9 +44,10 @@ class RuntimeServices implements AbstractServices
 
         $this->request = new CachableRequest($this->cache, new Request());
 
-        $this->auth = $this->getConfigService()->getValue('MS_AUTH', false) ?
-            new Auth($this->getConfigService(), $this->request) :
-            new AuthAllowAll($this->getConfigService());
+        $this->auth = AuthFactory::create(
+            $this->getConfigService(),
+            $this->getRequestService()
+        );
 
         $this->organization = new Organization($this->getConfigService());
     }
