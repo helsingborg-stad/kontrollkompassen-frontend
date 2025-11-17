@@ -7,9 +7,8 @@ namespace KoKoP\Services;
 use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Helper\DotEnvLoader;
 use \KoKoP\Helper\ConfigFactory;
+use \KoKoP\Helper\RequiredEnvs;
 use \KoKoP\Helper\MissingEnvKeysException;
-use KoKoP\Helper\RequiredEnvs;
-
 
 class ServicesFactory
 {

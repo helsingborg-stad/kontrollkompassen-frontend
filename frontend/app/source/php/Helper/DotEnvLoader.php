@@ -16,12 +16,20 @@ class DotEnvLoader implements AbstractEnvLoader
 
     public function load(): array
     {
-        $dotenv = $this->filename
-            ? Dotenv::createImmutable($this->path, $this->filename)
-            : Dotenv::createImmutable($this->path);
-
-        $dotenv->load();
+        Dotenv::createImmutable(
+            $this->path,
+            $this->_normalizeFilename()
+        )->load();
 
         return $_ENV;
+    }
+
+    private function _normalizeFilename(): string
+    {
+        $f = empty($this->filename) ? '.env' : $this->filename;
+        if (!file_exists($this->path . $f)) {
+            throw new \RuntimeException("Environment file not found: " . $this->path . $f, 500);
+        }
+        return $f;
     }
 }
