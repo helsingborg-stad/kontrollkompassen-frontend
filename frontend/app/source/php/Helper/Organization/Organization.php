@@ -56,7 +56,7 @@ class Organization implements AbstractOrganization
                     "attachment; filename*=UTF-8''" . ($fileStream->getFilename() ?: DEFAULT_FILENAME)
                 );
         } catch (\TypeError $e) {
-            throw new OrganizationException(OrganizationErrorReason::InvalidLenghtSelected);
+            throw new OrganizationException(OrganizationErrorReason::InvalidLenghtSelected, $e);
         } catch (\Exception $e) {
             throw new OrganizationException(OrganizationErrorReason::ServiceError, $e);
         }
