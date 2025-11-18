@@ -12,7 +12,7 @@ use stdClass;
 class User implements AbstractUser, JsonSerializable
 {
     private string $account;
-    private string $groups;
+    private string $memberof;
     private string $company;
     private string $displayname;
     private string $sn;
@@ -24,13 +24,11 @@ class User implements AbstractUser, JsonSerializable
     ) {
         if (is_object($user)) {
             $this->account = $user->samaccountname ?? '';
-            $this->groups = $user->memberof ?? '';
+            $this->memberof = $user->memberof ?? '';
             $this->company = $user->company ?? '';
             $this->displayname = $user->displayname ?? '';
             $this->sn = $user->sn ?? '';
             $this->mail = $user->mail ?? '';
-
-            $this->groups = $this->getGroupsString();
         }
     }
 
@@ -61,31 +59,33 @@ class User implements AbstractUser, JsonSerializable
 
     public function getGroups(): array
     {
+        if (empty($this->memberof)) {
+            return [];
+        }
+
         $groups = [];
 
-        if (!empty($this->groups)) {
-            $parts = explode(',', $this->groups);
+        $parts = explode(',', $this->memberof);
 
-            foreach ($parts as $part) {
-                $group = explode('=', $part);
-                $key = trim($group[0] ?? '');
-                $value = trim($group[1] ?? '');
+        foreach ($parts as $part) {
+            $group = explode('=', $part);
+            $key = trim($group[0] ?? '');
+            $value = trim($group[1] ?? '');
 
-                if (!isset($groups[$key])) {
-                    $groups[$key] = [];
-                }
+            if (!isset($groups[$key])) {
+                $groups[$key] = [];
+            }
 
-                if (in_array($value, $groups[$key])) {
-                    continue;
-                }
+            if (in_array($value, $groups[$key])) {
+                continue;
+            }
 
-                // Include groups of interest to prevent overflowing of cookie size
-                if (
-                    is_null($this->config) ||
-                    in_array($value, $this->config->getValue('AD_GROUPS', []))
-                ) {
-                    $groups[$key][] = $value;
-                }
+            // Include groups of interest to prevent overflowing of cookie size
+            if (
+                is_null($this->config) ||
+                in_array($value, $this->config->getValue('AD_GROUPS', []))
+            ) {
+                $groups[$key][] = $value;
             }
         }
 
@@ -101,7 +101,13 @@ class User implements AbstractUser, JsonSerializable
                 continue;
             }
 
-            $carry .= "$key=" . implode(',', $value) . ',';
+            if (is_array($value)) {
+                foreach ($value as $v) {
+                    $carry .= $key . '=' . $v . ',';
+                }
+            } else {
+                $carry .= $key . '=' . $value . ',';
+            }
         }
 
         return rtrim($carry, ',');
@@ -142,7 +148,7 @@ class User implements AbstractUser, JsonSerializable
     {
         return [
             'samaccountname' => $this->account,
-            'memberof' => $this->groups,
+            'memberof' => $this->getGroupsString(),
             'company' => $this->company,
             'displayname' => $this->displayname,
             'sn' => $this->sn,
