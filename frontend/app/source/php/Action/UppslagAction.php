@@ -78,8 +78,8 @@ final class UppslagAction
                     ->withStatus(302);
             }
 
-            $orgNo = $request->getParsedBody()['orgno'];
-            $selectedServices = $request->getParsedBody()['selectedservices'];
+            $orgNo = @$request->getParsedBody()['orgno'];
+            $selectedServices = @$request->getParsedBody()['selectedservices'];
 
             $orgService = $this->services->getOrganizationService();
 
@@ -103,8 +103,7 @@ final class UppslagAction
                         },
                         self::SELECTABLE_SERVICES
                     ),
-                    'errorMessage' => $e->getMessage(),
-                    'previousException' => $e->getPrevious() ? $e->getPrevious()->getMessage() : null,
+                    'errorMessage' => $e->getMessage()
                 ]
             );
         }
