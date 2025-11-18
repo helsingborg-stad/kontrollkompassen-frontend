@@ -50,8 +50,7 @@ class RuntimeServices implements AbstractServices
         );
 
         $this->organization = new Organization(
-            $this->getConfigService(),
-            $this->getRequestService()
+            $this->getConfigService()
         );
     }
 

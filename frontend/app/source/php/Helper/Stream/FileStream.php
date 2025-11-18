@@ -7,7 +7,6 @@ namespace KoKoP\Helper\Stream;
 use Psr\Http\Message\StreamInterface;
 
 use \KoKoP\Interfaces\AbstractStream;
-use \KoKoP\Interfaces\AbstractRequest;
 
 class FileStream implements AbstractStream
 {
@@ -16,7 +15,6 @@ class FileStream implements AbstractStream
     public function __construct(
         private string $apiKey,
         private mixed $apiUrl,
-        private AbstractRequest $request
     ) {}
 
     public function fetch(array $content): StreamInterface
@@ -33,7 +31,6 @@ class FileStream implements AbstractStream
                     'content' => json_encode($content)
                 ]
             ]),
-            $this->request
         )->create();
 
         return $this->stream;
