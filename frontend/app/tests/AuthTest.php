@@ -22,7 +22,7 @@ final class AuthTest extends TestCase
             'postalcode' => 'postalcode',
             'physicaldeliveryofficename' => 'physicaldeliveryofficename',
             'displayname' => 'displayname',
-            'memberof' => 'CN=cn,OU=ou,DC=dc',
+            'memberof' => 'CN=cn,CN=hepp,CN=happ,OU=ou,DC=dc',
             'department' => 'department',
             'company' => 'company',
             'streetaddress' => 'streetaddress',
