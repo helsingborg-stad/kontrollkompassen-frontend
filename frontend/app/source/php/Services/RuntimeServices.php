@@ -49,7 +49,10 @@ class RuntimeServices implements AbstractServices
             $this->getRequestService()
         );
 
-        $this->organization = new Organization($this->getConfigService());
+        $this->organization = new Organization(
+            $this->getConfigService(),
+            $this->getRequestService()
+        );
     }
 
     public function getRequestService(): AbstractRequest

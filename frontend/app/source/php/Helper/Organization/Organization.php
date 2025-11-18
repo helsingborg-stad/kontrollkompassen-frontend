@@ -13,13 +13,17 @@ use \KoKoP\Helper\Organization\OrganizationException;
 use \KoKoP\Enums\OrganizationErrorReason;
 use \KoKoP\Helper\Sanitize;
 use \KoKoP\Helper\Stream\FileStream;
+use KoKoP\Interfaces\AbstractRequest;
 
 const DEFAULT_FILENAME = 'uppslag.xlsx';
 const DEFAULT_CONTENT_TYPE = 'application/octet-stream';
 
 class Organization implements AbstractOrganization
 {
-    public function __construct(private AbstractConfig $config) {}
+    public function __construct(
+        private AbstractConfig $config,
+        private AbstractRequest $request
+    ) {}
 
     /**
      * @throws OrganizationException
@@ -33,7 +37,8 @@ class Organization implements AbstractOrganization
         try {
             $fileStream = new FileStream(
                 $this->config->getValue('API_KEY', '123abc'),
-                $this->config->getValue('API_URL', '')
+                $this->config->getValue('API_URL', ''),
+                $this->request
             );
 
             $responseWithBody = $response
