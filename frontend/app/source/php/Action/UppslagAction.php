@@ -81,12 +81,12 @@ final class UppslagAction
             $orgNo = $request->getParsedBody()['orgno'];
             $selectedServices = $request->getParsedBody()['selectedservices'];
 
-            $service = $this->services->getOrganizationService();
+            $orgService = $this->services->getOrganizationService();
 
-            return $service->generateDownload(
+            return $orgService->generateDownload(
                 $response,
                 $this->services->getSessionService()->getUser(),
-                $service->validateOrgNo($orgNo),
+                $orgService->validateOrgNo($orgNo),
                 $selectedServices
             );
         } catch (OrganizationException $e) {
@@ -97,9 +97,9 @@ final class UppslagAction
                     'action' => 'orgno-malformed',
                     'orgNo' => $orgNo ?? null,
                     'services' => array_map(
-                        function ($service) use ($selectedServices) {
-                            $service['checked'] = in_array($service['id'], $selectedServices ?? [], true);
-                            return $service;
+                        function ($s) use ($selectedServices) {
+                            $s['checked'] = in_array($s['id'], $selectedServices ?? [], true);
+                            return $s;
                         },
                         self::SELECTABLE_SERVICES
                     ),
