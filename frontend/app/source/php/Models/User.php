@@ -72,21 +72,18 @@ class User implements AbstractUser, JsonSerializable
             $key = trim($group[0] ?? '');
             $value = trim($group[1] ?? '');
 
-            if (!isset($groups[$key])) {
-                $groups[$key] = [];
-            }
-
-            if (in_array($value, $groups[$key])) {
+            if (in_array($value, $groups)) {
                 continue;
             }
 
-            // Include groups of interest to prevent overflowing of cookie size
             if (
-                is_null($this->config) ||
-                in_array($value, $this->config->getValue('AD_GROUPS', []))
+                !is_null($this->config) &&
+                !in_array($value, $this->config->getValue('ADVANCED_USER_AD_GROUPS', []))
             ) {
-                $groups[$key][] = $value;
+                continue;
             }
+
+            $groups[] = $value;
         }
 
         return $groups;

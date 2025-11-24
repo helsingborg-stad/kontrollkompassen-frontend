@@ -41,6 +41,14 @@ final class UppslagBasicAction
     public function fetch(Request $request, Response $response): Response
     {
         try {
+            $session = $this->services->getSessionService();
+
+            if (!$session->isValidSession()) {
+                return $response
+                    ->withHeader('Location', '/')
+                    ->withStatus(302);
+            }
+
             $orgNo = $request->getParsedBody()['orgno'];
 
             $config = $this->services->getConfigService();

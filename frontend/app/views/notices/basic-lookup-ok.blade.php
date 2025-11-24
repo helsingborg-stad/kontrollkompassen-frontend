@@ -7,7 +7,7 @@
         'size' => 'sm'
     ],
     'icon' => [
-        'name' => 'check',
+        'icon' => 'check',
         'size' => 'md',
         'color' => 'white'
     ],

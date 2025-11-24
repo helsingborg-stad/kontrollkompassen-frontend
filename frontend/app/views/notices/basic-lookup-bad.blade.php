@@ -11,7 +11,7 @@
         'size' => 'sm'
     ],
     'icon' => [
-        'name' => 'report',
+        'icon' => 'report',
         'size' => 'md',
         'color' => 'white'
     ],
