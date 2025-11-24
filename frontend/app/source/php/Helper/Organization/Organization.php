@@ -33,7 +33,7 @@ class Organization implements AbstractOrganization
         try {
             $fileStream = new FileStream(
                 $this->config->getValue('API_KEY', '123abc'),
-                $this->config->getValue('API_URL', '')
+                $this->config->getValue('API_URL', '') . '/export'
             );
 
             $responseWithBody = $response
