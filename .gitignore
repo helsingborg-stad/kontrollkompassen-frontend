@@ -12,3 +12,4 @@ frontend/config*.json
 /frontend/app/.npmrc
 .idea
 .env
+frontend/app/auth.json
