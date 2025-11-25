@@ -23,8 +23,8 @@ return function (App $app): void {
     $app->post('/uppslag', [UppslagAction::class, 'fetch']);
     $app->get('/uppslag/success', [UppslagAction::class, 'success']);
 
-    $app->get('/uppslag-basic', [UppslagBasicAction::class, 'index']);
-    $app->post('/uppslag-basic', [UppslagBasicAction::class, 'fetch']);
+    $app->get('/uppslag-enkel', [UppslagBasicAction::class, 'index']);
+    $app->post('/uppslag-enkel', [UppslagBasicAction::class, 'fetch']);
 
     $app->get('/glomt-losenord', ForgotPasswordAction::class);
 };

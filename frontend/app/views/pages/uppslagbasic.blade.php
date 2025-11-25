@@ -6,7 +6,7 @@
 
         @form([
         'method' => 'POST',
-        'action' => '/uppslag-basic',
+        'action' => '/uppslag-enkel',
         'classList' => ['u-margin__top--2']
         ])
         <div class="u-display--flex u-flex-direction--column u-flex--gridgap">

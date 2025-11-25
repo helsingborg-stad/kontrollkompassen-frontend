@@ -62,7 +62,7 @@ final class UppslagAction
 
         if ($isBasicUser) {
             return $response
-                ->withHeader('Location', '/uppslag-basic')
+                ->withHeader('Location', '/uppslag-enkel')
                 ->withStatus(302);
         }
 
