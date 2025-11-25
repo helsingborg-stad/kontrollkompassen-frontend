@@ -57,6 +57,15 @@ final class UppslagAction
                 ->withStatus(302);
         }
 
+        $userGroups = $session->getUser()->getGroups();
+        $isBasicUser = empty($userGroups);
+
+        if ($isBasicUser) {
+            return $response
+                ->withHeader('Location', '/uppslag-enkel')
+                ->withStatus(302);
+        }
+
         return $this->renderer->template(
             $response,
             self::class,

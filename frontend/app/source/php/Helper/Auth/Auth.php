@@ -19,24 +19,17 @@ class Auth implements AbstractAuth
     private AbstractConfig $config;
     protected AbstractRequest $request;
     protected string $endpoint;
-    protected string|array $allowedGroups;
 
     public function __construct(AbstractConfig $config, AbstractRequest $request)
     {
         $this->config = $config;
         $this->request = $request;
         $this->endpoint = $config->getValue('MS_AUTH', '');
-        $this->allowedGroups = $config->getValue('AD_GROUPS', []);
     }
 
     public function getEndpoint(): string
     {
         return $this->endpoint;
-    }
-
-    public function getAllowedGroups(): string|array
-    {
-        return $this->allowedGroups;
     }
 
     public function authenticate(string $name, string $password): AbstractUser
@@ -56,23 +49,6 @@ class Auth implements AbstractAuth
             throw new AuthException(AuthErrorReason::InvalidCredentials);
         }
 
-        if (!$this->isAuthorized($user->getGroups())) {
-            throw new AuthException(AuthErrorReason::Unauthorized);
-        }
-
         return $user;
-    }
-
-    protected function isAuthorized($groups): bool
-    {
-        if (array_key_exists('CN', $groups) && is_array($this->allowedGroups) && count($this->allowedGroups)) {
-            foreach ($this->allowedGroups as $group) {
-                if (in_array($group, $groups['CN'])) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
     }
 }
