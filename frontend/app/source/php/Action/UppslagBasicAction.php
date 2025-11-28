@@ -56,12 +56,31 @@ final class UppslagBasicAction
             $apiKey = $config->getValue('API_KEY', '');
             $user = $this->services->getSessionService()->getUser();
 
+            $servicesUrl = $config->getValue('API_URL', '') . '/services';
+            $servicesListRequest = new HelperRequest();
+            $servicesListResponse = $servicesListRequest->get($servicesUrl, [
+                'mode' => 'basic'
+            ], [
+                'x-api-key' => $apiKey,
+                'content-type' => 'application/json'
+            ]);
+            if ($servicesListResponse->getStatusCode() !== 200) {
+                throw new OrganizationException(OrganizationErrorReason::ServiceError);
+            }
+
+            $servicesListData = $servicesListResponse->getContent();
+            $serviceIds = [];
+
+            foreach ($servicesListData as $value) {
+                $serviceIds[] = $value->id;
+            }
+
             $postRequest = new HelperRequest();
             $postResponse = $postRequest->post($apiUrl, [
                 'orgNo' => (string) $orgNo,
                 'email' => $user->getMailAddress(),
                 'groups' => $user->getGroups(),
-                'services' => ['amv', 'bv', 'creditsafe', 'kapitel13', 'shv'],
+                'services' => $serviceIds,
             ], [
                 'x-api-key' => $apiKey,
                 'content-type' => 'application/json'
