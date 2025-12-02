@@ -45,29 +45,10 @@ final class AuthTest extends TestCase
                 'post' => new Response(200, null, $this->data),
             ],
         );
-        $auth = new Auth(new Config(['AD_GROUPS' => ['cn']]), $mock);
+        $auth = new Auth(new Config(['ADVANCED_USER_AD_GROUPS' => ['cn']]), $mock);
         $user = $auth->authenticate('samaccountname', 'samaccountname');
 
         $this->assertEquals($user->getAccountName(), 'samaccountname');
-    }
-
-    public function testUnauthorizedException(): void
-    {
-        $mock = $this->createConfiguredMock(
-            AbstractRequest::class,
-            [
-                'get' => new Response(200, null, null),
-                'post' => new Response(200, null, $this->data),
-            ],
-        );
-
-        $auth = new Auth(new Config(['AD_GROUPS' => ['unknown']]), $mock);
-
-        $error = AuthErrorReason::Unauthorized->value;
-        $this->expectException('KoKoP\Helper\Auth\AuthException');
-        $this->expectExceptionCode($error);
-
-        $auth->authenticate('samaccountname', 'samaccountname');
     }
 
     public function testInvalidCredentialsException(): void
@@ -111,12 +92,10 @@ final class AuthTest extends TestCase
     public function testConfigValuesAreRespected(): void
     {
         $auth = new Auth(new Config([
-            'MS_AUTH' => 'MS_AUTH_VALUE',
-            'AD_GROUPS' => ['AD_GROUPS_VALUE']
+            'MS_AUTH' => 'MS_AUTH_VALUE'
         ]), new Request());
 
         $this->assertEquals($auth->getEndpoint(), 'MS_AUTH_VALUE');
-        $this->assertEquals($auth->getAllowedGroups(), ['AD_GROUPS_VALUE']);
     }
 
     public function testConfigHasDefaultValues(): void
@@ -124,6 +103,5 @@ final class AuthTest extends TestCase
         $auth = new Auth(new Config([]), new Request());
 
         $this->assertEquals($auth->getEndpoint(), '');
-        $this->assertEquals($auth->getAllowedGroups(), []);
     }
 }

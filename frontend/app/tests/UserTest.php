@@ -50,13 +50,7 @@ final class UserTest extends TestCase
     {
         $this->assertEquals(
             $this->user->getGroups(),
-            [
-                'A' => [0 => 'a', 1 => 'b'],
-                'B' => ['b'],
-                'C' => ['c'],
-                'D' => ['d'],
-                'X' => [''],
-            ]
+            ['a', 'b', 'c', 'd', '',]
         );
     }
 
@@ -82,6 +76,6 @@ final class UserTest extends TestCase
 
     public function testSerializeJsonCorrectly(): void
     {
-        $this->assertSame(json_encode($this->user), '{"samaccountname":"samaccountname_value","memberof":"A=a,A=b,B=b,C=c,D=d,X=","company":"company_value","displayname":"displayname_value","sn":"sn_value","mail":"mail_value"}');
+        $this->assertSame(json_encode($this->user), '{"samaccountname":"samaccountname_value","memberof":"0=a,1=b,2=c,3=d","company":"company_value","displayname":"displayname_value","sn":"sn_value","mail":"mail_value"}');
     }
 }
