@@ -4,20 +4,22 @@ namespace KoKoP\Enums;
 
 enum OrganizationErrorReason: int
 {
-    case InvalidLenght = 0;
+    case InvalidLength = 0;
     case InvalidFormat = 1;
     case Empty = 2;
     case ServiceError = 3;
-    case InvalidLenghtSelected = 4;
+    case InvalidLengthSelected = 4;
+    case NotNumericFormat = 5;
 
     public function message(): string
     {
         return match ($this) {
-            self::InvalidLenght => 'Ogiltig längd för organisationsnummer. Skall vara 10 eller 12 siffror',
-            self::InvalidFormat => 'Ogiltigt format för organisationsnummer. Endast siffror är tillåtna',
+            self::InvalidLength => 'Ogiltig längd för organisationsnummer. Skall vara 10 eller 12 siffror',
+            self::InvalidFormat => 'Ogiltigt format för organisationsnummer. (112233-4455 eller 1122334455)',
             self::Empty => 'Fältet: Organisationsnummer får inte vara tomt',
             self::ServiceError => 'Ett fel uppstod vid hämtning av uppslagsfilen. Försök igen senare',
-            self::InvalidLenghtSelected => 'Du måste välja minst en datakälla för att kunna söka på organisationsnummer',
+            self::InvalidLengthSelected => 'Du måste välja minst en datakälla för att kunna söka på organisationsnummer',
+            self::NotNumericFormat => 'Ogiltigt format för organisationsnummer. Endast siffror är tillåtna',
         };
     }
 
@@ -38,8 +40,8 @@ enum OrganizationErrorReason: int
     public function httpErrorCode(): int
     {
         return match ($this) {
-            self::InvalidLenght, self::InvalidFormat, self::Empty, self::InvalidLenghtSelected => 400,
-            self::ServiceError => 500,
+            self::InvalidLength, self::InvalidFormat, self::Empty, self::InvalidLengthSelected, self::NotNumericFormat => 400,
+            self::ServiceError => 500
         };
     }
 }

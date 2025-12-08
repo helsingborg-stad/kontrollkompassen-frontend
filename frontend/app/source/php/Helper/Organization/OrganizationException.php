@@ -16,10 +16,10 @@ class OrganizationException extends Exception
     function __construct(OrganizationErrorReason $reason, ?Throwable $previous = null)
     {
         [$message, $code] = match ($reason) {
-            OrganizationErrorReason::InvalidLenght =>
+            OrganizationErrorReason::InvalidLength =>
             [
-                OrganizationErrorReason::InvalidLenght->message(),
-                OrganizationErrorReason::InvalidLenght->value,
+                OrganizationErrorReason::InvalidLength->message(),
+                OrganizationErrorReason::InvalidLength->value,
             ],
             OrganizationErrorReason::InvalidFormat =>
             [
@@ -36,11 +36,16 @@ class OrganizationException extends Exception
                 OrganizationErrorReason::ServiceError->message(),
                 OrganizationErrorReason::ServiceError->value
             ],
-            OrganizationErrorReason::InvalidLenghtSelected =>
+            OrganizationErrorReason::InvalidLengthSelected =>
             [
-                OrganizationErrorReason::InvalidLenghtSelected->message(),
-                OrganizationErrorReason::InvalidLenghtSelected->value
+                OrganizationErrorReason::InvalidLengthSelected->message(),
+                OrganizationErrorReason::InvalidLengthSelected->value
             ],
+            OrganizationErrorReason::NotNumericFormat =>
+            [
+                OrganizationErrorReason::NotNumericFormat->message(),
+                OrganizationErrorReason::NotNumericFormat->value
+            ]
         };
 
         parent::__construct($message, $code, $previous);

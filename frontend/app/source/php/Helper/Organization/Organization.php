@@ -56,7 +56,7 @@ class Organization implements AbstractOrganization
                     "attachment; filename*=UTF-8''" . ($fileStream->getFilename() ?: DEFAULT_FILENAME)
                 );
         } catch (\TypeError $e) {
-            throw new OrganizationException(OrganizationErrorReason::InvalidLenghtSelected, $e);
+            throw new OrganizationException(OrganizationErrorReason::InvalidLengthSelected);
         } catch (\Exception $e) {
             throw new OrganizationException(OrganizationErrorReason::ServiceError, $e);
         }
@@ -71,15 +71,19 @@ class Organization implements AbstractOrganization
             throw new OrganizationException(OrganizationErrorReason::Empty);
         }
 
-        if (!is_numeric($value)) {
-            throw new OrganizationException(OrganizationErrorReason::InvalidFormat);
+        if(str_contains((string) $value, '-')) {
+            if (!preg_match('/^(\d{6}|\d{8})-\d{4}$/', (string) $value)) {
+                throw new OrganizationException(OrganizationErrorReason::InvalidFormat);
+            }
+        } elseif (!is_numeric($value)) {
+            throw new OrganizationException(OrganizationErrorReason::NotNumericFormat);
         }
 
         $orgNo = Sanitize::number($value);
         $length = strlen((string) $orgNo);
 
         if ($length < 9 || $length > 13) {
-            throw new OrganizationException(OrganizationErrorReason::InvalidLenght);
+            throw new OrganizationException(OrganizationErrorReason::InvalidLength);
         }
 
         return $orgNo;
