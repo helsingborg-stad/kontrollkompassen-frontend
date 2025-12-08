@@ -24,7 +24,6 @@ class Secure implements AbstractSecure
 
     public function __construct(AbstractConfig $config)
     {
-        // Read config
         $this->cipher = $config->getValue(
             'ENCRYPT_CIPHER',
             'AES-128-CTR'
@@ -52,14 +51,6 @@ class Secure implements AbstractSecure
         return $this->key;
     }
 
-    /**
-     * Encrypts the provided data using AES-128-CTR encryption.
-     *
-     * If the data is an array or object, it is first converted to a JSON string before encryption.
-     *
-     * @param mixed $data The data to be encrypted.
-     * @return false|string|void The encrypted data, or false on failure.
-     */
     public function encrypt(mixed $data): string|false
     {
         if (is_array($data) || is_object($data)) {
@@ -68,14 +59,6 @@ class Secure implements AbstractSecure
         return openssl_encrypt($data, $this->cipher, $this->key, 0, $this->vector);
     }
 
-    /**
-     * Decrypts the provided encrypted data using AES-128-CTR decryption.
-     *
-     * If the decrypted data is a JSON string, it is converted back to an array or object.
-     *
-     * @param string $encryptedData The encrypted data to be decrypted.
-     * @return mixed The decrypted data, or the original encrypted data on failure.
-     */
     public function decrypt($encryptedData): mixed
     {
         $decrypted = openssl_decrypt($encryptedData, $this->cipher, $this->key, 0, $this->vector);

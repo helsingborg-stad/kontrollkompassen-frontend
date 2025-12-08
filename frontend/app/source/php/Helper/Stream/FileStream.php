@@ -10,20 +10,18 @@ use \KoKoP\Interfaces\AbstractStream;
 
 class FileStream implements AbstractStream
 {
-    private string $apiUrl;
-    private string $apiKey;
     private StreamInterface $stream;
 
-    public function __construct(string $apiKey, string $apiUrl)
-    {
-        $this->apiKey = $apiKey;
-        $this->apiUrl = $apiUrl;
-    }
+    public function __construct(
+        private string $apiKey,
+        private mixed $apiUrl,
+    ) {}
 
     public function fetch(array $content): StreamInterface
     {
-        try {
-            $context = stream_context_create([
+        $this->stream = new StreamFactory(
+            $this->apiUrl,
+            stream_context_create([
                 'http' => [
                     'method' => 'POST',
                     'header' => [
@@ -32,19 +30,10 @@ class FileStream implements AbstractStream
                     ],
                     'content' => json_encode($content)
                 ]
-            ]);
+            ]),
+        )->create();
 
-            $env = $this->_getEnv();
-
-            $this->stream = StreamFactory::createFromEnv(
-                $env,
-                fopen($env !== StreamFactory::ENV_DEFAULT ? 'php://temp' : $this->apiUrl, 'rb', false, $context)
-            );
-
-            return $this->stream;
-        } catch (\Exception $e) {
-            throw new \RuntimeException('Failed to create file stream: ' . $e->getMessage(), 0, $e);
-        }
+        return $this->stream;
     }
 
     public function getContentType(): string
@@ -64,14 +53,6 @@ class FileStream implements AbstractStream
         return isset($matches[1])
             ? $matches[1]
             : '';
-    }
-
-
-    private function _getEnv(): string
-    {
-        return preg_match('/^https?:\/\//', $this->apiUrl)
-            ? StreamFactory::ENV_DEFAULT
-            : StreamFactory::ENV_NULL;
     }
 
     private function _getHeaderData($key): string

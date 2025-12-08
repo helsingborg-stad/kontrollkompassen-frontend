@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace KoKoP\Helper\Organization;
 
+use Throwable;
 use Exception;
 use \KoKoP\Enums\OrganizationErrorReason;
 
@@ -12,7 +13,7 @@ class OrganizationException extends Exception
     /**
      * @throws Exception
      */
-    function __construct(OrganizationErrorReason $reason, ?Exception $previous = null)
+    function __construct(OrganizationErrorReason $reason, ?Throwable $previous = null)
     {
         [$message, $code] = match ($reason) {
             OrganizationErrorReason::InvalidLength =>

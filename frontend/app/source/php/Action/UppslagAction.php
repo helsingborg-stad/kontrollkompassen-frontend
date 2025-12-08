@@ -4,44 +4,18 @@ declare(strict_types=1);
 
 namespace KoKoP\Action;
 
+use KoKoP\Enums\OrganizationErrorReason;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
 use \KoKoP\Renderer\BladeTemplateRenderer;
 use \KoKoP\Interfaces\AbstractServices;
 use \KoKoP\Helper\Organization\OrganizationException;
+use KoKoP\Helper\Request as HelperRequest;
 
 
 final class UppslagAction
 {
-    private const SELECTABLE_SERVICES = [
-        [
-            'id' => 'amv',
-            'label' => 'Arbetsmiljöverket',
-            'checked' => true,
-        ],
-        [
-            'id' => 'bv',
-            'label' => 'Bolagsverket',
-            'checked' => true,
-        ],
-        [
-            'id' => 'creditsafe',
-            'label' => 'CreditSafe',
-            'checked' => true,
-        ],
-        [
-            'id' => 'kapitel13',
-            'label' => 'Kapitel13',
-            'checked' => true,
-        ],
-        [
-            'id' => 'shv',
-            'label' => 'Svensk Handel Varningslista',
-            'checked' => true,
-        ]
-    ];
-
     public function __construct(
         private AbstractServices $services,
         private BladeTemplateRenderer $renderer
@@ -57,14 +31,21 @@ final class UppslagAction
                 ->withStatus(302);
         }
 
+        $userGroups = $session->getUser()->getGroups();
+        $isBasicUser = empty($userGroups);
+
+        if ($isBasicUser) {
+            return $response
+                ->withHeader('Location', '/uppslag-enkel')
+                ->withStatus(302);
+        }
+
         return $this->renderer->template(
             $response,
             self::class,
             [
-                'user' => $session->getUser(),
-                'formattedUser' => $session->getUser()->format(),
                 'action' => null,
-                'services' => self::SELECTABLE_SERVICES,
+                'services' => self::getServicesList(),
             ]
         );
     }
@@ -72,15 +53,23 @@ final class UppslagAction
     public function fetch(Request $request, Response $response): Response
     {
         try {
-            $orgNo = $request->getParsedBody()['orgno'];
-            $selectedServices = $request->getParsedBody()['selectedservices'];
+            $session = $this->services->getSessionService();
 
-            $service = $this->services->getOrganizationService();
+            if (!$session->isValidSession()) {
+                return $response
+                    ->withHeader('Location', '/')
+                    ->withStatus(302);
+            }
 
-            return $service->generateDownload(
+            $orgNo = @$request->getParsedBody()['orgno'];
+            $selectedServices = @$request->getParsedBody()['selectedservices'];
+
+            $orgService = $this->services->getOrganizationService();
+
+            return $orgService->generateDownload(
                 $response,
                 $this->services->getSessionService()->getUser(),
-                $service->validateOrgNo($orgNo),
+                $orgService->validateOrgNo($orgNo),
                 $selectedServices
             );
         } catch (OrganizationException $e) {
@@ -88,21 +77,49 @@ final class UppslagAction
                 $response->withStatus($e->getDetails()['httpErrorCode']),
                 self::class,
                 [
-                    'user' => $this->services->getSessionService()->getUser(),
-                    'formattedUser' => $this->services->getSessionService()->getUser()->format(),
                     'action' => 'orgno-malformed',
                     'orgNo' => $orgNo ?? null,
                     'services' => array_map(
-                        function ($service) use ($selectedServices) {
-                            $service['checked'] = in_array($service['id'], $selectedServices ?? [], true);
-                            return $service;
+                        function ($s) use ($selectedServices) {
+                            $s['checked'] = in_array($s['id'], $selectedServices ?? [], true);
+                            return $s;
                         },
-                        self::SELECTABLE_SERVICES
+                        self::getServicesList()
                     ),
-                    'errorMessage' => $e->getMessage(),
-                    'previousException' => $e->getPrevious() ? $e->getPrevious()->getMessage() : null,
+                    'errorMessage' => $e->getMessage()
                 ]
             );
         }
+    }
+
+    private function getServicesList(): array
+    {
+        $config = $this->services->getConfigService();
+        $apiKey = $config->getValue('API_KEY', '');
+
+        $servicesUrl = $config->getValue('API_URL', '') . '/services';
+        $servicesListRequest = new HelperRequest();
+        $servicesListResponse = $servicesListRequest->get($servicesUrl, [
+            'mode' => 'advanced'
+        ], [
+            'X-API-KEY' => $apiKey,
+            'content-type' => 'application/json'
+        ]);
+        if ($servicesListResponse->getStatusCode() !== 200) {
+            throw new OrganizationException(OrganizationErrorReason::ServiceError);
+        }
+
+        $servicesListData = $servicesListResponse->getContent();
+        $services = [];
+
+        foreach ($servicesListData as $value) {
+            $services[] = [
+                'id' => $value->id,
+                'label' => $value->label,
+                'checked' => $value->checked,
+            ];
+        }
+
+        return $services;
     }
 }

@@ -33,7 +33,7 @@ class Organization implements AbstractOrganization
         try {
             $fileStream = new FileStream(
                 $this->config->getValue('API_KEY', '123abc'),
-                $this->config->getValue('API_URL', '')
+                $this->config->getValue('API_URL', '') . '/export'
             );
 
             $responseWithBody = $response
@@ -41,7 +41,7 @@ class Organization implements AbstractOrganization
                     $fileStream->fetch([
                         'orgNo' => (string) $orgNo,
                         'email' => $user->getMailAddress(),
-                        'groups' => $user->getGroups()['CN'],
+                        'groups' => $user->getGroups()['CN'] ?? [],
                         'services' => array_keys($services),
                     ])
                 );

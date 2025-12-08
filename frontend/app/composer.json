@@ -29,7 +29,8 @@
         "slim/psr7": "^1.7",
         "php-di/slim-bridge": "^3.4",
         "slim/flash": "^0.4.0",
-        "bryanjhv/slim-session": "~4.0"
+        "bryanjhv/slim-session": "~4.0",
+        "vlucas/phpdotenv": "^5.5"
     },
     "autoload": {
         "psr-4": {

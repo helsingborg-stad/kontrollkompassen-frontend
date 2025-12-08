@@ -5,7 +5,7 @@
       'text' => 'Assets is not built, please run "npm install && npm build" in root directory.',
   ],
   'icon' => [
-      'name' => 'forum',
+      'icon' => 'forum',
       'size' => 'md',
       'color' => 'black'
   ],

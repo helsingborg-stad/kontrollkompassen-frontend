@@ -5,7 +5,7 @@
         'size' => 'sm'
     ],
     'icon' => [
-        'name' => 'lock_person',
+        'icon' => 'lock_person',
         'size' => 'md',
         'color' => 'white'
     ],

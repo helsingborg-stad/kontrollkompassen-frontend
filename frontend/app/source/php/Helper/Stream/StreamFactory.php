@@ -11,15 +11,33 @@ use \KoKoP\Helper\Stream\NullStream;
 
 class StreamFactory
 {
-    public const ENV_DEFAULT = 'slim';
-    public const ENV_NULL = 'null';
+    public function __construct(
+        private mixed $url,
+        private mixed $context,
+    ) {}
 
-    public static function createFromEnv(string $env, $resource): StreamInterface
+    public function create(): StreamInterface
     {
-        return match ($env) {
-            self::ENV_DEFAULT => new SlimStream($resource),
-            self::ENV_NULL => new NullStream(),
-            default => throw new \InvalidArgumentException("Unsupported stream environment: $env"),
-        };
+        return $this->_validateUrl()
+            ? new SlimStream(fopen($this->url, 'rb', false, $this->context))
+            : new NullStream();
+    }
+
+    private function _validateUrl(): bool
+    {
+        return is_string($this->url)
+            && filter_var($this->url, FILTER_VALIDATE_URL) !== false
+            && $this->_tryConnectToUrl() === 200;
+    }
+
+    private function _tryConnectToUrl(): int
+    {
+        $baseUrl = parse_url($this->url, PHP_URL_SCHEME) .
+            '://' . parse_url($this->url, PHP_URL_HOST) .
+            (parse_url($this->url, PHP_URL_PORT) ? ':' . parse_url($this->url, PHP_URL_PORT) : '');
+
+        return fopen($baseUrl . '/docs', 'r', false, stream_context_create(['http' => ['method' => 'GET']]))
+            ? 200
+            : 404;
     }
 }

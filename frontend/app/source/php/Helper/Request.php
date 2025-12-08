@@ -11,7 +11,7 @@ class Request implements AbstractRequest
 {
     public function get(string $url, $queryParams = [], $headers = []): AbstractResponse
     {
-        return $this->send('GET', $this->setQueryParams($url, $queryParams));
+        return $this->send('GET', $this->setQueryParams($url, $queryParams), null, $headers);
     }
 
     public function post(string $url, $data = [], $headers = []): AbstractResponse

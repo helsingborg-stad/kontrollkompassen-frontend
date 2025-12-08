@@ -8,6 +8,7 @@ use \KoKoP\Action\HomeAction;
 use \KoKoP\Action\LoginAction;
 use \KoKoP\Action\LogoutAction;
 use \KoKoP\Action\UppslagAction;
+use \KoKoP\Action\UppslagBasicAction;
 use \KoKoP\Action\ForgotPasswordAction;
 
 return function (App $app): void {
@@ -20,7 +21,9 @@ return function (App $app): void {
 
     $app->get('/uppslag', [UppslagAction::class, 'index']);
     $app->post('/uppslag', [UppslagAction::class, 'fetch']);
-    $app->get('/uppslag/success', [UppslagAction::class, 'success']);
+
+    $app->get('/uppslag-enkel', [UppslagBasicAction::class, 'index']);
+    $app->post('/uppslag-enkel', [UppslagBasicAction::class, 'fetch']);
 
     $app->get('/glomt-losenord', ForgotPasswordAction::class);
 };

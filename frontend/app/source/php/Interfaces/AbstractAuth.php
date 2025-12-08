@@ -8,5 +8,4 @@ interface AbstractAuth
 {
     public function authenticate(string $name, string $password): AbstractUser;
     public function getEndpoint(): string;
-    public function getAllowedGroups(): string|array;
 }
