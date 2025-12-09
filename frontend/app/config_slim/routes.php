@@ -10,6 +10,7 @@ use \KoKoP\Action\LogoutAction;
 use \KoKoP\Action\UppslagAction;
 use \KoKoP\Action\UppslagBasicAction;
 use \KoKoP\Action\ForgotPasswordAction;
+use \KoKoP\Action\AdminAction;
 
 return function (App $app): void {
     $app->get('/', HomeAction::class);
@@ -26,4 +27,7 @@ return function (App $app): void {
     $app->post('/uppslag-enkel', [UppslagBasicAction::class, 'fetch']);
 
     $app->get('/glomt-losenord', ForgotPasswordAction::class);
+
+    $app->get('/admin', AdminAction::class);
+    $app->post('/admin/downloadHistory', [AdminAction::class, 'downloadHistory']);
 };
