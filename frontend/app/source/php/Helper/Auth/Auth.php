@@ -49,6 +49,11 @@ class Auth implements AbstractAuth
             throw new AuthException(AuthErrorReason::InvalidCredentials);
         }
 
+        $allowPublicAccess = $this->config->getValue('ALLOW_PUBLIC_ACCESS', false);
+        if ($allowPublicAccess === false && empty($user->getGroups())) {
+            throw new AuthException(AuthErrorReason::Unauthorized);
+        }
+
         return $user;
     }
 }
