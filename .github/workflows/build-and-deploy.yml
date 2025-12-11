@@ -38,7 +38,7 @@ jobs:
       - name: rsync deploy files and set www-data user.
         uses: burnett01/rsync-deployments@4.1
         with:
-          switches: -avzrog --delete --chown=www-data:www-data
+          switches: -avz --exclude-from='.rsyncignore' --chown=www-data:www-data
           path: .
           remote_path: ${{ secrets.DEPLOY_PATH }}
           remote_host: ${{ secrets.DEPLOY_HOST }}
