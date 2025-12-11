@@ -13,3 +13,4 @@ frontend/config*.json
 .idea
 .env
 frontend/app/auth.json
+frontend/app/data/app_version.txt
