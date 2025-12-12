@@ -1,3 +1,16 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('[data-js-form]');
+        const button = document.querySelector('[data-js-submitter]');
+        if (form && button) {
+            form.addEventListener('submit', function(event) {
+                button.disabled = true;
+                button.textContent = 'Kontrollerar...';
+            });
+        }
+    });
+</script>
+
 @extends('layout.containers.page')
 @section('article')
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
@@ -7,7 +20,8 @@
         @form([
         'method' => 'POST',
         'action' => '/uppslag-enkel',
-        'classList' => ['u-margin__top--2']
+        'classList' => ['u-margin__top--2'],
+        'attributeList' => ['data-js-form' => 'true']
         ])
         <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
             @typography(['element' => 'h2'])
@@ -33,6 +47,7 @@
                 'color' => 'primary',
                 'type' => 'basic',
                 'classList' => ['u-width--100'],
+                'attributeList' => ['data-js-submitter' => 'true'],
             ])
             @endbutton
         </div>
