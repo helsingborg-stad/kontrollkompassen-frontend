@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace KoKoP\Renderer;
 
 use \ComponentLibrary\Init as ComponentLibraryInit;
+use KoKoP\Helper\AppVersion;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\Flash\Messages;
 
@@ -22,11 +23,14 @@ final class BladeTemplateRenderer
         preg_match('/KoKoP\\\Action\\\(.*?)Action/', $template, $matches);
         $actionName = strtolower($matches[1]) ?? '';
 
+        $appVersion = AppVersion::getAppVersion();
+
         $blade = new ComponentLibraryInit(['viewPaths' => VIEWS_PATH])->getEngine();
         $bladeResult = $blade->makeView(
             'pages.' . $actionName,
             $data,
             [
+                'appVersion' => $appVersion,
                 'flash' => $this->flash,
                 'assets' => self::_getAssets() ?? false,
                 'formattedUser' => $user ? $user->format() : null,

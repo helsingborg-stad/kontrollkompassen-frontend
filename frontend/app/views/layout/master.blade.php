@@ -106,6 +106,14 @@
         ])
             När du använder tjänsten accepterar du <a href="https://helsingborg.se/toppmeny/om-webbplatsen/sa-har-behandlar-vi-dina-personuppgifter/" target="_blank">Helsingborg Stads datapolicy</a>.
         @endtypography
+
+        @typography([
+            'element' => 'span',
+            'variant' => 'meta',
+            'classList' => ['u-align-self--center', 'u-padding--0', 'u-color__text--light', 'u-text-align--center']
+        ])
+            ({{ $appVersion ?? 'app version unknown' }})
+        @endtypography
     </footer>
     </body>
 </html>

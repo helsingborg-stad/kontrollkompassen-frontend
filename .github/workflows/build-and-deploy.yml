@@ -23,6 +23,11 @@ jobs:
         with:
           php-version: '8.4'
           tools: composer:v2
+
+      - name: Run version info script
+        run: |
+          chmod +x add_version_info.sh
+          ./add_version_info.sh
       
       - name: Inject access token in .npmrc
         run: | 
