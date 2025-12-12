@@ -7,7 +7,8 @@
     @form([
         'method' => 'POST',
         'action' => '/uppslag',
-        'classList' => ['u-margin__top--2']
+        'classList' => ['u-margin__top--2'],
+        'attributeList' => ['target' => '_blank']
     ])
     <div class="u-display--flex u-flex-direction--column u-flex--gridgap">
         @typography(['element' => 'h2'])
