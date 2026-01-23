@@ -27,6 +27,7 @@ jobs:
       - name: Run version info script
         run: |
           cd ./frontend/app/
+          mkdir -p data
           chmod +x add_version_info.sh
           ./add_version_info.sh
       
