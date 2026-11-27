@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": "^8.2",
+        "php": "^8.4",
         "helsingborg-stad/component-library": "^4.62",
         "slim/slim": "^4.14",
         "slim/psr7": "^1.7",
