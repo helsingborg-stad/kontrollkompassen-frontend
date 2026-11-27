@@ -3,9 +3,7 @@ name: Build, test, and publish container
 on:
   release:
     types:
-      - release
-    branches:
-      - main
+      - published
 
 permissions:
   contents: read
@@ -13,7 +11,7 @@ permissions:
 
 jobs:
   build-and-test:
-    if: github.event_name == 'push'
+    if: github.event.release.target.commitish == 'main'
 
     runs-on: ubuntu-latest
 
