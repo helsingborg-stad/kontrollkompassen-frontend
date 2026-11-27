@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   build-and-test:
-    if: github.event.release.target.commitish == 'main'
+    if: github.event.release.target_commitish == 'main'
 
     runs-on: ubuntu-latest
 
@@ -107,10 +107,3 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-      - name: Create GitHub release
-        env:
-          GH_TOKEN: ${{ github.token }}
-          VERSION: v${{ steps.version.outputs.semVer }}
-        run: |
-          gh release view "$VERSION" || gh release create "$VERSION" --target "$GITHUB_SHA" --generate-notes
