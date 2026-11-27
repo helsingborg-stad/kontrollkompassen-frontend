@@ -1,1 +1,0 @@
-git describe --tags > data/app_version.txt

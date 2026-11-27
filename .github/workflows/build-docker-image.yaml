@@ -1,0 +1,118 @@
+name: Build, test, and publish container
+
+on:
+  release:
+    types:
+      - released
+    branches:
+      - main
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-test:
+    if: github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Inject access token in .npmrc
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ./frontend/app/.npmrc
+
+      - name: Execute buildscript.
+        run: cd ./frontend/app/ && php ./build.php --cleanup
+
+      - name: Run tests
+        run: |
+          cd ./frontend/app && ./vendor/bin/phpunit --testdox tests
+
+  publish-container:
+    needs: build-and-test
+
+    runs-on: ubuntu-latest
+
+    concurrency:
+      group: publish-container
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Setup PHP with composer v2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+
+      - name: Inject access token in .npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ./frontend/app/.npmrc
+
+      - name: Execute build script
+        run: cd ./frontend/app/ && php ./build.php --cleanup
+
+      - name: Run tests
+        run: cd ./frontend/app && ./vendor/bin/phpunit --testdox tests
+
+      - name: Install GitVersion
+        uses: gittools/actions/gitversion/setup@v5.0.0
+        with:
+          versionSpec: '7.x'
+
+      - name: Validate GitVersion configuration
+        run: dotnet-gitversion config validate --config GitVersion.yml
+
+      - name: Determine semantic version
+        id: version
+        uses: gittools/actions/gitversion/execute@v5.0.0
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Derive image tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository_owner }}/kontrollkompassen-frontend
+          tags: |
+            type=raw,value=v${{ steps.version.outputs.semVer }}
+            type=raw,value=v${{ steps.version.outputs.major }}.${{ steps.version.outputs.minor }}
+            type=raw,value=v${{ steps.version.outputs.major }}
+
+      - name: Build and publish container image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: v${{ steps.version.outputs.semVer }}
+        run: |
+          gh release view "$VERSION" || gh release create "$VERSION" --target "$GITHUB_SHA" --generate-notes
